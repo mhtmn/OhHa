@@ -32,12 +32,8 @@ public class Environment {
          * Building world geometry.  . is interpreted as floor, # as wall.
          */
         world = new char[worldSize][worldSize];
-    
-        for (int i=0;i<worldSize;i++) {
-            for (int j=0;j<worldSize;j++) {
-                world[i][j] = '.';
-            }
-        }
+
+        this.drawFloor();
         
         // Setting walls to outer limits of the world.
         for (int i=0;i<worldSize;i++) {
@@ -53,8 +49,18 @@ public class Environment {
         //this.antagonists.add(new Creature(3, 3, "Antagonist"));
     }
     
-    private void update() {
+    private void drawFloor() {
+        for (int i=1;i<worldSize-1;i++) {
+            for (int j=1;j<worldSize-1;j++) {
+                world[i][j] = '.';
+            }
+        }
+    }
+    
+    public void update() {
+        this.drawFloor();
         
+        world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
     }
 
     @Override

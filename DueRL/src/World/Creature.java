@@ -11,7 +11,7 @@ public class Creature {
     private int x;
     private int y;
     
-    public String icon = "@";
+    public char icon = '@';
     
     private String name;
     private String description;
@@ -71,6 +71,10 @@ public class Creature {
     
     public String getName() {
         return this.name;
+    }
+    
+    public char getIcon() {
+        return this.icon;
     }
     
     @Override

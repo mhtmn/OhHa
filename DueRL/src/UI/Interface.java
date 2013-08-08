@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-import java.awt.Graphics;
+import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Container;
 
@@ -24,6 +24,9 @@ public class Interface implements Runnable {
     private JFrame frame;
     
     private Environment playfield;
+    
+    private Font font = new Font("Courier", Font.BOLD,12);
+
     
     public Interface(Environment playfield) {
         this.playfield = playfield;
@@ -42,6 +45,8 @@ public class Interface implements Runnable {
 
     private void createComponents(Container container) {
         JTextArea matrix = new JTextArea(playfield.toString());
+        matrix.setEditable(false);
+        matrix.setFont(font);
         container.add(matrix);
     }
 
