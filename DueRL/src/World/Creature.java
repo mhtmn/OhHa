@@ -41,12 +41,17 @@ public class Creature {
     
     // Moving about, setting coordinates
     
-    public boolean move(int x, int y) {
+    public boolean move(int xChange, int yChange) {
         /*
          * Receives the movement as a vector, updates coordinates accordingly
          * and returns true.  If movement is illegal, returns false.
+         * 
+         * No collision detection so far.
          */
-        return false;
+        this.x += xChange;
+        this.y += yChange;
+        
+        return true;
     }
     
     public void setCoordinate(int newX, int newY) {

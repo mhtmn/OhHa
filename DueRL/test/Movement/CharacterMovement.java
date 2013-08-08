@@ -1,9 +1,8 @@
-package Generation;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+package Movement;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,15 +11,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import World.Environment;
+import World.Creature;
 
 /**
  *
  * @author eniirane
  */
-public class WorldGeneration {
+public class CharacterMovement {
     
-    public WorldGeneration() {
+    public CharacterMovement() {
     }
     
     @BeforeClass
@@ -43,8 +42,32 @@ public class WorldGeneration {
     //
     // @Test
     // public void hello() {}
+    
     @Test
-    public void generateWorld() {
-        Environment cosmos = new Environment();
+    public void moveNW() {
+        Creature a = new Creature(5,5);
+        a.move(-1, -1);
+        
+        assert(a.getX() == 4);
+        assert(a.getY() == 4);
     }
+
+    @Test
+    public void moveN() {
+        Creature a = new Creature(5,5);
+        a.move(0, -1);
+        
+        assert(a.getX() == 5);
+        assert(a.getY() == 4);
+    }
+
+    @Test
+    public void moveS() {
+        Creature a = new Creature(5,5);
+        a.move(0, +1);
+        
+        assert(a.getX() == 5);
+        assert(a.getY() == 6);
+    }
+
 }
