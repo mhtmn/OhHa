@@ -21,7 +21,7 @@ public class DueRL {
         // TODO code application logic here
         Environment playfield = new Environment();
         
-        System.out.println(playfield.toString());
+        //System.out.println(playfield.toString());
         
         Interface userInterface = new Interface(playfield);
         SwingUtilities.invokeLater(userInterface);                

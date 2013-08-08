@@ -18,9 +18,9 @@ public class Environment {
 
     public Creature protagonist;
     public ArrayList<Creature> antagonists; 
+    private int worldSize = 20;
     public char[][] world;
     
-    private int worldSize = 20;
         
     public Environment() {
         buildWorld();
@@ -29,9 +29,9 @@ public class Environment {
     
     private void buildWorld() {
         /* 
-         * Building world geometry.  0 is interpreted as floor, 1 as wall.
+         * Building world geometry.  . is interpreted as floor, # as wall.
          */
-        char[][] world = new char[worldSize][worldSize];
+        world = new char[worldSize][worldSize];
     
         for (int i=0;i<worldSize;i++) {
             for (int j=0;j<worldSize;j++) {
@@ -67,7 +67,8 @@ public class Environment {
             }
             returnString += "\n";
         }
-                
+        
+        
         return returnString;
     }
 }
