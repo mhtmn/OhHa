@@ -73,8 +73,7 @@ public class Environment {
             }
             returnString += "\n";
         }
-        
-        
+
         return returnString;
     }
 }

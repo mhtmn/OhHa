@@ -35,7 +35,7 @@ public class Interface implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("DueRL");
-        frame.setPreferredSize(new Dimension(800, 500));
+        frame.setPreferredSize(new Dimension(150, 300));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         createComponents(frame.getContentPane());
 
@@ -48,6 +48,8 @@ public class Interface implements Runnable {
         matrix.setEditable(false);
         matrix.setFont(font);
         container.add(matrix);
+        
+        frame.addKeyListener(new EventHandler(playfield, matrix));
     }
 
     public JFrame getFrame() {

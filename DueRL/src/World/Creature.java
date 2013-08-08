@@ -50,7 +50,7 @@ public class Creature {
          */
         this.x += xChange;
         this.y += yChange;
-        
+                
         return true;
     }
     
