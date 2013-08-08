@@ -4,6 +4,8 @@
  */
 package duerl;
 
+import World.Environment;
+
 /**
  *
  * @author eniirane
@@ -15,5 +17,6 @@ public class DueRL {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Environment playfield = new Environment();
     }
 }

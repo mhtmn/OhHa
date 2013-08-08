@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * A base class for things moving about.
  */
 package World;
 
@@ -18,8 +17,8 @@ public class Creature {
     private String description;
 
     public Creature() {
-        this.x = 0;
-        this.y = 0;
+        this.x = 1;
+        this.y = 1;
         this.name        = "A creature";
         this.description = "A somewhat ugly creature.";
     }
@@ -42,8 +41,12 @@ public class Creature {
     
     // Moving about, setting coordinates
     
-    public void move() {
-        
+    public boolean move(int x, int y) {
+        /*
+         * Receives the movement as a vector, updates coordinates accordingly
+         * and returns true.  If movement is illegal, returns false.
+         */
+        return false;
     }
     
     public void setCoordinate(int newX, int newY) {
@@ -57,6 +60,12 @@ public class Creature {
     
     public int getY() {
         return this.y;
+    }
+    
+    // Other getters
+    
+    public String getName() {
+        return this.name;
     }
     
     @Override
