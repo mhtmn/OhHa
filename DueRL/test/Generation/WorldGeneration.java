@@ -46,5 +46,6 @@ public class WorldGeneration {
     @Test
     public void generateWorld() {
         Environment cosmos = new Environment();
+        
     }
 }

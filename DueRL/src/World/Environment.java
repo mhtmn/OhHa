@@ -3,6 +3,8 @@
  */
 package World;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author eniirane
@@ -14,6 +16,10 @@ public class Environment {
     private String obstacleDescription = "This is a wall.  You cannot pass it.";
     private String floorDescription    = "You see just smooth floor.";
 
+    public Creature protagonist;
+    public ArrayList<Creature> antagonists; 
+    public char[][] world;
+    
     private int worldSize = 20;
         
     public Environment() {
@@ -25,34 +31,43 @@ public class Environment {
         /* 
          * Building world geometry.  0 is interpreted as floor, 1 as wall.
          */
-        int[][] world = new int[worldSize][worldSize];
+        char[][] world = new char[worldSize][worldSize];
     
         for (int i=0;i<worldSize;i++) {
             for (int j=0;j<worldSize;j++) {
-                world[i][j] = 0;
+                world[i][j] = '.';
             }
         }
         
         // Setting walls to outer limits of the world.
         for (int i=0;i<worldSize;i++) {
-            world[i][0]  = 1;
-            world[i][worldSize-1] = 1;
-            world[0][i]  = 1;
-            world[worldSize-1][i] = 1;
-        }
-        
-        /*
-        for (int[] row : world) {
-            for (int i : row) {
-                System.out.print(i);
-            }
-            System.out.println();
-        }
-        */
+            world[i][0]  = '#';
+            world[i][worldSize-1] = '#';
+            world[0][i]  = '#';
+            world[worldSize-1][i] = '#';
+        }        
     }
     
     private void populate() {
-        Creature protagonist = new Creature(2, 2, "Protagonist");
-        Creature antagonist = new Creature(3, 3, "Antagonist");
+        this.protagonist = new Creature(2, 2, "Protagonist");
+        //this.antagonists.add(new Creature(3, 3, "Antagonist"));
+    }
+    
+    private void update() {
+        
+    }
+
+    @Override
+    public String toString() {
+        String returnString = "";
+        
+        for (int i=0;i<worldSize;i++) {
+            for (int j=0;j<worldSize;j++) {
+                returnString += "" + this.world[i][j];
+            }
+            returnString += "\n";
+        }
+                
+        return returnString;
     }
 }
