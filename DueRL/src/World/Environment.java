@@ -41,12 +41,14 @@ public class Environment {
             world[worldSize-1][i] = 1;
         }
         
+        /*
         for (int[] row : world) {
             for (int i : row) {
                 System.out.print(i);
             }
             System.out.println();
         }
+        */
     }
     
     private void populate() {
