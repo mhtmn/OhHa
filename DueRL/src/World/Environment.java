@@ -58,6 +58,9 @@ public class Environment {
     }
     
     public void update() {
+        /*
+         * updater function for re-drawing
+         */
         this.drawFloor();
         
         world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();

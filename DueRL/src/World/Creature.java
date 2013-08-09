@@ -15,6 +15,7 @@ public class Creature {
     
     private String name;
     private String description;
+    private Item weapon;
 
     public Creature() {
         this.x = 1;
@@ -37,6 +38,16 @@ public class Creature {
     public Creature(int newX, int newY, String newName) {
         this(newX, newY);
         this.name = newName;
+    }
+    
+    // Game mechanics
+    
+    public void equip(Item item) {
+        this.weapon = item;
+    }
+    
+    public void attack(int attackX, int attackY) {
+        
     }
     
     // Moving about, setting coordinates

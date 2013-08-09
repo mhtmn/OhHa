@@ -29,21 +29,26 @@ public class EventHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT ||
+            e.getKeyCode() == KeyEvent.VK_A) {
             character.move(-1, 0);
             System.out.println("vasen!");
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT ||
+                   e.getKeyCode() == KeyEvent.VK_D) {
             character.move(1, 0);
             System.out.println("oikea!");
-        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+        } else if (e.getKeyCode() == KeyEvent.VK_UP ||
+                   e.getKeyCode() == KeyEvent.VK_W) {
             character.move(0, -1);
             System.out.println("ylös!");
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ||
+                   e.getKeyCode() == KeyEvent.VK_S) {
             character.move(0, 1);
             System.out.println("alas!");
         }
 
         world.update();
+        System.out.println("event handled!");
         component.repaint();
     }
 
