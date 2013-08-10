@@ -21,11 +21,10 @@ import World.Environment;
 public class Interface implements Runnable {
     
     private JFrame frame;
-    
     private Environment playfield;
     
     private Font font = new Font("Courier", Font.BOLD,16);
-
+    public JTextArea matrix;
     
     public Interface(Environment playfield) {
         this.playfield = playfield;
@@ -43,15 +42,25 @@ public class Interface implements Runnable {
     }
 
     private void createComponents(Container container) {
-        JTextArea matrix = new JTextArea(playfield.toString());
+        this.matrix = new JTextArea("");
         matrix.setEditable(false);
         matrix.setFont(font);
         container.add(matrix);
-        
-        frame.addKeyListener(new EventHandler(playfield, frame));
+                
+        frame.setFocusable(true);
+        matrix.setFocusable(true);
+
+        this.repaint();
+               
+        matrix.addKeyListener(new EventHandler(playfield, matrix));
     }
 
     public JFrame getFrame() {
         return frame;
+    }
+    
+    public void repaint() {
+        System.out.println("UI repainted.");
+        matrix.setText(playfield.toString());
     }
 }

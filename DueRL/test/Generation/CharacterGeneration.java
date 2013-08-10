@@ -5,6 +5,7 @@
 package Generation;
 
 import World.Creature;
+import World.Environment;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,14 +46,14 @@ public class CharacterGeneration {
 
     @Test
     public void constructorNoArguments() {
-        Creature first = new Creature();
+        Creature first = new Creature(new Environment());
     }
 
     @Test
     public void constructorCoordinates() {
         int x = 5;
         int y = 8;
-        Creature second = new Creature(x, y);
+        Creature second = new Creature(new Environment(), x, y);
     }
 
     @Test
@@ -60,7 +61,7 @@ public class CharacterGeneration {
         int x = 8;
         int y = 5;
         String name = "Clyde";
-        Creature first = new Creature(x, y, name);
+        Creature first = new Creature(new Environment(), x, y, name);
     }
 
 }

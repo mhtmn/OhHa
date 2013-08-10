@@ -12,14 +12,14 @@ import java.util.ArrayList;
 public class Environment {
     private String obstacleIcon        = "#";
     private String floorIcon           = ".";
-    
+            
     private String obstacleDescription = "This is a wall.  You cannot pass it.";
     private String floorDescription    = "You see just smooth floor.";
 
-    public Creature protagonist;
-    public ArrayList<Creature> antagonists; 
+    private Creature protagonist;
+    private ArrayList<Creature> antagonists; 
     private int worldSize = 20;
-    public char[][] world;
+    private char[][] world;
     
         
     public Environment() {
@@ -31,6 +31,7 @@ public class Environment {
         /* 
          * Building world geometry.  . is interpreted as floor, # as wall.
          */
+        System.out.println("Building world...");
         world = new char[worldSize][worldSize];
 
         this.drawFloor();
@@ -45,7 +46,8 @@ public class Environment {
     }
     
     private void populate() {
-        this.protagonist = new Creature(2, 2, "Protagonist");
+        System.out.println("Populating world...");
+        this.protagonist = new Creature(this, 2, 2, "Protagonist");
         //this.antagonists.add(new Creature(3, 3, "Antagonist"));
     }
     
@@ -61,11 +63,34 @@ public class Environment {
         /*
          * updater function for re-drawing
          */
+        System.out.println("Updated world.");
         this.drawFloor();
-        
+                
         world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
+        
     }
 
+    // getters
+    
+    public Creature getProtagonist() {
+        return this.protagonist;
+    }
+    
+    public int getSize() {
+        return this.worldSize;
+    }
+    
+    public boolean isFree(int x, int y) {
+        if (x < 0 || y < 0 || x > this.worldSize || y > this.worldSize) {
+            return false;
+        } else if (this.world[x][y] == '.') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
     @Override
     public String toString() {
         String returnString = "";

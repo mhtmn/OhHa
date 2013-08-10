@@ -12,6 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import World.Creature;
+import World.Environment;
 
 /**
  *
@@ -45,7 +46,7 @@ public class CharacterMovement {
     
     @Test
     public void moveNW() {
-        Creature a = new Creature(5,5);
+        Creature a = new Creature(new Environment(), 5,5);
         a.move(-1, -1);
         
         assert(a.getX() == 4);
@@ -54,7 +55,7 @@ public class CharacterMovement {
 
     @Test
     public void moveN() {
-        Creature a = new Creature(5,5);
+        Creature a = new Creature(new Environment(), 5,5);
         a.move(0, -1);
         
         assert(a.getX() == 5);
@@ -63,7 +64,7 @@ public class CharacterMovement {
 
     @Test
     public void moveS() {
-        Creature a = new Creature(5,5);
+        Creature a = new Creature(new Environment(), 5,5);
         a.move(0, +1);
         
         assert(a.getX() == 5);

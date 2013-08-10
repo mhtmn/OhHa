@@ -11,32 +11,34 @@ public class Creature {
     private int x;
     private int y;
     
-    public char icon = '@';
+    private char icon = '@';
     
     private String name;
     private String description;
     private Item weapon;
+    private Environment world;
 
-    public Creature() {
+    public Creature(Environment world) {
+        System.out.println("Creature spawned...");
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
         this.description = "A somewhat ugly creature.";
     }
     
-    public Creature(int newX, int newY) {
-        this();
+    public Creature(Environment world, int newX, int newY) {
+        this(world);
         this.x = newX;
         this.y = newY;
     }
 
-    public Creature(String newName) {
-        this();
+    public Creature(Environment world, String newName) {
+        this(world);
         this.name = newName;
     }
 
-    public Creature(int newX, int newY, String newName) {
-        this(newX, newY);
+    public Creature(Environment world, int newX, int newY, String newName) {
+        this(world, newX, newY);
         this.name = newName;
     }
     
@@ -56,13 +58,24 @@ public class Creature {
         /*
          * Receives the movement as a vector, updates coordinates accordingly
          * and returns true.  If movement is illegal, returns false.
-         * 
-         * No collision detection so far.
          */
-        this.x += xChange;
-        this.y += yChange;
+        
+        int newX = this.x += xChange;
+        int newY = this.y += yChange;
+        
+        if (world.isFree(newX, newY)) {
+            System.out.print("Moving player from " +  this.x + " " + this.y + " to " + newX + ", " + newY);
+        
+            this.x = newX;
+            this.y = newY;
                 
-        return true;
+            return true;
+            
+        } else {
+            System.out.println("Collision.");
+            return false;
+        }
+        
     }
     
     public void setCoordinate(int newX, int newY) {
