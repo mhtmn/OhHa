@@ -26,7 +26,6 @@ public class Creature {
     private int targetY = -1;
 
     public Creature(Environment world) {
-        System.out.println("Creature spawned...");
         this.world = world;
         this.x = 1;
         this.y = 1;
@@ -65,6 +64,7 @@ public class Creature {
          * This means checking what's on the coordinates and calculating impact 
          * to everything present there.
          */
+        System.out.println("Attack!");
     }
     
     public boolean hasTarget() {
@@ -80,6 +80,7 @@ public class Creature {
         /*
          * Method for receiving damage.
          */
+        System.out.println("Damaged!");
     }
     
     // Moving about, setting coordinates
@@ -95,12 +96,10 @@ public class Creature {
         int newY = this.y + yChange;
         
         if (world.isFree(newX, newY)) {
-            System.out.println("Moving player from " +  this.x + ", " + this.y + " to " + newX + ", " + newY);        
             this.setCoordinate(newX, newY);
             return true;
             
         } else {
-            System.out.println("Collision.  Coordinates " + this.x + ", " + this.y);
             return false;
         }
     }

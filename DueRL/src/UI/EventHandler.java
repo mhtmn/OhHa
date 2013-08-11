@@ -70,10 +70,11 @@ public class EventHandler implements KeyListener {
             } else {
                 // Todo: targeting mode.
             }
+        } else if (e.getKeyCode() == KeyEvent.VK_Q) {
+            ui.exit();
         }
 
         world.update();
-        System.out.println("Event handled!");
         component.repaint();
         ui.repaint();
     }
