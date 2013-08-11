@@ -88,7 +88,7 @@ public class Environment {
     }
     
     public boolean isFree(int x, int y) {
-        if (x < 0 || y < 0 || x > this.worldSize || y > this.worldSize) {
+        if (x <= 0 || y <= 0 || x > this.worldSize-1 || y > this.worldSize-1) {
             return false;
         } else if (this.world[x][y] == '.') {
             return true;

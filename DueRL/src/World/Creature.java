@@ -27,6 +27,7 @@ public class Creature {
 
     public Creature(Environment world) {
         System.out.println("Creature spawned...");
+        this.world = world;
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
@@ -90,22 +91,18 @@ public class Creature {
          * and returns true.  If movement is illegal, returns false.
          */
         
-        int newX = this.x += xChange;
-        int newY = this.y += yChange;
+        int newX = this.x + xChange;
+        int newY = this.y + yChange;
         
         if (world.isFree(newX, newY)) {
-            System.out.print("Moving player from " +  this.x + " " + this.y + " to " + newX + ", " + newY);
-        
-            this.x = newX;
-            this.y = newY;
-                
+            System.out.println("Moving player from " +  this.x + ", " + this.y + " to " + newX + ", " + newY);        
+            this.setCoordinate(newX, newY);
             return true;
             
         } else {
-            System.out.println("Collision.");
+            System.out.println("Collision.  Coordinates " + this.x + ", " + this.y);
             return false;
         }
-        
     }
     
     public void setCoordinate(int newX, int newY) {
