@@ -11,6 +11,8 @@ public class Item {
     private Creature owner;
     
     private int damage = 10;
+    private int maxRange = 2;
+    private int minRange = 1;
     
     private String name;
     private String description;
@@ -23,6 +25,14 @@ public class Item {
     
     public int getDamage() {
         return this.damage;
+    }
+    
+    public int getMaxRange() {
+        return this.maxRange;
+    }
+    
+    public int getMinRange() {
+        return this.minRange;
     }
     
     @Override

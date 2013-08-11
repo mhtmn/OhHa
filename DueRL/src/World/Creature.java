@@ -32,6 +32,7 @@ public class Creature {
     // used for differentiating between the two.
     private boolean aiFlag = true;
     private AI ai;
+    private boolean stunned = false;
     
     // Negative int as target values represent no target.
     private boolean targeting = false;
@@ -40,6 +41,7 @@ public class Creature {
 
     public Creature(Environment world) {
         this.world = world;
+        this.equip(new Item());
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
@@ -92,7 +94,7 @@ public class Creature {
          */
         
         int critical = (int) Math.random() * 10;
-        int weaponDamage = this.mainHand.getDamage() + this.offHand.getDamage();
+        int weaponDamage = this.mainHand.getDamage();// + this.offHand.getDamage();
         int bonus = 0;
         
         if (critical < agility) {
@@ -115,7 +117,7 @@ public class Creature {
         this.targetX = -1;
         this.targetY = -1;
     }
-    
+        
     public void damage() {
         /*
          * Method for receiving damage.
@@ -167,6 +169,10 @@ public class Creature {
     public int getY() {
         return this.y;
     }
+    
+    public boolean isStunned() {
+        return this.stunned;
+    }
         
     // Other getters/setters
     // ---------------------
@@ -200,6 +206,10 @@ public class Creature {
         int a = Math.abs(this.x - fromX);
         int b = Math.abs(this.y - fromY);        
         return Math.sqrt(a * a + b * b);
+    }
+    
+    public Item getWeapon() {
+        return this.mainHand;
     }
     
     public Environment getWorld() {

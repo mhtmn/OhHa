@@ -51,11 +51,14 @@ public class Environment {
     
     private void populate() {
         System.out.println("Populating world...");
-        this.protagonist = new Creature(this, random.nextInt(worldSize-1)+1, random.nextInt(worldSize-1)+1, "Protagonist");
+
+        // Creating the player character
+        this.protagonist = new Creature(this, random.nextInt(worldSize-2)+1, random.nextInt(worldSize-2)+1, "Protagonist");
         this.protagonist.setAIStatus(false);
         this.protagonist.setIcon('@');
-        this.antagonists.add(new Creature(this, random.nextInt(worldSize-1)+1, random.nextInt(worldSize-1)+1, "Antagonist"));
-        
+
+        // Creating the opponent(s).
+        this.antagonists.add(new Creature(this, random.nextInt(worldSize-2)+1, random.nextInt(worldSize-2)+1, "Antagonist"));
         for (Creature enemy : antagonists) {
             enemy.makeSentient();
         }
