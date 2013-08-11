@@ -23,6 +23,7 @@ public class Environment {
     
         
     public Environment() {
+        this.antagonists = new ArrayList<Creature>();
         buildWorld();
         populate();
     }
@@ -48,7 +49,9 @@ public class Environment {
     private void populate() {
         System.out.println("Populating world...");
         this.protagonist = new Creature(this, 2, 2, "Protagonist");
-        //this.antagonists.add(new Creature(3, 3, "Antagonist"));
+        this.protagonist.setAIStatus(false);
+        this.protagonist.setIcon('@');
+        this.antagonists.add(new Creature(this, 3, 3, "Antagonist"));
     }
     
     private void drawFloor() {
@@ -67,6 +70,10 @@ public class Environment {
         this.drawFloor();
                 
         world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
+        
+        for (Creature enemy : antagonists) {
+            world[enemy.getX()][enemy.getY()] = enemy.getIcon();
+        }
         
     }
 

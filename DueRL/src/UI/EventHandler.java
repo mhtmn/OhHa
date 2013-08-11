@@ -28,19 +28,32 @@ public class EventHandler implements KeyListener {
     }
 
     @Override
+    // Todo: make these into a hashmap, this is ugly...
     public void keyPressed(KeyEvent e) {
         if        (e.getKeyCode() == KeyEvent.VK_LEFT ||
                    e.getKeyCode() == KeyEvent.VK_A) {
             world.getProtagonist().move(-1, 0);
+            world.getProtagonist().clearTarget();
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT ||
                    e.getKeyCode() == KeyEvent.VK_D) {
             world.getProtagonist().move(1, 0);
+            world.getProtagonist().clearTarget();
         } else if (e.getKeyCode() == KeyEvent.VK_UP ||
                    e.getKeyCode() == KeyEvent.VK_W) {
             world.getProtagonist().move(0, -1);
+            world.getProtagonist().clearTarget();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN ||
                    e.getKeyCode() == KeyEvent.VK_S) {
             world.getProtagonist().move(0, 1);
+            world.getProtagonist().clearTarget();
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            // if protagonist has a target, attack
+            // else go into targetting mode
+            if (world.getProtagonist().hasTarget()) {
+                world.getProtagonist().attack();
+            } else {
+                // Todo: targetting mode.
+            }
         }
 
         world.update();

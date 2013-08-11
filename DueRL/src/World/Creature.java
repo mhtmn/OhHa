@@ -11,12 +11,19 @@ public class Creature {
     private int x;
     private int y;
     
-    private char icon = '@';
-    
+    private char icon = 'E';
     private String name;
     private String description;
     private Item weapon;
     private Environment world;
+    
+    // Since same class is used for the player and their opponent, ai flag is 
+    // used for differentiating between the two.
+    private boolean ai = true;
+    
+    // Negative int as target values represent no target.
+    private int targetX = -1;
+    private int targetY = -1;
 
     public Creature(Environment world) {
         System.out.println("Creature spawned...");
@@ -42,17 +49,40 @@ public class Creature {
         this.name = newName;
     }
     
-    // Game mechanics
+
+    // Game mechanics relating to combat
+    // ---------------------------------
     
     public void equip(Item item) {
         this.weapon = item;
     }
     
-    public void attack(int attackX, int attackY) {
-        
+    public void attack() {
+        /*
+         * Attacks the target coordinates.
+         * 
+         * This means checking what's on the coordinates and calculating impact 
+         * to everything present there.
+         */
+    }
+    
+    public boolean hasTarget() {
+        return (targetX >= 0 && targetY >= 0);
+    }
+    
+    public void clearTarget() {
+        this.targetX = -1;
+        this.targetY = -1;
+    }
+    
+    public void damage() {
+        /*
+         * Method for receiving damage.
+         */
     }
     
     // Moving about, setting coordinates
+    // ---------------------------------
     
     public boolean move(int xChange, int yChange) {
         /*
@@ -83,6 +113,11 @@ public class Creature {
         this.y = newY;
     }
     
+    public void setTarget(int x, int y) {
+        this.targetX = x;
+        this.targetY = y;
+    }
+    
     public int getX() {
         return this.x;
     }
@@ -91,7 +126,8 @@ public class Creature {
         return this.y;
     }
     
-    // Other getters
+    // Other getters/setters
+    // ---------------------
     
     public String getName() {
         return this.name;
@@ -99,6 +135,18 @@ public class Creature {
     
     public char getIcon() {
         return this.icon;
+    }
+    
+    public void setIcon(char icon) {
+        this.icon = icon;
+    }
+    
+    public boolean getAIStatus() {
+        return this.ai;
+    }
+    
+    public void setAIStatus(boolean aiStatus) {
+        this.ai = aiStatus;
     }
     
     @Override
