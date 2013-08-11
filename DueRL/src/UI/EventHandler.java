@@ -68,9 +68,10 @@ public class EventHandler implements KeyListener {
             if (world.getProtagonist().hasTarget()) {
                 world.getProtagonist().attack();
             } else {
-                // Todo: targeting mode.
+                world.getProtagonist().flagTargeting();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_Q) {
+            System.out.println("Closing program...");
             ui.exit();
         }
 

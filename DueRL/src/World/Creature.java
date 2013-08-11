@@ -2,6 +2,7 @@
  * A base class for things moving about.
  */
 package World;
+import java.lang.Math;
 
 /**
  *
@@ -14,12 +15,24 @@ public class Creature {
     private char icon = 'E';
     private String name;
     private String description;
-    private Item weapon;
+
+    // Items
+    private Item mainHand;
+    private Item offHand;
+    
+    // Stats
+    private int strength = 10;
+    private int agility = 10;
+    private int health = 100;
+    private int score = 0;
+    
     private Environment world;
     
     // Since same class is used for the player and their opponent, ai flag is 
     // used for differentiating between the two.
     private boolean ai = true;
+    
+    private boolean targeting = false;
     
     // Negative int as target values represent no target.
     private int targetX = -1;
@@ -54,17 +67,41 @@ public class Creature {
     // ---------------------------------
     
     public void equip(Item item) {
-        this.weapon = item;
+        if (mainHand == null) {
+            this.mainHand = item;
+        } else {
+            this.offHand = item;
+        }
     }
     
-    public void attack() {
+    public int attack() {
         /*
+         * NOTE: needs to be figured out better.  From where is this function
+         * called?  Where is damage calculated?
+         * 
          * Attacks the target coordinates.
          * 
          * This means checking what's on the coordinates and calculating impact 
          * to everything present there.
+         * 
+         * Damage is dealt according to strength.  If the hit is a critical, 
+         * damage is doubled.
          */
+        
+        int critical = (int) Math.random() * 10;
+        int weaponDamage = this.mainHand.getDamage() + this.offHand.getDamage();
+        int bonus = 0;
+        
+        if (critical < agility) {
+            bonus = strength;
+        }       
+
+        int attackPower = this.strength + weaponDamage +  bonus;
         System.out.println("Attack!");
+        
+        this.targeting = false;
+        
+        return attackPower;
     }
     
     public boolean hasTarget() {
@@ -83,11 +120,17 @@ public class Creature {
         System.out.println("Damaged!");
     }
     
-    // Moving about, setting coordinates
-    // ---------------------------------
+    public void flagTargeting() {
+        this.targeting = true;
+    }
+    
+    // Moving about, setting coordinates, etc.
+    // ---------------------------------------
     
     public boolean move(int xChange, int yChange) {
         /*
+         * Moves either the character or the targeting crosshair.
+         * 
          * Receives the movement as a vector, updates coordinates accordingly
          * and returns true.  If movement is illegal, returns false.
          */
@@ -121,7 +164,7 @@ public class Creature {
     public int getY() {
         return this.y;
     }
-    
+        
     // Other getters/setters
     // ---------------------
     
@@ -144,6 +187,13 @@ public class Creature {
     public void setAIStatus(boolean aiStatus) {
         this.ai = aiStatus;
     }
+
+    public Double getDistance(int fromX, int fromY) {
+        // a^2 + b^2 = c^2
+        int a = Math.abs(this.x - fromX);
+        int b = Math.abs(this.y - fromY);        
+        return Math.sqrt(a * a + b * b);
+    }     
     
     @Override
     public String toString() {

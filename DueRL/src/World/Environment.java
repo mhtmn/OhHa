@@ -67,7 +67,12 @@ public class Environment {
          * updater function for re-drawing
          */
         this.drawFloor();
-                
+        
+        // enemy moving here
+        
+        // enemy attack here
+        // player attack here
+        
         world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
         
         for (Creature enemy : antagonists) {

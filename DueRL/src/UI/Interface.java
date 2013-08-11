@@ -30,6 +30,8 @@ public class Interface implements Runnable {
     public JTextArea playArea;
     public JTextArea infoArea;
     
+    private String infoText = "WASD or arrow keys to move." + "\n" + "Space to target/attack" + "\n" + "q to quit.";
+    
     public Interface(Environment world) {
         this.world = world;
     }
@@ -37,7 +39,7 @@ public class Interface implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("DueRL");
-        frame.setPreferredSize(new Dimension(500, 365));
+        frame.setPreferredSize(new Dimension(450, 365));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         createComponents(frame.getContentPane());
 
@@ -56,7 +58,7 @@ public class Interface implements Runnable {
         playArea.setFont(playAreaFont);
         container.add(playArea);
         
-        this.infoArea = new JTextArea("WASD or arrow keys to move." + "\n" + "Space to target/attack" + "\n" + "q to quit.");
+        this.infoArea = new JTextArea(infoText);
         infoArea.setBackground(Color.BLACK);
         infoArea.setForeground(Color.DARK_GRAY);
         infoArea.setEditable(false);
@@ -77,6 +79,7 @@ public class Interface implements Runnable {
     }
     
     public void exit() {
+        System.out.println("Bye!");
         frame.dispose();
     }
 }

@@ -10,7 +10,7 @@ package World;
 public class Item {
     private Creature owner;
     
-    
+    private int damage = 10;
     
     private String name;
     private String description;
@@ -19,6 +19,10 @@ public class Item {
         this.owner       = null;
         this.name        = "An item";
         this.description = "A somewhat ordinary item.";
+    }
+    
+    public int getDamage() {
+        return this.damage;
     }
     
     @Override
