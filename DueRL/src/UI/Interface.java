@@ -52,7 +52,7 @@ public class Interface implements Runnable {
 
         this.repaint();
                
-        matrix.addKeyListener(new EventHandler(playfield, matrix));
+        matrix.addKeyListener(new EventHandler(playfield, matrix, this));
     }
 
     public JFrame getFrame() {
