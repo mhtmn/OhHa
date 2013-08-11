@@ -5,6 +5,7 @@ package World;
 
 import java.util.ArrayList;
 import java.util.Random;
+import UI.CombatLog;
 
 /**
  *
@@ -21,12 +22,14 @@ public class Environment {
     private ArrayList<Creature> antagonists; 
     private int worldSize = 20;
     private char[][] world;
+    private CombatLog combatLog;
     
     private Random random;
         
     public Environment() {
         this.random = new Random();
         this.antagonists = new ArrayList<Creature>();
+        this.combatLog = new CombatLog();
         buildWorld();
         populate();
     }
@@ -113,6 +116,13 @@ public class Environment {
         }
     }
     
+    public void report(String string) {
+        combatLog.add(string);
+    }
+    
+    public CombatLog getCombatLog() {
+        return this.combatLog;
+    }
     
     @Override
     public String toString() {

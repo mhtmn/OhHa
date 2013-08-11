@@ -4,6 +4,7 @@
 package AI;
 
 import World.Creature;
+
 import java.util.Random;
 
 /**
@@ -60,7 +61,7 @@ public class AI {
         int x = (random.nextInt(3) - 1);
         int y = (random.nextInt(3) - 1);
         self.move(x, y);
-        System.out.println("Enemy is stunned.");        
+        self.getWorld().report("Enemy is stunned.");        
     }
     
     public void moveGreedily() {
@@ -82,26 +83,24 @@ public class AI {
         }
         
         self.move(x, y);
-        System.out.println("Enemy runs towards you.");    
+        self.getWorld().report("Enemy runs towards you.");    
     }
     
     public void moveCautiously() {
         // move one tile away from range to counterpunch
-        System.out.println("Enemy is cautious.");
+        self.getWorld().report("Enemy is cautious.");
     }
     
     public void escape() {
         // move away
-        System.out.println("Enemy is escaping.");
+        self.getWorld().report("Enemy is escaping.");
     }
     
     public boolean canAttack(int x, int y) {
         if (self.getWeapon().getMaxRange() >= self.getDistance(protagonistX, protagonistY)
                 && self.getWeapon().getMinRange() <= self.getDistance(protagonistX, protagonistY)) {
-            System.out.println("Enemy is in range!");
             return true;
         } else {
-            System.out.println("Enemy is not in range.");
             return false;
         }
     }

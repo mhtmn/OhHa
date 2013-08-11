@@ -81,16 +81,13 @@ public class Creature {
     
     public int attack() {
         /*
-         * NOTE: needs to be figured out better.  From where is this function
-         * called?  Where is damage calculated?
-         * 
          * Attacks the target coordinates.
          * 
          * This means checking what's on the coordinates and calculating impact 
          * to everything present there.
          * 
-         * Damage is dealt according to strength.  If the hit is a critical, 
-         * damage is doubled.
+         * Damage is dealt according to strength and weapon base damage and a 
+         * range modifier.  If the hit is a critical, damage is doubled.
          */
         
         int critical = (int) Math.random() * 10;
@@ -102,7 +99,7 @@ public class Creature {
         }       
 
         int attackPower = this.strength + weaponDamage +  bonus;
-        System.out.println("Attack!");
+        world.report("Attack!");
         
         this.targeting = false;
         
@@ -122,7 +119,7 @@ public class Creature {
         /*
          * Method for receiving damage.
          */
-        System.out.println("Damaged!");
+        world.report("Damaged!");
     }
     
     public void flagTargeting() {

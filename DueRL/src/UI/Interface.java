@@ -5,6 +5,7 @@
 package UI;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
@@ -12,9 +13,10 @@ import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Container;
+import java.awt.Color;
 
 import World.Environment;
-import java.awt.Color;
+import UI.CombatLog;
 
 /**
  *
@@ -26,14 +28,17 @@ public class Interface implements Runnable {
     private Environment world;
     
     private Font playAreaFont = new Font("Courier", Font.BOLD,16);
-    private Font infoAreaFont = new Font("Courier", Font.BOLD,14);
+    private Font infoAreaFont = new Font("Courier", Font.BOLD,12);
     public JTextArea playArea;
-    public JTextArea infoArea;
+    public JTextArea combatLog;
+    public CombatLog combatLogString;
+    //public JTextArea infoArea;
     
-    private String infoText = "WASD or arrow keys to move." + "\n" + "Space to target/attack" + "\n" + "q to quit.";
+    private String infoText = "WASD or arrow keys to move." + "\n" + "Space to target/attack." + "\n" + "Q to quit.";
     
     public Interface(Environment world) {
         this.world = world;
+        this.combatLogString = world.getCombatLog();
     }
     
     @Override
@@ -58,24 +63,48 @@ public class Interface implements Runnable {
         playArea.setFont(playAreaFont);
         container.add(playArea);
         
-        this.infoArea = new JTextArea(infoText);
-        infoArea.setBackground(Color.BLACK);
-        infoArea.setForeground(Color.DARK_GRAY);
-        infoArea.setEditable(false);
-        infoArea.setFont(infoAreaFont);
-        container.add(infoArea);
+        container.add(sideBar());
         
         this.repaint();
                
         playArea.addKeyListener(new EventHandler(world, playArea, this));
     }
 
-    public JFrame getFrame() {
-        return frame;
+    public JPanel sideBar() {
+        JPanel panel = new JPanel(new GridLayout(3,1));
+        
+        panel.setBackground(Color.BLACK);
+
+        JTextArea keyBindings = new JTextArea(infoText);
+        combatLog = new JTextArea("");
+        JTextArea infoArea = new JTextArea("HP: 100/100" + "\n" + "Strenth: 10" + "\n" + "Agility: 10" + "\n" + "Score: 0");
+
+        keyBindings.setBackground(Color.BLACK);
+        keyBindings.setFont(infoAreaFont);
+        keyBindings.setForeground(Color.DARK_GRAY);
+        
+        combatLog.setBackground(Color.BLACK);
+        combatLog.setFont(infoAreaFont);
+        combatLog.setForeground(Color.LIGHT_GRAY);
+        
+        infoArea.setBackground(Color.BLACK);
+        infoArea.setFont(infoAreaFont);
+        infoArea.setForeground(Color.DARK_GRAY);
+        
+        panel.add(keyBindings);
+        panel.add(combatLog);
+        panel.add(infoArea);
+        
+        return panel;
     }
     
     public void repaint() {
         playArea.setText(world.toString());
+        updateCombatLog();
+    }
+    
+    public void updateCombatLog() {
+        combatLog.setText(combatLogString.toString());
     }
     
     public void exit() {
