@@ -16,7 +16,6 @@ import java.awt.Container;
 import java.awt.Color;
 
 import World.Environment;
-import UI.CombatLog;
 
 /**
  *
@@ -32,13 +31,15 @@ public class Interface implements Runnable {
     public JTextArea playArea;
     public JTextArea combatLog;
     public CombatLog combatLogString;
-    //public JTextArea infoArea;
+    public StatDisplay statDisplay;
+    public JTextArea infoArea;
     
     private String infoText = "WASD or arrow keys to move." + "\n" + "Space to target/attack." + "\n" + "Q to quit.";
     
     public Interface(Environment world) {
         this.world = world;
         this.combatLogString = world.getCombatLog();
+        this.statDisplay = new StatDisplay(world);
     }
     
     @Override
@@ -77,7 +78,7 @@ public class Interface implements Runnable {
 
         JTextArea keyBindings = new JTextArea(infoText);
         combatLog = new JTextArea("");
-        JTextArea infoArea = new JTextArea("HP: 100/100" + "\n" + "Strenth: 10" + "\n" + "Agility: 10" + "\n" + "Score: 0");
+        infoArea = new JTextArea("");
 
         keyBindings.setBackground(Color.BLACK);
         keyBindings.setFont(infoAreaFont);
@@ -101,10 +102,15 @@ public class Interface implements Runnable {
     public void repaint() {
         playArea.setText(world.toString());
         updateCombatLog();
+        updateInfoArea();
     }
     
     public void updateCombatLog() {
         combatLog.setText(combatLogString.toString());
+    }
+    
+    public void updateInfoArea() {
+        infoArea.setText(statDisplay.toString());
     }
     
     public void exit() {

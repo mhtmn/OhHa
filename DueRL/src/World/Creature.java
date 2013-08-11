@@ -213,6 +213,30 @@ public class Creature {
         return this.world;
     }
     
+    public int getHealth() {
+        return this.health;
+    }
+    
+    public int getStrength() {
+        return this.strength;
+    }
+    
+    public int getAgility() {
+        return this.agility;
+    }
+    
+    public int getScore() {
+        return this.score;
+    }
+    
+    public String getStunnedString() {
+        if (this.stunned) {
+            return "Stunned!";
+        } else {
+            return "";
+        }
+    }
+    
     @Override
     public String toString() {
         return name + " --- " + description;

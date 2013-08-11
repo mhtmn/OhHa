@@ -17,7 +17,7 @@ public class CombatLog {
         this.log = new ArrayList<String>();
 
         // This is bubblegum, clean it.
-        for (int i=0;i<5;i++) {
+        for (int i=0;i<8;i++) {
             log.add("");
         }
     }
@@ -29,7 +29,7 @@ public class CombatLog {
     @Override
     public String toString() {
         String returnString = "";
-        for (int i=0;i<5.;i++) {
+        for (int i=0;i<8.;i++) {
             returnString += log.get(i) + "\n";
         }
         return returnString;
