@@ -3,18 +3,20 @@
  */
 package World;
 import java.lang.Math;
+import AI.*;
 
 /**
  *
  * @author eniirane
  */
 public class Creature {
+    // Creature basics
     private int x;
     private int y;
-    
     private char icon = 'E';
     private String name;
     private String description;
+    private Environment world;
 
     // Items
     private Item mainHand;
@@ -25,16 +27,14 @@ public class Creature {
     private int agility = 10;
     private int health = 100;
     private int score = 0;
-    
-    private Environment world;
-    
+        
     // Since same class is used for the player and their opponent, ai flag is 
     // used for differentiating between the two.
-    private boolean ai = true;
-    
-    private boolean targeting = false;
+    private boolean aiFlag = true;
+    private AI ai;
     
     // Negative int as target values represent no target.
+    private boolean targeting = false;
     private int targetX = -1;
     private int targetY = -1;
 
@@ -62,10 +62,13 @@ public class Creature {
         this.name = newName;
     }
     
+    public void makeSentient() {
+        this.ai = new AI(this);
+    }
+    
 
     // Game mechanics relating to combat
     // ---------------------------------
-    
     public void equip(Item item) {
         if (mainHand == null) {
             this.mainHand = item;
@@ -180,12 +183,16 @@ public class Creature {
         this.icon = icon;
     }
     
-    public boolean getAIStatus() {
+    public AI getAI() {
         return this.ai;
     }
     
+    public boolean getAIStatus() {
+        return this.aiFlag;
+    }
+    
     public void setAIStatus(boolean aiStatus) {
-        this.ai = aiStatus;
+        this.aiFlag = aiStatus;
     }
 
     public Double getDistance(int fromX, int fromY) {
@@ -193,7 +200,11 @@ public class Creature {
         int a = Math.abs(this.x - fromX);
         int b = Math.abs(this.y - fromY);        
         return Math.sqrt(a * a + b * b);
-    }     
+    }
+    
+    public Environment getWorld() {
+        return this.world;
+    }
     
     @Override
     public String toString() {
