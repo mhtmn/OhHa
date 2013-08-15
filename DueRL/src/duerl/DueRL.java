@@ -24,6 +24,6 @@ public class DueRL {
         playfield.update();
         
         Interface userInterface = new Interface(playfield);
-        SwingUtilities.invokeLater(userInterface);                
+        SwingUtilities.invokeLater(userInterface); 
     }
 }

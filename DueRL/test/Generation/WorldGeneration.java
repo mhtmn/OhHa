@@ -46,6 +46,10 @@ public class WorldGeneration {
     @Test
     public void generateWorld() {
         Environment cosmos = new Environment();
-        
+    }
+    
+    @Test void populateGetProtagonist() {
+        Environment cosmos = new Environment();
+        assert(cosmos.getProtagonist() != null);
     }
 }

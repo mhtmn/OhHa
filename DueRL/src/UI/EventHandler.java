@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import World.Creature;
+//import World.Creature;
 import World.Environment;
 
 /**

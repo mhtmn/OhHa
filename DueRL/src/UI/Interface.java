@@ -40,6 +40,7 @@ public class Interface implements Runnable {
         this.world = world;
         this.combatLogString = world.getCombatLog();
         this.statDisplay = new StatDisplay(world);
+        System.out.println("UI ready...");
     }
     
     @Override
@@ -90,7 +91,7 @@ public class Interface implements Runnable {
         
         infoArea.setBackground(Color.BLACK);
         infoArea.setFont(infoAreaFont);
-        infoArea.setForeground(Color.DARK_GRAY);
+        infoArea.setForeground(Color.LIGHT_GRAY);
         
         panel.add(keyBindings);
         panel.add(combatLog);

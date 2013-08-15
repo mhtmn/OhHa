@@ -64,4 +64,18 @@ public class CharacterGeneration {
         Creature first = new Creature(new Environment(), x, y, name);
     }
 
+    @Test
+    public void testDistance() {
+        int x = 8;
+        int y = 5;
+        String name1 = "Distant Dave";
+        Creature first = new Creature(new Environment(), x, y, name1);   
+
+        int a = 5;
+        int b = 8;
+        String name2 = "Forlorn Frank";
+        Creature second = new Creature(new Environment(), a, b, name2);   
+
+        assert(first.getDistance(second.getX(), second.getY()) == second.getDistance(first.getX(), first.getY()));
+    }
 }
