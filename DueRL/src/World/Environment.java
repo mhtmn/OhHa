@@ -81,18 +81,25 @@ public class Environment {
          */
         this.drawFloor();
         
-        // enemy moving here
-        for (Creature enemy : antagonists) {
-            enemy.getAI().step();
+        // enemy moving
+        if (!protagonist.isTargeting()) {
+            for (Creature enemy : antagonists) {
+                enemy.getAI().step();
+            }
         }
         
         // enemy attack here
         // player attack here
         
+        // smooshing the character and enemy icons into the world
         world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
-        
+                
         for (Creature enemy : antagonists) {
             world[enemy.getX()][enemy.getY()] = enemy.getIcon();
+        }
+        
+        if (protagonist.isTargeting()) {
+            world[protagonist.getTargetX()][protagonist.getTargetY()] = 'X';
         }
         
     }

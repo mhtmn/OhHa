@@ -71,4 +71,17 @@ public class CharacterMovement {
         assert(a.getY() == 6);
     }
 
+    @Test
+    public void tryToMoveOutOfWorld() {
+        Environment world = new Environment();
+        for (int i=0;i<20;i++) {
+            world.getProtagonist().move(-1, -1);
+        }
+        
+        int x = world.getProtagonist().getX();
+        int y = world.getProtagonist().getY();
+        assert(x == 1);
+        assert(y == 1);
+    }
+    
 }

@@ -106,20 +106,27 @@ public class Creature {
         return attackPower;
     }
     
-    public boolean hasTarget() {
+    /*public boolean hasTarget() {
         return (targetX >= 0 && targetY >= 0);
-    }
+    }*/
     
     public void clearTarget() {
-        this.targetX = -1;
-        this.targetY = -1;
+        this.targetX = 0;
+        this.targetY = 0;
+        this.targeting = false;
     }
         
-    public void damage() {
+    public void damage(int amount) {
         /*
          * Method for receiving damage.
          */
         world.report("Damaged!");
+    }
+    
+    public void startTargeting() {
+        flagTargeting();
+        this.setTargetX(this.x);
+        this.setTargetY(this.y);
     }
     
     public void flagTargeting() {
@@ -136,17 +143,24 @@ public class Creature {
          * Receives the movement as a vector, updates coordinates accordingly
          * and returns true.  If movement is illegal, returns false.
          */
-        
-        int newX = this.x + xChange;
-        int newY = this.y + yChange;
-        
-        if (world.isFree(newX, newY)) {
-            this.setCoordinate(newX, newY);
-            return true;
+                
+        if (!this.isTargeting()) {
+            int newX = this.x + xChange;
+            int newY = this.y + yChange;
+
+            if (world.isFree(newX, newY)) {
+                this.setCoordinate(newX, newY);
+                return true;
             
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            this.targetX = this.targetX + xChange;
+            this.targetY = this.targetY + yChange;
+            return true;
         }
+        
     }
     
     public void setCoordinate(int newX, int newY) {
@@ -154,10 +168,10 @@ public class Creature {
         this.y = newY;
     }
     
-    public void setTarget(int x, int y) {
+    /*public void setTarget(int x, int y) {
         this.targetX = x;
         this.targetY = y;
-    }
+    }*/
     
     public int getX() {
         return this.x;
@@ -227,6 +241,26 @@ public class Creature {
     
     public int getScore() {
         return this.score;
+    }
+    
+    public int getTargetX() {
+        return this.targetX;
+    }
+    
+    public int getTargetY() {
+        return this.targetY;
+    }
+
+    public void setTargetX(int x) {
+        this.targetX = x;
+    }
+    
+    public void setTargetY(int y) {
+        this.targetY = y;
+    }
+
+    public boolean isTargeting() {
+        return this.targeting;
     }
     
     public String getStunnedString() {

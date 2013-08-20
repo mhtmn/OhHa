@@ -38,38 +38,36 @@ public class EventHandler implements KeyListener {
                    e.getKeyCode() == KeyEvent.VK_A) {
             success = world.getProtagonist().move(0, -1);
             if (success) {
-                world.getProtagonist().clearTarget();
             }
             
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT ||
                    e.getKeyCode() == KeyEvent.VK_D) {
             success = world.getProtagonist().move(0, 1);
             if (success) {
-                world.getProtagonist().clearTarget();
             }
             
         } else if (e.getKeyCode() == KeyEvent.VK_UP ||
                    e.getKeyCode() == KeyEvent.VK_W) {
             success = world.getProtagonist().move(-1, 0);
             if (success) {
-                world.getProtagonist().clearTarget();
             }
             
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN ||
                    e.getKeyCode() == KeyEvent.VK_S) {
             success = world.getProtagonist().move(1, 0);
             if (success) {
-                world.getProtagonist().clearTarget();
             }
             
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             // if protagonist has a target, attack
             // else go into targetting mode
-            if (world.getProtagonist().hasTarget()) {
+            if (world.getProtagonist().isTargeting()) {
                 world.getProtagonist().attack();
+                world.report("You strike!");
             } else {
-                world.getProtagonist().flagTargeting();
+                world.getProtagonist().startTargeting();
             }
+        
         } else if (e.getKeyCode() == KeyEvent.VK_Q) {
             System.out.println("Closing program...");
             ui.exit();
