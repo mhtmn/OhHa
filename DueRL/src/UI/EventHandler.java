@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Class for handling user input.
  */
 package UI;
 
@@ -12,10 +11,6 @@ import java.awt.event.KeyListener;
 //import World.Creature;
 import World.Environment;
 
-/**
- *
- * @author eniirane
- */
 public class EventHandler implements KeyListener {
     
     private Component component;
@@ -30,7 +25,9 @@ public class EventHandler implements KeyListener {
     }
 
     @Override
-    // Todo: make these into a hashmap, this is ugly...
+    /**
+     * Handling the keyboard events, calling Creature class methods accordingly.
+     */
     public void keyPressed(KeyEvent e) {
         boolean success;
         

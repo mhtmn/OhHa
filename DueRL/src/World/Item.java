@@ -1,12 +1,8 @@
-/*
- * A placeholder class for possible items.
- */
 package World;
-
 /**
- *
- * @author eniirane
+ * A class for creating items, so far mostly weapons.
  */
+
 public class Item {
     private Creature owner;
     

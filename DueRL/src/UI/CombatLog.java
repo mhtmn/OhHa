@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Class for creating and updating a combat log panel in the UI.
  */
 package UI;
 
-/**
- *
- * @author eniirane
- */
 import java.util.ArrayList;
 
 public class CombatLog {
@@ -22,6 +17,9 @@ public class CombatLog {
         }
     }
     
+    /**
+     * Add a string to combat log.
+     */
     public void add(String string) {
         this.log.add(0, string);
     }

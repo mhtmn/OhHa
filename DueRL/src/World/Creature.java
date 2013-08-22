@@ -1,14 +1,11 @@
-/*
- * A base class for things moving about.
+/**
+ * A base class for things moving about.  Both the protagonist and antagonists are
+ * instances of this class.
  */
 package World;
 import java.lang.Math;
 import AI.*;
 
-/**
- *
- * @author eniirane
- */
 public class Creature {
     // Creature basics
     private int x;
@@ -66,6 +63,9 @@ public class Creature {
         this.name = newName;
     }
     
+    /**
+     * Giving the char an AI.
+     */
     public void makeSentient() {
         this.ai = new AI(this);
     }
@@ -73,6 +73,10 @@ public class Creature {
 
     // Game mechanics relating to combat
     // ---------------------------------
+    
+    /**
+     * Giving the char a weapon.
+     */
     public void equip(Item item) {
         if (mainHand == null) {
             this.mainHand = item;
@@ -81,20 +85,21 @@ public class Creature {
         }
     }
     
+    /**
+     * Attacks the target coordinates.
+     * I changed stuff around a bit.  Now this method just declares that an 
+     * attack has been made.
+     */
     public void attack() {
-        /*
-         * Attacks the target coordinates.
-         * I changed stuff around a bit.  Now this method just declares that an 
-         * attack has been made.
-         */
         this.attacking = true;
     }
     
-    public void calculateDamage() {
-        /*
-         * When an attack has been declared, this function takes care of 
-         * calculating the hit and impact.
-         */
+    /**
+     * When an attack has been declared, this function takes care of 
+     * calculating the hit and impact.
+     */
+    public void calculateDamage() {    
+        // THIS METHOD IS SUSPICIOUSLY BLOATED, REFACTOR
         
         Creature target = null;
 
@@ -149,32 +154,44 @@ public class Creature {
         }
     }
     
+    /**
+     * Clearing char's targets.
+     */
     public void clearTarget() {
         this.targetX = 0;
         this.targetY = 0;
         this.targeting = false;
     }
         
+    /**
+     * Receiving damage.  Changes the alive -state of char when <0hp.
+     */
     public void damage(int amount) {
-        /*
-         * Method for receiving damage.
-         */
         this.health -= amount;
         if (health <= 0) {
             die();
         }
     }
     
+    /**
+     * Helper function for preparing targeting.
+     */
     public void startTargeting() {
         flagTargeting();
         this.setTargetX(this.x);
         this.setTargetY(this.y);
     }
     
+    /**
+     * Setting targeting flag to true;
+     */
     public void flagTargeting() {
         this.targeting = true;
     }
-    
+
+    /**
+     * A method for readying the char for afterlife.
+     */
     public void die() {
         world.report(this.name + " dies!");
         this.icon = '%';
@@ -186,13 +203,13 @@ public class Creature {
     // Moving about, setting coordinates, etc.
     // ---------------------------------------
     
-    public boolean move(int xChange, int yChange) {
-        /*
+        /**
          * Moves either the character or the targeting crosshair.
          * 
          * Receives the movement as a vector, updates coordinates accordingly
          * and returns true.  If movement is illegal, returns false.
          */
+    public boolean move(int xChange, int yChange) {
         if (!alive) {
             return false;
         }
@@ -221,7 +238,7 @@ public class Creature {
         }
         
     }
-    
+
     public void setCoordinate(int newX, int newY) {
         this.x = newX;
         this.y = newY;
@@ -240,6 +257,9 @@ public class Creature {
         return this.y;
     }
     
+    /**
+     * Get's the char's stunned status.
+     */
     public boolean isStunned() {
         return this.stunned;
     }
@@ -332,6 +352,9 @@ public class Creature {
         return this.targeting;
     }
     
+    /**
+     * Getting a string of stunned status for UI.
+     */
     public String getStunnedString() {
         if (this.stunned) {
             return "Stunned!";
@@ -344,6 +367,9 @@ public class Creature {
         return this.attacking;
     }
     
+    /**
+     * Clear attacking status.
+     */
     public void clearAttack() {
         this.attacking = false;
     }

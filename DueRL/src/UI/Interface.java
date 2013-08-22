@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Creating and updating the user interface.
  */
 package UI;
 
@@ -17,10 +16,6 @@ import java.awt.Color;
 
 import World.Environment;
 
-/**
- *
- * @author eniirane
- */
 public class Interface implements Runnable {
     
     private JFrame frame;
@@ -44,6 +39,9 @@ public class Interface implements Runnable {
     }
     
     @Override
+    /**
+     * Running the frame.
+     */
     public void run() {
         frame = new JFrame("DueRL");
         frame.setPreferredSize(new Dimension(450, 365));
@@ -54,6 +52,9 @@ public class Interface implements Runnable {
         frame.setVisible(true);
     }
 
+    /**
+     * Creating the components making up the user interface.
+     */
     private void createComponents(Container container) {
         GridLayout layout = new GridLayout(1, 2);
         container.setLayout(layout);        
@@ -72,6 +73,9 @@ public class Interface implements Runnable {
         playArea.addKeyListener(new EventHandler(world, playArea, this));
     }
 
+    /**
+     * Creating a sidebar consisting of a general information panel, combat log and a character info panel.
+     */
     public JPanel sideBar() {
         JPanel panel = new JPanel(new GridLayout(3,1));
         
@@ -100,20 +104,32 @@ public class Interface implements Runnable {
         return panel;
     }
     
+    /**
+     * Method for updating the dynamic panels.
+     */
     public void repaint() {
         playArea.setText(world.toString());
         updateCombatLog();
         updateInfoArea();
     }
     
+    /**
+     * Method for repainting the combat log.
+     */
     public void updateCombatLog() {
         combatLog.setText(combatLogString.toString());
     }
     
+    /**
+     * Method for repainting the character info area.
+     */
     public void updateInfoArea() {
         infoArea.setText(statDisplay.toString());
     }
     
+    /**
+     * Shutting down the game window.
+     */
     public void exit() {
         System.out.println("Bye!");
         frame.dispose();

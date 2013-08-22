@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * A class for creating a text representation of character information for UI.
  */
 package UI;
 
 import World.Environment;
 
-/**
- *
- * @author eniirane
- */
 public class StatDisplay {
 
     private Environment world;
@@ -18,6 +13,7 @@ public class StatDisplay {
         this.world = world;
     }
     
+    @Override
     public String toString() {
         return "Health: " + world.getProtagonist().getHealth() + "\n" +
                "Strength: " + world.getProtagonist().getStrength() + "\n" +

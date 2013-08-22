@@ -1,4 +1,4 @@
-/*
+/**
  * Ai module.  Responsible for making decisions for enemies.
  */
 package AI;
@@ -7,10 +7,6 @@ import World.Creature;
 
 import java.util.Random;
 
-/**
- *
- * @author eniirane
- */
 public class AI {
 
     private Creature self;
@@ -23,8 +19,10 @@ public class AI {
         this.random = new Random();
     }
 
+    /**
+     * Checking protagonist coordinates to make code a bit cleaner
+     */
     public void step() {
-        // Checking protagonist coordinates to make code a bit cleaner
         protagonistX = self.getWorld().getProtagonist().getX();
         protagonistY = self.getWorld().getProtagonist().getY();
 
@@ -68,6 +66,9 @@ public class AI {
         }
     }
 
+    /**
+     * Method for a random move.
+     */
     public void moveRandomly() {
         // Used for stuns
         int x = (random.nextInt(3) - 1);
@@ -75,6 +76,9 @@ public class AI {
         self.move(x, y);
     }
 
+    /**
+     * Method for running towards the player.
+     */
     public void moveGreedily() {
         // move straight towards
         // i'll implement some smarter pathfinding once the arena has obstacles :D
@@ -96,13 +100,17 @@ public class AI {
         self.move(x, y);
     }
 
+    /**
+     * Moving cautiously, waiting for an opportunity to counterpunch.
+     */
     public void moveCautiously() {
-        // stay one tile away from range to counterpunch
         self.getWorld().report("Enemy is cautious.");
     }
 
+    /**
+     * Run away from the player, scared.
+     */
     public void escape() {
-        // move away
         int x = 0;
         int y = 0;
 
@@ -121,6 +129,12 @@ public class AI {
         self.move(x, y);
     }
 
+    /**
+     * Checking whether an attack is possible.
+     * @param x coordinate
+     * @param y coordinate
+     * @return boolean
+     */
     public boolean canAttack(int x, int y) {
         if (self.getWeapon().getMaxRange() >= self.getDistance(protagonistX, protagonistY)
                 && self.getWeapon().getMinRange() <= self.getDistance(protagonistX, protagonistY)) {

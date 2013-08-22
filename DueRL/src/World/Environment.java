@@ -1,4 +1,4 @@
-/*
+/**
  * Creating the playfield.
  */
 package World;
@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import UI.CombatLog;
 
-/**
- *
- * @author eniirane
- */
 public class Environment {
 
     private char obstacleIcon = '#';
@@ -32,10 +28,10 @@ public class Environment {
         populate();
     }
 
+    /** 
+     * Building world geometry.  . is interpreted as floor, # as wall.
+     */
     private void buildWorld() {
-        /* 
-         * Building world geometry.  . is interpreted as floor, # as wall.
-         */
         System.out.println("Building world...");
         world = new char[worldSize][worldSize];
 
@@ -50,6 +46,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Populate the playfield with 1 protagonist (player) and a number of antagonist characters.
+     */
     private void populate() {
         System.out.println("Populating world...");
 
@@ -66,6 +65,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Helper for making a walkable floor.
+     */
     private void drawFloor() {
         for (int i = 1; i < worldSize - 1; i++) {
             for (int j = 1; j < worldSize - 1; j++) {
@@ -74,10 +76,10 @@ public class Environment {
         }
     }
 
+    /**
+     * updater function for world
+     */
     public void update() {
-        /*
-         * updater function for world
-         */
 
         this.drawFloor();
 
@@ -130,6 +132,9 @@ public class Environment {
         return this.worldSize;
     }
 
+    /**
+     * Method for determining if a tile is walkable.
+     */
     public boolean isFree(int x, int y) {
         if (x <= 0 || y <= 0 || x > this.worldSize - 1 || y > this.worldSize - 1) {
             return false;
@@ -140,6 +145,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Helper function for adding messages to the combat log.
+     */
     public void report(String string) {
         combatLog.add(string);
     }
