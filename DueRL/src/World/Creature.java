@@ -52,7 +52,7 @@ public class Creature {
     
     // Stats
     private int strength = 10;
-    private int agility = 10;
+    private int agility = 25;
     private int health = 100;
     private int score = 0;
     private boolean alive = true;
@@ -167,15 +167,14 @@ public class Creature {
         
         // calculating damage
         double finalDamage = this.strength + this.mainHand.getDamage();
-        boolean crit = this.agility < (int)(Math.random() * 10);
         finalDamage = (int)(finalDamage * hitmodifier);
         if (finalDamage < 0) {
             finalDamage = 0;
         }
         
-        if (crit) {
+        if (critical()) {
+            world.report(this.name + " hits critically!");
             finalDamage += this.strength;
-            world.report("Critical!");
         }
 
         if (target != null && finalDamage > 0) {
@@ -191,6 +190,14 @@ public class Creature {
         }
     }
     
+    public boolean critical() {
+        if (Math.random() < ((double)agility/100) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     /**
      * Clearing char's targets.
      */
@@ -201,12 +208,25 @@ public class Creature {
     }
         
     /**
-     * Receiving damage.  Changes the alive -state of char when less than 0 hp.
+     * Receiving damage after checking for dodge.  Changes the alive -state of char when less than 0 hp.
      */
     public void damage(int amount) {
-        this.health -= amount;
+        
+        // first check for dodge
+        if (!dodge()) {
+            this.health -= amount;
+        }
         if (health <= 0) {
             die();
+        }
+    }
+    
+    public boolean dodge() {
+        if (Math.random() < ((double)agility / 100)) {
+            world.report(this.name + " dodges!");
+            return true;
+        } else {
+            return false;
         }
     }
     

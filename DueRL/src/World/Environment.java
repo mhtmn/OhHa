@@ -84,7 +84,6 @@ public class Environment {
         this.drawFloor();
 
         if (this.protagonist.isAlive()) {
-
             // enemy moving
             if (!protagonist.isTargeting()) {
                 for (Creature enemy : antagonists) {
