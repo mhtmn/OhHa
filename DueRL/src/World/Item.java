@@ -6,7 +6,7 @@ package World;
 public class Item {
     private Creature owner;
     
-    private int damage = 10;
+    private int damage   = 10;
     private int maxRange = 3;
     private int minRange = 2;
     
@@ -17,6 +17,11 @@ public class Item {
         this.owner       = null;
         this.name        = "an item";
         this.description = "A somewhat ordinary item.";
+    }
+    
+    public Item(Creature owner) {
+        this();
+        this.owner       = owner;
     }
     
     public int getDamage() {

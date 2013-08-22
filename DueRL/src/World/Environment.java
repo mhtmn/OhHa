@@ -92,13 +92,13 @@ public class Environment {
                 }
             }
 
-            // player attack here
+            // player attacks 
             if (protagonist.getAttackStatus()) {
                 protagonist.calculateDamage();
                 protagonist.clearAttack();
             }
 
-            // enemy attack here
+            // enemy attacks
             for (Creature enemy : antagonists) {
                 if (enemy.getAttackStatus()) {
                     enemy.calculateDamage();

@@ -7,16 +7,47 @@ import java.lang.Math;
 import AI.*;
 
 public class Creature {
-    // Creature basics
+
+    /**
+     * Character (later char) x coordinate
+     */
     private int x;
+
+    /**
+     * Char y coordinate
+     */
     private int y;
+
+    /**
+     * Default char icon (for enemy)
+     */
     private char icon = 'E';
+
+    /**
+     * Char name, displayed in combat and in brief inspection
+     */
     private String name;
+
+    /**
+     * Char description for
+     */
     private String description;
+
+    /**
+     * The world in which the character resides.
+     */
     private Environment world;
 
     // Items
+    
+    /**
+     * The mainhand weapon.
+     */
     private Item mainHand;
+    
+    /**
+     * The offhand weapon or shield.
+     */
     private Item offHand;
     
     // Stats
@@ -40,7 +71,7 @@ public class Creature {
 
     public Creature(Environment world) {
         this.world = world;
-        this.equip(new Item());
+        this.equip(new Item(this));
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
@@ -124,9 +155,15 @@ public class Creature {
         //                       2) weapon's damage rating
         //                       3) distance versus weapon's range
         //                       4) chance of a critical hit
+        //                     ( 5) dodge chance? )
         
         // calculating distance modifier
-        double hitmodifier = this.getWeapon().getMaxRange() - this.getDistance(target.getX(), target.getY());
+        double hitmodifier = 0.0;
+        if (target == null) {
+            world.report("You swing wildly and miss!");
+        } else {
+            hitmodifier = this.getWeapon().getMaxRange() - this.getDistance(target.getX(), target.getY());
+        }
         
         // calculating damage
         double finalDamage = this.strength + this.mainHand.getDamage();
@@ -164,7 +201,7 @@ public class Creature {
     }
         
     /**
-     * Receiving damage.  Changes the alive -state of char when <0hp.
+     * Receiving damage.  Changes the alive -state of char when less than 0 hp.
      */
     public void damage(int amount) {
         this.health -= amount;
