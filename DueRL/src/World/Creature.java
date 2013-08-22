@@ -27,6 +27,7 @@ public class Creature {
     private int agility = 10;
     private int health = 100;
     private int score = 0;
+    private boolean alive = true;
         
     // Since same class is used for the player and their opponent, ai flag is 
     // used for differentiating between the two.
@@ -38,6 +39,7 @@ public class Creature {
     private boolean targeting = false;
     private int targetX = -1;
     private int targetY = -1;
+    private boolean attacking = false;
 
     public Creature(Environment world) {
         this.world = world;
@@ -79,36 +81,58 @@ public class Creature {
         }
     }
     
-    public int attack() {
+    public void attack() {
         /*
          * Attacks the target coordinates.
-         * 
-         * This means checking what's on the coordinates and calculating impact 
-         * to everything present there.
-         * 
-         * Damage is dealt according to strength and weapon base damage and a 
-         * range modifier.  If the hit is a critical, damage is doubled.
+         * I changed stuff around a bit.  Now this method just declares that an 
+         * attack has been made.
          */
-        
-        int critical = (int) Math.random() * 10;
-        int weaponDamage = this.mainHand.getDamage();// + this.offHand.getDamage();
-        int bonus = 0;
-        
-        if (critical < agility) {
-            bonus = strength;
-        }       
-
-        int attackPower = this.strength + weaponDamage +  bonus;
-        world.report("Attack!");
-        
-        this.targeting = false;
-        
-        return attackPower;
+        this.attacking = true;
     }
     
-    /*public boolean hasTarget() {
-        return (targetX >= 0 && targetY >= 0);
-    }*/
+    public void calculateDamage() {
+        /*
+         * When an attack has been declared, this function takes care of 
+         * calculating the hit and impact.
+         */
+        
+        Creature target = null;
+
+        // fixing the target for ai
+        if (getAIStatus()) {
+            this.targetX = this.world.getProtagonist().getX();
+            this.targetY = this.world.getProtagonist().getY();            
+            target = this.world.getProtagonist();
+        } else {
+            // else check what the player is targeting
+            for (Creature enemy : world.getAntagonists()) {
+                if (enemy.getX() == this.targetX 
+                && enemy.getY() == this.targetY) {
+                    target = enemy;
+                } else {
+                    world.report("Miss!");
+                }
+            }            
+        }
+        
+        // calculating damage
+        int finalDamage = this.strength + this.mainHand.getDamage();
+        boolean crit = this.agility > Math.random() * 10;
+        
+        if (crit) {
+            finalDamage += this.strength;
+        }
+
+        if (target != null) {
+            world.report("  for " + finalDamage + " damage!");
+            world.report(this.name + " hits " + target.getName());
+            target.damage(finalDamage);
+        }
+
+        if (!this.aiFlag) {
+            clearTarget();
+        }
+    }
     
     public void clearTarget() {
         this.targetX = 0;
@@ -120,7 +144,10 @@ public class Creature {
         /*
          * Method for receiving damage.
          */
-        world.report("Damaged!");
+        this.health -= amount;
+        if (health <= 0) {
+            die();
+        }
     }
     
     public void startTargeting() {
@@ -133,6 +160,12 @@ public class Creature {
         this.targeting = true;
     }
     
+    public void die() {
+        world.report(this.name + " dies!");
+        this.icon = '%';
+        this.alive = false;
+    }
+    
     // Moving about, setting coordinates, etc.
     // ---------------------------------------
     
@@ -143,6 +176,9 @@ public class Creature {
          * Receives the movement as a vector, updates coordinates accordingly
          * and returns true.  If movement is illegal, returns false.
          */
+        if (!alive) {
+            return false;
+        }
                 
         if (!this.isTargeting()) {
             int newX = this.x + xChange;
@@ -158,6 +194,12 @@ public class Creature {
         } else {
             this.targetX = this.targetX + xChange;
             this.targetY = this.targetY + yChange;
+            
+            for (Creature creature : world.getAntagonists()) {
+                if (creature.getX() == this.targetX && creature.getY() == this.targetY) {
+                    world.report(creature.getName() + " wielding " + creature.getWeapon().toString() + ".");
+                }
+            }
             return true;
         }
         
@@ -208,6 +250,10 @@ public class Creature {
         return this.aiFlag;
     }
     
+    public boolean isAlive() {
+        return this.alive;
+    }
+    
     public void setAIStatus(boolean aiStatus) {
         this.aiFlag = aiStatus;
     }
@@ -233,6 +279,12 @@ public class Creature {
     
     public int getStrength() {
         return this.strength;
+    }
+    
+    public void setHeroMode() {
+        this.strength = 100;
+        this.agility = 100;
+        this.health = 1000;
     }
     
     public int getAgility() {
@@ -269,6 +321,14 @@ public class Creature {
         } else {
             return "";
         }
+    }
+    
+    public boolean getAttackStatus() {
+        return this.attacking;
+    }
+    
+    public void clearAttack() {
+        this.attacking = false;
     }
     
     @Override

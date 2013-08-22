@@ -19,7 +19,7 @@ public class Item {
     
     public Item() {
         this.owner       = null;
-        this.name        = "An item";
+        this.name        = "an item";
         this.description = "A somewhat ordinary item.";
     }
     
@@ -37,6 +37,6 @@ public class Item {
     
     @Override
     public String toString() {
-        return name + " --- " + description;
+        return name;
     }
 }
