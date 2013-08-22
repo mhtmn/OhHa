@@ -103,7 +103,6 @@ public class Environment {
                     enemy.clearAttack();
                 }
             }
-
         }
 
         // smooshing the character and enemy icons into the world

@@ -63,6 +63,7 @@ public class EventHandler implements KeyListener {
             // else go into targetting mode
             if (world.getProtagonist().isTargeting()) {
                 world.getProtagonist().attack();
+                world.update();
             } else {
                 world.getProtagonist().startTargeting();
             }

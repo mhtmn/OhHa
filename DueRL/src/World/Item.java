@@ -11,8 +11,8 @@ public class Item {
     private Creature owner;
     
     private int damage = 10;
-    private int maxRange = 2;
-    private int minRange = 1;
+    private int maxRange = 3;
+    private int minRange = 2;
     
     private String name;
     private String description;

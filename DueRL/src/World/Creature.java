@@ -115,18 +115,33 @@ public class Creature {
             }            
         }
         
+        // damage is affected by 1) attacker's strength
+        //                       2) weapon's damage rating
+        //                       3) distance versus weapon's range
+        //                       4) chance of a critical hit
+        
+        // calculating distance modifier
+        double hitmodifier = this.getWeapon().getMaxRange() - this.getDistance(target.getX(), target.getY());
+        
         // calculating damage
-        int finalDamage = this.strength + this.mainHand.getDamage();
-        boolean crit = this.agility > Math.random() * 10;
+        double finalDamage = this.strength + this.mainHand.getDamage();
+        boolean crit = this.agility < (int)(Math.random() * 10);
+        finalDamage = (int)(finalDamage * hitmodifier);
+        if (finalDamage < 0) {
+            finalDamage = 0;
+        }
         
         if (crit) {
             finalDamage += this.strength;
+            world.report("Critical!");
         }
 
-        if (target != null) {
+        if (target != null && finalDamage > 0) {
             world.report("  for " + finalDamage + " damage!");
             world.report(this.name + " hits " + target.getName());
-            target.damage(finalDamage);
+            target.damage((int)finalDamage);
+        } else {
+            world.report("Swing and a miss!");
         }
 
         if (!this.aiFlag) {
@@ -163,6 +178,8 @@ public class Creature {
     public void die() {
         world.report(this.name + " dies!");
         this.icon = '%';
+        this.description = "a corpse";
+        this.name = "A corpse";
         this.alive = false;
     }
     
