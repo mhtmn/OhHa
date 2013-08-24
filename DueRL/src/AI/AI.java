@@ -13,6 +13,7 @@ public class AI {
     private Random random;
     int protagonistX = 1;
     int protagonistY = 1;
+    boolean escaping = false;
 
     public AI(Creature self) {
         this.self = self;
@@ -27,17 +28,20 @@ public class AI {
         protagonistY = self.getWorld().getProtagonist().getY();
 
         if (self.isAlive()) {
-
+            if (escaping && Math.random() < 0.25) {
+                this.escaping = false;
+            } else if (self.getHealth() < 20) {
+                self.getWorld().report(self.getName() + " is escaping.");                                        
+                this.escaping = true;
+            }
+            
             // First decide whether to move or attack
             if (self.isStunned()) {
                 moveRandomly();
-                self.getWorld().report("Enemy is stunned.");        
-            } else if (self.getHealth() < 20) {
+                self.getWorld().report(self.getName() + " appears to be stunned.");        
+            } else if (escaping) {
                 if (Math.random() < 0.5) {
                     escape();
-                    if (Math.random() < 0.33) {
-                        self.getWorld().report("Enemy is escaping.");                        
-                    }
                 } else {
                     moveRandomly();
                 }
@@ -46,13 +50,15 @@ public class AI {
                 // If the target is close enough, attack those coordinates
                 if (canAttack(protagonistX, protagonistY)) {
                     self.attack();
-
+                // else if we're too close, move away.
+                } else if (self.getDistance(protagonistX, protagonistY) < self.getWeapon().getMinRange()) {
+                    moveRandomly();
                     // Else if we're not that far, move cautiously
                 } else if (self.getDistance(protagonistX, protagonistY) > self.getWeapon().getMaxRange()
                         && self.getDistance(protagonistX, protagonistY) < self.getWeapon().getMaxRange() + 1) {
                     // bad fudge)
                     if (random.nextInt(3) == 0) {
-                        self.getWorld().report("Enemy runs towards you.");
+                        self.getWorld().report(self.getName() + " leaps towards you!");
                         moveGreedily();
                     } else {
                         moveCautiously();
@@ -104,7 +110,7 @@ public class AI {
      * Moving cautiously, waiting for an opportunity to counterpunch.
      */
     public void moveCautiously() {
-        self.getWorld().report("Enemy is cautious.");
+        self.getWorld().report(self.getName() + " is cautious.");
     }
 
     /**
@@ -127,6 +133,10 @@ public class AI {
         }
 
         self.move(x, y);
+    }
+    
+    public void setEscaping(boolean flip) {
+        this.escaping = flip;
     }
 
     /**

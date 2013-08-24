@@ -13,10 +13,11 @@ public class Item {
     private String name;
     private String description;
     
+    private boolean sharp;
+    private boolean defensive = false;
+    
     public Item() {
         this.owner       = null;
-        this.name        = "an item";
-        this.description = "A somewhat ordinary item.";
     }
     
     public Item(Creature owner) {

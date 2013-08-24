@@ -107,11 +107,12 @@ public class Environment {
         }
 
         // smooshing the character and enemy icons into the world
-        world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
-
         for (Creature enemy : antagonists) {
             world[enemy.getX()][enemy.getY()] = enemy.getIcon();
         }
+
+        world[protagonist.getX()][protagonist.getY()] = protagonist.getIcon();
+
 
         if (protagonist.isTargeting()) {
             world[protagonist.getTargetX()][protagonist.getTargetY()] = 'X';
@@ -130,14 +131,15 @@ public class Environment {
     public int getSize() {
         return this.worldSize;
     }
-
+    
     /**
      * Method for determining if a tile is walkable.
      */
     public boolean isFree(int x, int y) {
         if (x <= 0 || y <= 0 || x > this.worldSize - 1 || y > this.worldSize - 1) {
             return false;
-        } else if (this.world[x][y] == floorIcon) {
+        } else if (this.world[x][y] == floorIcon
+                || this.world[x][y] == '%') {
             return true;
         } else {
             return false;

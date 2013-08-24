@@ -52,8 +52,9 @@ public class Creature {
     
     // Stats
     private int strength = 10;
-    private int agility = 25;
+    private int agility = 10;
     private int health = 100;
+    private int maxHealth = health;
     private int score = 0;
     private boolean alive = true;
         
@@ -76,6 +77,7 @@ public class Creature {
         this.y = 1;
         this.name        = "A creature";
         this.description = "A somewhat ugly creature.";
+        this.equipRandomWeapon();
     }
     
     public Creature(Environment world, int newX, int newY) {
@@ -115,6 +117,25 @@ public class Creature {
             this.offHand = item;
         }
     }
+
+    public void equipRandomWeapon() {
+        double d = Math.random();
+        if (d < 0.2) {
+            this.equip(new Dagger(this));
+            this.equip(new Dagger(this));            
+        } else if (d < 0.4 && d > 0.2) {
+            this.equip(new Knuckleduster(this));            
+            this.equip(new Knuckleduster(this));                        
+        } else if (d < 0.6 && d > 0.4) {
+            this.equip(new Sword(this));
+            this.equip(new Shield(this));            
+        } else if (d < 0.8 && d > 0.6) {
+            this.equip(new Mace(this));
+            this.equip(new Shield(this));            
+        } else {
+            this.equip(new Greataxe(this));
+        }
+    }
     
     /**
      * Attacks the target coordinates.
@@ -146,7 +167,7 @@ public class Creature {
                 && enemy.getY() == this.targetY) {
                     target = enemy;
                 } else {
-                    world.report("Miss!");
+                    world.report(this.name + " misses!");
                 }
             }            
         }
@@ -160,7 +181,7 @@ public class Creature {
         // calculating distance modifier
         double hitmodifier = 0.0;
         if (target == null) {
-            world.report("You swing wildly and miss!");
+            world.report(this. name + " swings wildly and misses!");
         } else {
             hitmodifier = this.getWeapon().getMaxRange() - this.getDistance(target.getX(), target.getY());
         }
@@ -182,7 +203,7 @@ public class Creature {
             world.report(this.name + " hits " + target.getName());
             target.damage((int)finalDamage);
         } else {
-            world.report("Swing and a miss!");
+            world.report(this.name + " swings and misses!");
         }
 
         if (!this.aiFlag) {
@@ -355,8 +376,11 @@ public class Creature {
     public Double getDistance(int fromX, int fromY) {
         // a^2 + b^2 = c^2
         int a = Math.abs(this.x - fromX);
-        int b = Math.abs(this.y - fromY);        
-        return Math.sqrt(a * a + b * b);
+        int b = Math.abs(this.y - fromY);
+        double d = Math.sqrt(a * a + b * b);
+        d = Math.round(d*100)/100.0d;
+        System.out.println(d);
+        return d;
     }
     
     public Item getWeapon() {

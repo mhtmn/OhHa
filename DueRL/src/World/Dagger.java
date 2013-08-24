@@ -1,0 +1,31 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package World;
+
+/**
+ *
+ * @author eniirane
+ */
+public class Dagger extends Item {
+    private Creature owner;
+    
+    private int damage   = 10;
+    private int maxRange = 1;
+    private int minRange = 0;
+    
+    private String name = "Daggers";
+    private String description = "Short blades.";
+    
+    private boolean sharp = true;
+    
+    public Dagger() {
+        this.owner       = null;
+    }
+    
+    public Dagger(Creature owner) {
+        this();
+        this.owner       = owner;
+    }
+}

@@ -22,7 +22,7 @@ public class Interface implements Runnable {
     private Environment world;
     
     private Font playAreaFont = new Font("Courier", Font.BOLD,16);
-    private Font infoAreaFont = new Font("Courier", Font.BOLD,12);
+    private Font infoAreaFont = new Font("Courier", Font.BOLD,10);
     public JTextArea playArea;
     public JTextArea combatLog;
     public CombatLog combatLogString;
