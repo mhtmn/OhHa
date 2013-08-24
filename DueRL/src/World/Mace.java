@@ -9,7 +9,7 @@ package World;
  * @author eniirane
  */
 public class Mace extends Item {
-    private Creature owner;
+/*    private Creature owner;
     
     private int damage   = 20;
     private int maxRange = 3;
@@ -19,9 +19,14 @@ public class Mace extends Item {
     private String description = "A mid-range blunt weapon.";
     
     private boolean sharp = false;
-
+*/
     public Mace() {
-        super();
+        this.damage   = 20;
+        this.maxRange = 3;
+        this.minRange = 2;
+        this.name = "Mace";
+        this.description = "A mid-range blunt weapon.";
+        this.sharp = false;
     }
     
     public Mace(Creature owner) {

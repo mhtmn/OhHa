@@ -45,25 +45,25 @@ public class ItemGeneration {
     
     @Test
     public void generation() {
-        Item epic = new Dagger();
+        Dagger epic = new Dagger();
         assert(epic != null);
     }
     
     @Test
     public void getDamage() {
-        Item epic = new Knuckleduster();
+        Knuckleduster epic = new Knuckleduster();
         assert(epic.getDamage() == 10);
     }
     
     @Test
     public void getMaxRange() {
-        Item epic = new Sword();
+        Sword epic = new Sword();
         assert(epic.getMaxRange() == 2);
     }
     
     @Test
     public void getMinRange() {
-        Item epic = new Mace();
+        Mace epic = new Mace();
         assert(epic.getMinRange()==1);
     }
 

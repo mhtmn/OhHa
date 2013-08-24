@@ -8,10 +8,8 @@ package World;
  *
  * @author eniirane
  */
-public class Dagger extends Item {
-    private Creature owner;
-    
-    private int damage   = 10;
+public class Dagger extends Item {    
+    /*private int damage   = 10;
     private int maxRange = 1;
     private int minRange = 1;
     
@@ -19,19 +17,19 @@ public class Dagger extends Item {
     private String description = "Short blades.";
     
     private boolean sharp = true;
-    
-    public Dagger() {
-        super();
+    */
+    public Dagger(Creature owner) {
+        super(owner);
         this.damage   = 10;
         this.maxRange = 1;
         this.minRange = 1;
-        this.name = "Daggers";
+        this.name     = "Daggers";
         this.description = "Short blades.";    
-        this.sharp = true;
+        this.sharp    = true;
     }
-    
-    public Dagger(Creature owner) {
-        this();
-        this.owner       = owner;
+
+    public Dagger() {
+        this(null);
     }
 }
+

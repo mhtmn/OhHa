@@ -93,18 +93,41 @@ public class Environment {
 
             // player attacks 
             if (protagonist.getAttackStatus()) {
-                protagonist.calculateDamage();
+                for (Item i : protagonist.getWeapons()) {
+                    protagonist.calculateDamage(i);
+                }
                 protagonist.clearAttack();
             }
 
             // enemy attacks
             for (Creature enemy : antagonists) {
                 if (enemy.getAttackStatus()) {
-                    enemy.calculateDamage();
+                    for (Item i : enemy.getWeapons()) {
+                        enemy.calculateDamage(i);
+                    }
                     enemy.clearAttack();
                 }
             }
         }
+        
+        // Player and enemy bleeds and stuns
+        if (protagonist.getBleedingStatus()) {
+            protagonist.bleed();
+            if (Math.random() < 0.33) {
+                protagonist.setBleed(false);
+            }
+        }
+        
+        for (Creature enemy : antagonists) {
+            if (enemy.getBleedingStatus()) {
+                enemy.bleed();
+            }
+            if (Math.random() < 0.33) {
+                enemy.setBleed(false);
+            }
+        }
+        
+        
 
         // smooshing the character and enemy icons into the world
         for (Creature enemy : antagonists) {
@@ -119,7 +142,9 @@ public class Environment {
         }
     }
 
+    
     // getters    
+    
     public Creature getProtagonist() {
         return this.protagonist;
     }

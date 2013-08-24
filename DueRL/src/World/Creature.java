@@ -81,9 +81,9 @@ public class Creature {
         this.name        = "A creature";
         this.description = "A somewhat ugly creature.";
         this.inventory = new ArrayList<Item>();
-        //this.equipRandomWeapon();
-        this.equip(new Dagger(this));
-        this.equip(new Dagger(this));        
+        this.equipRandomWeapon();
+        //this.equip(new Dagger(this));
+        //this.equip(new Dagger(this));
     }
     
     public Creature(Environment world, int newX, int newY) {
@@ -157,7 +157,7 @@ public class Creature {
      * When an attack has been declared, this function takes care of 
      * calculating the hit and impact.
      */
-    public void calculateDamage() {    
+    public void calculateDamage(Item weapon) {    
         // THIS METHOD IS SUSPICIOUSLY BLOATED, REFACTOR
         
         Creature target = null;
@@ -190,19 +190,20 @@ public class Creature {
         if (target == null) {
             world.report(this. name + " swings wildly and misses!");
         } else {
-            hitmodifier = this.getWeapons().get(0).getMaxRange() - this.getDistance(target.getX(), target.getY());
+            hitmodifier = weapon.getMaxRange() - this.getDistance(target.getX(), target.getY());
         }
         
         // calculating damage
-        double finalDamage = this.strength + this.mainHand.getDamage();
+        double finalDamage = this.strength + weapon.getDamage();
         finalDamage = (int)(finalDamage * hitmodifier);
         if (finalDamage < 0) {
             finalDamage = 0;
         }
         
-        if (critical()) {
+        if (critical() && target != null) {
             world.report(this.name + " hits critically!");
             finalDamage += this.strength;
+            weapon.dealCritical(target);
         }
 
         if (target != null && finalDamage > 0) {
@@ -366,8 +367,25 @@ public class Creature {
     /**
      * Get's the char's stunned status.
      */
-    public boolean isStunned() {
+    public boolean getStunnedStatus() {
         return this.stunned;
+    }
+    
+    public boolean getBleedingStatus() {
+        return this.bleeding;
+    }
+    
+    public void setStun(boolean flip) {
+        this.stunned = flip;
+    }
+    
+    public void setBleed(boolean flip) {
+        this.bleeding = flip;
+    }
+    
+    public void bleed() {
+        this.health -= 5;
+        world.report(this.name + " is bleeding.");
     }
         
     // Other getters/setters

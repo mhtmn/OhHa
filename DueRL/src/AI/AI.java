@@ -36,7 +36,7 @@ public class AI {
             }
             
             // First decide whether to move or attack
-            if (self.isStunned()) {
+            if (self.getStunnedStatus()) {
                 moveRandomly();
                 self.getWorld().report(self.getName() + " appears to be stunned.");        
             } else if (escaping) {
@@ -64,7 +64,7 @@ public class AI {
                         moveCautiously();
                     }
 
-                    // Else just run at the protagonist
+                // Else just run at the protagonist
                 } else {
                     moveGreedily();
                 }

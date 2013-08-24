@@ -9,7 +9,7 @@ package World;
  * @author eniirane
  */
 public class Sword extends Item {
-    private Creature owner;
+    /*private Creature owner;
     
     private int damage   = 20;
     private int maxRange = 3;
@@ -19,9 +19,15 @@ public class Sword extends Item {
     private String description = "A mid-range blade.";
     
     private boolean sharp = true;
-    
+    */
     public Sword() {
         super();
+        this.damage   = 20;
+        this.maxRange = 3;
+        this.minRange = 2;
+        this.name = "A sword";
+        this.description = "A mid-range blade.";
+        this.sharp = false;
     }
     
     public Sword(Creature owner) {

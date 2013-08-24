@@ -1,27 +1,36 @@
 package World;
+
 /**
  * A class for creating items, so far mostly weapons.
  */
 
-public abstract class Item {
-    private Creature owner;
+public class Item {
+    public Creature owner;
     
-    private int damage   = 10;
-    private int maxRange = 1;
-    private int minRange = 1;
+    public int damage;
+    public int maxRange;
+    public int minRange;
     
-    private String name = "A bland item";
-    private String description = "An item without qualities";
+    public String name;
+    public String description;
     
-    private boolean sharp = false;
-    private boolean defensive = false;
-    
+    public boolean sharp;
+    public boolean defensive;
+  
     public Item() {
     }
     
     public Item(Creature owner) {
         this();
-        this.owner       = owner;
+        this.owner = owner;
+    }
+    
+    public void dealCritical(Creature target) {
+        if (this.sharp) {
+            target.setBleed(true);
+        } else {
+            target.setStun(true);
+        }
     }
     
     public int getDamage() {
