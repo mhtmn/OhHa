@@ -55,7 +55,7 @@ public class Environment {
         // Creating the player character
         this.protagonist = new Creature(this, random.nextInt(worldSize - 2) + 1, random.nextInt(worldSize - 2) + 1, "Protagonist");
         this.protagonist.setAIStatus(false);
-        this.protagonist.setHeroMode();
+        //this.protagonist.setHeroMode();
         this.protagonist.setIcon('@');
 
         // Creating the opponent(s).
@@ -111,7 +111,7 @@ public class Environment {
         }
         
         // Player and enemy bleeds and stuns
-        if (protagonist.getBleedingStatus()) {
+        if (protagonist.getBleedingStatus() && !protagonist.isTargeting()) {
             protagonist.bleed();
             if (Math.random() < 0.33) {
                 protagonist.setBleed(false);
@@ -119,7 +119,7 @@ public class Environment {
         }
         
         for (Creature enemy : antagonists) {
-            if (enemy.getBleedingStatus()) {
+            if (enemy.getBleedingStatus() && !protagonist.isTargeting()) {
                 enemy.bleed();
             }
             if (Math.random() < 0.33) {
@@ -127,7 +127,21 @@ public class Environment {
             }
         }
         
-        
+        if (protagonist.getStunnedStatus() && !protagonist.isTargeting()) {
+            if (Math.random() < 0.33) {
+                protagonist.setStun(false);
+                report(protagonist.getName() + " is no longer stunned.");
+            }
+        }
+
+        for (Creature enemy : antagonists) {
+            if (enemy.getStunnedStatus() && !protagonist.isTargeting()) {
+                if (Math.random() < 0.33) {
+                    enemy.setStun(false);
+                    report(enemy.getName() + " is no longer stunned.");
+                }
+            }
+        }
 
         // smooshing the character and enemy icons into the world
         for (Creature enemy : antagonists) {

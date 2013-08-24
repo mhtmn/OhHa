@@ -24,6 +24,7 @@ public class AI {
      * Checking protagonist coordinates to make code a bit cleaner
      */
     public void step() {
+        Creature protagonist = self.getWorld().getProtagonist();
         protagonistX = self.getWorld().getProtagonist().getX();
         protagonistY = self.getWorld().getProtagonist().getY();
 
@@ -37,7 +38,9 @@ public class AI {
             
             // First decide whether to move or attack
             if (self.getStunnedStatus()) {
-                moveRandomly();
+                if (Math.random() < 0.33) {
+                    moveRandomly();
+                }
                 self.getWorld().report(self.getName() + " appears to be stunned.");        
             } else if (escaping) {
                 if (Math.random() < 0.5) {
@@ -52,10 +55,10 @@ public class AI {
                     self.attack();
                 // else if we're too close, move away.
                 } else if (self.getDistance(protagonistX, protagonistY) < self.getWeapons().get(0).getMinRange()) {
-                    moveRandomly();
+                    escape();
                     // Else if we're not that far, move cautiously
-                } else if (self.getDistance(protagonistX, protagonistY) > self.getWeapons().get(0).getMaxRange()
-                        && self.getDistance(protagonistX, protagonistY) < self.getWeapons().get(0).getMaxRange() + 1) {
+                } else if (self.getDistance(protagonistX, protagonistY) > protagonist.getWeapons().get(0).getMaxRange()
+                        && self.getDistance(protagonistX, protagonistY) < protagonist.getWeapons().get(0).getMaxRange() + 1) {
                     // bad fudge)
                     if (random.nextInt(3) == 0) {
                         self.getWorld().report(self.getName() + " leaps towards you!");

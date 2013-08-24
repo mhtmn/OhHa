@@ -211,7 +211,7 @@ public class Creature {
             world.report(this.name + " hits " + target.getName());
             target.damage((int)finalDamage);
         } else {
-            world.report(this.name + " swings and misses!");
+            world.report(this.name + " misses!");
         }
 
         if (!this.aiFlag) {
@@ -384,8 +384,8 @@ public class Creature {
     }
     
     public void bleed() {
-        this.health -= 5;
         world.report(this.name + " is bleeding.");
+        this.damage(5);
     }
         
     // Other getters/setters
