@@ -22,7 +22,7 @@ public class Shield extends Item {
     private boolean defensive = true;
     
     public Shield() {
-        this.owner       = null;
+        super();
     }
     
     public Shield(Creature owner) {

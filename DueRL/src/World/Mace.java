@@ -12,8 +12,8 @@ public class Mace extends Item {
     private Creature owner;
     
     private int damage   = 20;
-    private int maxRange = 2;
-    private int minRange = 1;
+    private int maxRange = 3;
+    private int minRange = 2;
     
     private String name = "Mace";
     private String description = "A mid-range blunt weapon.";
@@ -21,7 +21,7 @@ public class Mace extends Item {
     private boolean sharp = false;
 
     public Mace() {
-        this.owner       = null;
+        super();
     }
     
     public Mace(Creature owner) {

@@ -55,7 +55,7 @@ public class Environment {
         // Creating the player character
         this.protagonist = new Creature(this, random.nextInt(worldSize - 2) + 1, random.nextInt(worldSize - 2) + 1, "Protagonist");
         this.protagonist.setAIStatus(false);
-        //this.protagonist.setHeroMode();
+        this.protagonist.setHeroMode();
         this.protagonist.setIcon('@');
 
         // Creating the opponent(s).

@@ -12,8 +12,8 @@ public class Greataxe extends Item {
     private Creature owner;
     
     private int damage   = 40;
-    private int maxRange = 3;
-    private int minRange = 2;
+    private int maxRange = 4;
+    private int minRange = 3;
     
     private String name = "A greataxe";
     private String description = "A heavy long range blade.";
@@ -21,7 +21,7 @@ public class Greataxe extends Item {
     private boolean sharp = true;
     
     public Greataxe() {
-        this.owner       = null;
+        super();
     }
     
     public Greataxe(Creature owner) {

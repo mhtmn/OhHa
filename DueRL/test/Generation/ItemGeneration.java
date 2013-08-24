@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import World.Item;
+import World.*;
 
 /**
  *
@@ -45,25 +45,25 @@ public class ItemGeneration {
     
     @Test
     public void generation() {
-        Item epic = new Item();
+        Item epic = new Dagger();
         assert(epic != null);
     }
     
     @Test
     public void getDamage() {
-        Item epic = new Item();
+        Item epic = new Knuckleduster();
         assert(epic.getDamage() == 10);
     }
     
     @Test
     public void getMaxRange() {
-        Item epic = new Item();
+        Item epic = new Sword();
         assert(epic.getMaxRange() == 2);
     }
     
     @Test
     public void getMinRange() {
-        Item epic = new Item();
+        Item epic = new Mace();
         assert(epic.getMinRange()==1);
     }
 

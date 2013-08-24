@@ -19,6 +19,8 @@ public class StatDisplay {
                "Strength: " + world.getProtagonist().getStrength() + "\n" +
                "Agility: " + world.getProtagonist().getAgility() + "\n" +
                "Score: " + world.getProtagonist().getScore() + "\n" +
-               world.getProtagonist().getStunnedString();
+               "Wielding: " + world.getProtagonist().getInventory().toString() + "\n" +
+               world.getProtagonist().getStunnedString() + "\n" +
+               world.getProtagonist().getBleedingString();
     }
 }

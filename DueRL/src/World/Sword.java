@@ -12,8 +12,8 @@ public class Sword extends Item {
     private Creature owner;
     
     private int damage   = 20;
-    private int maxRange = 2;
-    private int minRange = 1;
+    private int maxRange = 3;
+    private int minRange = 2;
     
     private String name = "A sword";
     private String description = "A mid-range blade.";
@@ -21,7 +21,7 @@ public class Sword extends Item {
     private boolean sharp = true;
     
     public Sword() {
-        this.owner       = null;
+        super();
     }
     
     public Sword(Creature owner) {

@@ -13,7 +13,7 @@ public class Knuckleduster extends Item {
     
     private int damage   = 10;
     private int maxRange = 1;
-    private int minRange = 0;
+    private int minRange = 1;
     
     private String name = "Knuckleduster";
     private String description = "Short-range blunt weapons.";
@@ -21,7 +21,7 @@ public class Knuckleduster extends Item {
     private boolean sharp = true;
     
     public Knuckleduster() {
-        this.owner       = null;
+        super();
     }
     
     public Knuckleduster(Creature owner) {

@@ -4,6 +4,7 @@
  */
 package World;
 import java.lang.Math;
+import java.util.ArrayList;
 import AI.*;
 
 public class Creature {
@@ -49,6 +50,8 @@ public class Creature {
      * The offhand weapon or shield.
      */
     private Item offHand;
+
+    private ArrayList<Item> inventory;
     
     // Stats
     private int strength = 10;
@@ -63,6 +66,7 @@ public class Creature {
     private boolean aiFlag = true;
     private AI ai;
     private boolean stunned = false;
+    private boolean bleeding = false;
     
     // Negative int as target values represent no target.
     private boolean targeting = false;
@@ -72,12 +76,14 @@ public class Creature {
 
     public Creature(Environment world) {
         this.world = world;
-        this.equip(new Item(this));
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
         this.description = "A somewhat ugly creature.";
-        this.equipRandomWeapon();
+        this.inventory = new ArrayList<Item>();
+        //this.equipRandomWeapon();
+        this.equip(new Dagger(this));
+        this.equip(new Dagger(this));        
     }
     
     public Creature(Environment world, int newX, int newY) {
@@ -111,6 +117,7 @@ public class Creature {
      * Giving the char a weapon.
      */
     public void equip(Item item) {
+        this.inventory.add(item);
         if (mainHand == null) {
             this.mainHand = item;
         } else {
@@ -122,10 +129,10 @@ public class Creature {
         double d = Math.random();
         if (d < 0.2) {
             this.equip(new Dagger(this));
-            this.equip(new Dagger(this));            
+            this.equip(new Dagger(this));
         } else if (d < 0.4 && d > 0.2) {
-            this.equip(new Knuckleduster(this));            
-            this.equip(new Knuckleduster(this));                        
+            this.equip(new Knuckleduster(this));
+            this.equip(new Knuckleduster(this));
         } else if (d < 0.6 && d > 0.4) {
             this.equip(new Sword(this));
             this.equip(new Shield(this));            
@@ -183,7 +190,7 @@ public class Creature {
         if (target == null) {
             world.report(this. name + " swings wildly and misses!");
         } else {
-            hitmodifier = this.getWeapon().getMaxRange() - this.getDistance(target.getX(), target.getY());
+            hitmodifier = this.getWeapons().get(0).getMaxRange() - this.getDistance(target.getX(), target.getY());
         }
         
         // calculating damage
@@ -234,14 +241,14 @@ public class Creature {
     public void damage(int amount) {
         
         // first check for dodge
-        if (!dodge()) {
+        if (!dodge() || !block()) {
             this.health -= amount;
         }
         if (health <= 0) {
             die();
         }
     }
-    
+        
     public boolean dodge() {
         if (Math.random() < ((double)agility / 100)) {
             world.report(this.name + " dodges!");
@@ -249,6 +256,18 @@ public class Creature {
         } else {
             return false;
         }
+    }
+    
+    public boolean block() {
+        for (Item i : this.inventory) {
+            if (i.isDefensive() && Math.random() < ((double)agility / 100)) {
+                world.report(this.name + " blocks!");
+                return true;
+                
+            }
+        }
+        
+        return false;
     }
     
     /**
@@ -304,12 +323,14 @@ public class Creature {
                 return false;
             }
         } else {
-            this.targetX = this.targetX + xChange;
-            this.targetY = this.targetY + yChange;
+            if (inRange(targetX, targetY)) {
+                this.targetX = this.targetX + xChange;
+                this.targetY = this.targetY + yChange;
+            }
             
             for (Creature creature : world.getAntagonists()) {
                 if (creature.getX() == this.targetX && creature.getY() == this.targetY) {
-                    world.report(creature.getName() + " wielding " + creature.getWeapon().toString() + ".");
+                    world.report(creature.getName() + " wielding " + creature.getWeapons().toString() + ".");
                 }
             }
             return true;
@@ -317,6 +338,13 @@ public class Creature {
         
     }
 
+    public boolean inRange(int x, int y) {
+        if (this.getDistance(x, y) <= this.getWeapons().get(0).getMaxRange()) {
+            return true;
+        }
+        return false;
+    }
+    
     public void setCoordinate(int newX, int newY) {
         this.x = newX;
         this.y = newY;
@@ -383,8 +411,19 @@ public class Creature {
         return d;
     }
     
-    public Item getWeapon() {
-        return this.mainHand;
+    public ArrayList<Item> getWeapons() {
+        ArrayList<Item> weapons = new ArrayList<Item>();
+        for (Item i : inventory) {
+            if (!i.isDefensive()) {
+                weapons.add(i);
+            }
+        }
+        
+        return weapons;        
+    }
+    
+    public ArrayList<Item> getInventory() {
+        return this.inventory;
     }
     
     public Environment getWorld() {
@@ -442,6 +481,14 @@ public class Creature {
         } else {
             return "";
         }
+    }
+    
+    public String getBleedingString() {
+        if (this.bleeding) {
+            return "Bleeding!";
+        } else {
+            return "";
+        }        
     }
     
     public boolean getAttackStatus() {

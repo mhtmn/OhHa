@@ -3,21 +3,20 @@ package World;
  * A class for creating items, so far mostly weapons.
  */
 
-public class Item {
+public abstract class Item {
     private Creature owner;
     
     private int damage   = 10;
-    private int maxRange = 3;
-    private int minRange = 2;
+    private int maxRange = 1;
+    private int minRange = 1;
     
-    private String name;
-    private String description;
+    private String name = "A bland item";
+    private String description = "An item without qualities";
     
-    private boolean sharp;
+    private boolean sharp = false;
     private boolean defensive = false;
     
     public Item() {
-        this.owner       = null;
     }
     
     public Item(Creature owner) {
@@ -35,6 +34,10 @@ public class Item {
     
     public int getMinRange() {
         return this.minRange;
+    }
+    
+    public boolean isDefensive() {
+        return this.defensive;
     }
     
     @Override

@@ -51,11 +51,11 @@ public class AI {
                 if (canAttack(protagonistX, protagonistY)) {
                     self.attack();
                 // else if we're too close, move away.
-                } else if (self.getDistance(protagonistX, protagonistY) < self.getWeapon().getMinRange()) {
+                } else if (self.getDistance(protagonistX, protagonistY) < self.getWeapons().get(0).getMinRange()) {
                     moveRandomly();
                     // Else if we're not that far, move cautiously
-                } else if (self.getDistance(protagonistX, protagonistY) > self.getWeapon().getMaxRange()
-                        && self.getDistance(protagonistX, protagonistY) < self.getWeapon().getMaxRange() + 1) {
+                } else if (self.getDistance(protagonistX, protagonistY) > self.getWeapons().get(0).getMaxRange()
+                        && self.getDistance(protagonistX, protagonistY) < self.getWeapons().get(0).getMaxRange() + 1) {
                     // bad fudge)
                     if (random.nextInt(3) == 0) {
                         self.getWorld().report(self.getName() + " leaps towards you!");
@@ -146,8 +146,8 @@ public class AI {
      * @return boolean
      */
     public boolean canAttack(int x, int y) {
-        if (self.getWeapon().getMaxRange() >= self.getDistance(protagonistX, protagonistY)
-                && self.getWeapon().getMinRange() <= self.getDistance(protagonistX, protagonistY)) {
+        if (self.getWeapons().get(0).getMaxRange() >= self.getDistance(protagonistX, protagonistY)
+                && self.getWeapons().get(0).getMinRange() <= self.getDistance(protagonistX, protagonistY)) {
             return true;
         } else {
             return false;
