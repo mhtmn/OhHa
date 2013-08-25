@@ -36,6 +36,11 @@ public class AI {
                 this.escaping = true;
             }
             
+            // If the player is dead, just walk about casually
+            if (!protagonist.isAlive()) {
+                moveRandomly();
+            }
+            
             // First decide whether to move or attack
             if (self.getStunnedStatus()) {
                 if (Math.random() < 0.33) {
@@ -53,6 +58,7 @@ public class AI {
                 // If the target is close enough, attack those coordinates
                 if (canAttack(protagonistX, protagonistY)) {
                     self.attack();
+                    
                 // else if we're too close, move away.
                 } else if (self.getDistance(protagonistX, protagonistY) < self.getWeapons().get(0).getMinRange()) {
                     escape();

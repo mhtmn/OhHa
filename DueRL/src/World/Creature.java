@@ -295,6 +295,8 @@ public class Creature {
         this.icon = '%';
         this.description = "a corpse";
         this.name = "A corpse";
+        this.setBleed(false);
+        this.setStun(false);
         this.alive = false;
     }
     
@@ -324,7 +326,7 @@ public class Creature {
                 return false;
             }
         } else {
-            if (inRange(targetX, targetY)) {
+            if (world.contains(this.targetX + xChange, this.targetY + yChange)) {
                 this.targetX = this.targetX + xChange;
                 this.targetY = this.targetY + yChange;
             }
@@ -336,26 +338,13 @@ public class Creature {
             }
             return true;
         }
-        
-    }
-
-    public boolean inRange(int x, int y) {
-        if (this.getDistance(x, y) <= this.getWeapons().get(0).getMaxRange()) {
-            return true;
-        }
-        return false;
     }
     
     public void setCoordinate(int newX, int newY) {
         this.x = newX;
         this.y = newY;
     }
-    
-    /*public void setTarget(int x, int y) {
-        this.targetX = x;
-        this.targetY = y;
-    }*/
-    
+        
     public int getX() {
         return this.x;
     }
@@ -488,6 +477,15 @@ public class Creature {
 
     public boolean isTargeting() {
         return this.targeting;
+    }
+    
+    public boolean isInRange(int x, int y) {
+        if (this.getDistance(x, y) > this.getWeapons().get(0).getMinRange()
+         && this.getDistance(x, y) < this.getWeapons().get(0).getMaxRange() ) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /**

@@ -60,6 +60,7 @@ public class Environment {
 
         // Creating the opponent(s).
         this.antagonists.add(new Creature(this, random.nextInt(worldSize - 2) + 1, random.nextInt(worldSize - 2) + 1, "Antagonist"));
+        this.antagonists.add(new Creature(this, random.nextInt(worldSize - 2) + 1, random.nextInt(worldSize - 2) + 1, "Antagonist"));
         for (Creature enemy : antagonists) {
             enemy.makeSentient();
         }
@@ -109,40 +110,14 @@ public class Environment {
                 }
             }
         }
-        
+
         // Player and enemy bleeds and stuns
-        if (protagonist.getBleedingStatus() && !protagonist.isTargeting()) {
-            protagonist.bleed();
-            if (Math.random() < 0.33) {
-                protagonist.setBleed(false);
-            }
-        }
+        checkDebuffs(protagonist);
         
         for (Creature enemy : antagonists) {
-            if (enemy.getBleedingStatus() && !protagonist.isTargeting()) {
-                enemy.bleed();
-            }
-            if (Math.random() < 0.33) {
-                enemy.setBleed(false);
-            }
+            checkDebuffs(enemy);
         }
         
-        if (protagonist.getStunnedStatus() && !protagonist.isTargeting()) {
-            if (Math.random() < 0.33) {
-                protagonist.setStun(false);
-                report(protagonist.getName() + " is no longer stunned.");
-            }
-        }
-
-        for (Creature enemy : antagonists) {
-            if (enemy.getStunnedStatus() && !protagonist.isTargeting()) {
-                if (Math.random() < 0.33) {
-                    enemy.setStun(false);
-                    report(enemy.getName() + " is no longer stunned.");
-                }
-            }
-        }
-
         // smooshing the character and enemy icons into the world
         for (Creature enemy : antagonists) {
             world[enemy.getX()][enemy.getY()] = enemy.getIcon();
@@ -152,10 +127,29 @@ public class Environment {
 
 
         if (protagonist.isTargeting()) {
-            world[protagonist.getTargetX()][protagonist.getTargetY()] = 'X';
+            if (protagonist.isInRange(protagonist.getTargetX(), protagonist.getTargetY())) {
+                world[protagonist.getTargetX()][protagonist.getTargetY()] = 'X';
+            } else {
+                world[protagonist.getTargetX()][protagonist.getTargetY()] = 'x';
+            }
         }
     }
-
+    
+    public void checkDebuffs(Creature creature) {
+        if (creature.getBleedingStatus() && !protagonist.isTargeting()) {
+            creature.bleed();
+            if (Math.random() < 0.33) {
+                creature.setBleed(false);
+            }
+        }
+                
+        if (creature.getStunnedStatus() && !protagonist.isTargeting()) {
+            if (Math.random() < 0.33) {
+                creature.setStun(false);
+                report(creature.getName() + " is no longer stunned.");
+            }
+        }        
+    }
     
     // getters    
     
@@ -179,6 +173,14 @@ public class Environment {
             return false;
         } else if (this.world[x][y] == floorIcon
                 || this.world[x][y] == '%') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean contains(int x, int y) {
+        if ( (x >= 0 && y >= 0) && (x <= this.worldSize && y <= this.worldSize) ) {
             return true;
         } else {
             return false;
