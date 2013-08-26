@@ -45,25 +45,33 @@ public class ItemGeneration {
     
     @Test
     public void generation() {
-        Dagger epic = new Dagger();
+        Environment world = new Environment(1, 25);
+        Creature creature = new Creature(world);
+        Item epic = new Item(creature, 2);
         assert(epic != null);
     }
     
     @Test
     public void getDamage() {
-        Knuckleduster epic = new Knuckleduster();
+        Environment world = new Environment(1, 25);
+        Creature creature = new Creature(world);
+        Item epic = new Item(creature, 3);
         assert(epic.getDamage() == 10);
     }
     
     @Test
     public void getMaxRange() {
-        Sword epic = new Sword();
+        Environment world = new Environment(1, 25);
+        Creature creature = new Creature(world);
+        Item epic = new Item(creature, 5);
         assert(epic.getMaxRange() == 2);
     }
     
     @Test
     public void getMinRange() {
-        Mace epic = new Mace();
+        Environment world = new Environment(1, 25);
+        Creature creature = new Creature(world);
+        Item epic = new Item(creature, 4);
         assert(epic.getMinRange()==1);
     }
 

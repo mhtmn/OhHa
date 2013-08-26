@@ -79,11 +79,8 @@ public class Creature {
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
-        this.description = "A somewhat ugly creature.";
         this.inventory = new ArrayList<Item>();
         this.equipRandomWeapon();
-        //this.equip(new Dagger(this));
-        //this.equip(new Dagger(this));
     }
     
     public Creature(Environment world, int newX, int newY) {
@@ -128,19 +125,24 @@ public class Creature {
     public void equipRandomWeapon() {
         double d = Math.random();
         if (d < 0.2) {
-            this.equip(new Dagger(this));
-            this.equip(new Dagger(this));
+            // Two daggers
+            this.equip(new Item(this, 2));
+            this.equip(new Item(this, 2));
         } else if (d < 0.4 && d > 0.2) {
-            this.equip(new Knuckleduster(this));
-            this.equip(new Knuckleduster(this));
+            // Two knuckledusters
+            this.equip(new Item(this, 3));
+            this.equip(new Item(this, 3));
         } else if (d < 0.6 && d > 0.4) {
-            this.equip(new Sword(this));
-            this.equip(new Shield(this));            
+            // Sword and shield
+            this.equip(new Item(this, 5));
+            this.equip(new Item(this, 6));            
         } else if (d < 0.8 && d > 0.6) {
-            this.equip(new Mace(this));
-            this.equip(new Shield(this));            
+            // Mace and shield
+            this.equip(new Item(this, 4));
+            this.equip(new Item(this, 6));            
         } else {
-            this.equip(new Greataxe(this));
+            // Greataxe
+            this.equip(new Item(this, 1));
         }
     }
     
@@ -178,12 +180,6 @@ public class Creature {
                 }
             }            
         }
-        
-        // damage is affected by 1) attacker's strength
-        //                       2) weapon's damage rating
-        //                       3) distance versus weapon's range
-        //                       4) chance of a critical hit
-        //                     ( 5) dodge chance? )
         
         // calculating distance modifier
         double hitmodifier = 0.0;
@@ -413,8 +409,10 @@ public class Creature {
         int a = Math.abs(this.x - fromX);
         int b = Math.abs(this.y - fromY);
         double d = Math.sqrt(a * a + b * b);
+
+        // apparently this is the fastest rounding available
         d = Math.round(d*100)/100.0d;
-        System.out.println(d);
+        
         return d;
     }
     

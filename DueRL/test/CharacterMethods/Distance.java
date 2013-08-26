@@ -40,7 +40,7 @@ public class Distance {
     
     @Test
     public void distanceWhenOneTileAway() {
-        Environment world = new Environment();
+        Environment world = new Environment(1, 25);
         Creature first = new Creature(world, 2, 1);
         Creature second = new Creature(world, 2, 2);
         assert(first.getDistance(second.getX(), second.getY()) == 1.0);
@@ -48,7 +48,7 @@ public class Distance {
 
     @Test
     public void distanceWhenDiagonalTileAway() {
-        Environment world = new Environment();
+        Environment world = new Environment(1, 25);
         Creature first = new Creature(world, 1, 1);
         Creature second = new Creature(world, 2, 2);
         assert(first.getDistance(second.getX(), second.getY()) == 1.41);

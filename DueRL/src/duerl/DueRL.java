@@ -5,8 +5,8 @@
 package duerl;
 
 import World.Environment;
-import javax.swing.SwingUtilities;
 import UI.Interface;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,11 +19,12 @@ public class DueRL {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Environment playfield = new Environment();
+
+        Environment world = new Environment(1, 20);
         
-        playfield.update();
+        world.packWorld();        
         
-        Interface userInterface = new Interface(playfield);
+        Interface userInterface = new Interface(world);
         SwingUtilities.invokeLater(userInterface); 
     }
 }

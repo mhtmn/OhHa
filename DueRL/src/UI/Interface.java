@@ -29,7 +29,10 @@ public class Interface implements Runnable {
     public StatDisplay statDisplay;
     public JTextArea infoArea;
     
-    private String infoText = "WASD or arrow keys to move." + "\n" + "Space to target/attack." + "\n" + "Q to quit.";
+    private String infoText = "\nWASD or arrow keys to move." + "\n" 
+                            + "Space to target/attack." + "\n"
+                            + "Enter to use stairs." + "\n" 
+                            + "Q to quit.";
     
     public Interface(Environment world) {
         this.world = world;
@@ -87,7 +90,7 @@ public class Interface implements Runnable {
 
         keyBindings.setBackground(Color.BLACK);
         keyBindings.setFont(infoAreaFont);
-        keyBindings.setForeground(Color.DARK_GRAY);
+        keyBindings.setForeground(Color.PINK);
         
         combatLog.setBackground(Color.BLACK);
         combatLog.setFont(infoAreaFont);

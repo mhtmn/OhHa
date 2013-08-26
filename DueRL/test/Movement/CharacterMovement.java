@@ -46,7 +46,7 @@ public class CharacterMovement {
     
     @Test
     public void moveNW() {
-        Creature a = new Creature(new Environment(), 5,5);
+        Creature a = new Creature(new Environment(1, 25), 5,5);
         a.move(-1, -1);
         
         assert(a.getX() == 4);
@@ -55,7 +55,7 @@ public class CharacterMovement {
 
     @Test
     public void moveN() {
-        Creature a = new Creature(new Environment(), 5,5);
+        Creature a = new Creature(new Environment(2, 25), 5,5);
         a.move(0, -1);
         
         assert(a.getX() == 5);
@@ -64,7 +64,7 @@ public class CharacterMovement {
 
     @Test
     public void moveS() {
-        Creature a = new Creature(new Environment(), 5,5);
+        Creature a = new Creature(new Environment(3, 25), 5,5);
         a.move(0, +1);
         
         assert(a.getX() == 5);
@@ -73,7 +73,7 @@ public class CharacterMovement {
 
     @Test
     public void tryToMoveOutOfWorld() {
-        Environment world = new Environment();
+        Environment world = new Environment(4, 25);
         for (int i=0;i<20;i++) {
             world.getProtagonist().move(-1, -1);
         }

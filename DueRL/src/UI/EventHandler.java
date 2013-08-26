@@ -30,22 +30,32 @@ public class EventHandler implements KeyListener {
      */
     public void keyPressed(KeyEvent e) {
         boolean success;
+        
+        if (world.getProtagonist().isTargeting() && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            world.getProtagonist().clearTarget();
+            world.packWorld();
+        }
+        
         if (!world.getProtagonist().getStunnedStatus()) {
             if (e.getKeyCode() == KeyEvent.VK_LEFT
                     || e.getKeyCode() == KeyEvent.VK_A) {
                 success = world.getProtagonist().move(0, -1);
+                world.update();
 
             } else if (e.getKeyCode() == KeyEvent.VK_RIGHT
                     || e.getKeyCode() == KeyEvent.VK_D) {
                 success = world.getProtagonist().move(0, 1);
+                world.update();
 
             } else if (e.getKeyCode() == KeyEvent.VK_UP
                     || e.getKeyCode() == KeyEvent.VK_W) {
                 success = world.getProtagonist().move(-1, 0);
+                world.update();
 
             } else if (e.getKeyCode() == KeyEvent.VK_DOWN
                     || e.getKeyCode() == KeyEvent.VK_S) {
                 success = world.getProtagonist().move(1, 0);
+                world.update();
 
             } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 // if protagonist has a target, attack
@@ -56,9 +66,15 @@ public class EventHandler implements KeyListener {
                 } else {
                     world.getProtagonist().startTargeting();
                 }
+            } else if (e.getKeyCode() == KeyEvent.VK_ENTER
+                    && world.getProtagonist().getX() == world.getExitX()
+                    && world.getProtagonist().getY() == world.getExitY()) {
+                nextLevel();
             }
-        } else {
+            
+        } else if (world.getProtagonist().getStunnedStatus()) {
             world.report("You're stunned!");
+            world.update();
         }
         
         if (e.getKeyCode() == KeyEvent.VK_Q) {
@@ -66,11 +82,14 @@ public class EventHandler implements KeyListener {
             ui.exit();
         }
 
-        world.update();
         component.repaint();
         ui.repaint();
     }
 
+    public void nextLevel() {
+        System.out.println("NEXT LEVEL SHIT");
+    }
+        
     @Override
     public void keyReleased(KeyEvent e) {
     }

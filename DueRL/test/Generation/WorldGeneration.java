@@ -45,11 +45,11 @@ public class WorldGeneration {
     // public void hello() {}
     @Test
     public void generateWorld() {
-        Environment cosmos = new Environment();
+        Environment cosmos = new Environment(1, 25);
     }
     
     @Test void populateGetProtagonist() {
-        Environment cosmos = new Environment();
+        Environment cosmos = new Environment(2, 25);
         assert(cosmos.getProtagonist() != null);
     }
 }

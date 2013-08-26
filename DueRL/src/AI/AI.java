@@ -21,7 +21,7 @@ public class AI {
     }
 
     /**
-     * Checking protagonist coordinates to make code a bit cleaner
+     * This method is for taking one turn
      */
     public void step() {
         Creature protagonist = self.getWorld().getProtagonist();
@@ -29,46 +29,50 @@ public class AI {
         protagonistY = self.getWorld().getProtagonist().getY();
 
         if (self.isAlive()) {
-            if (escaping && Math.random() < 0.25) {
-                this.escaping = false;
+            
+            
+            // First we check if AI is panicking or stunned (and if player is alive) 
+            if (!protagonist.isAlive()) {
+                moveRandomly();
+                
             } else if (self.getHealth() < 20) {
                 self.getWorld().report(self.getName() + " is escaping.");                                        
                 this.escaping = true;
-            }
-            
-            // If the player is dead, just walk about casually
-            if (!protagonist.isAlive()) {
-                moveRandomly();
-            }
-            
-            // First decide whether to move or attack
-            if (self.getStunnedStatus()) {
+
+            } else if (escaping && Math.random() < 0.25) {
+                this.escaping = false;
+                                
+            } else if (self.getStunnedStatus()) {
                 if (Math.random() < 0.33) {
                     moveRandomly();
                 }
                 self.getWorld().report(self.getName() + " appears to be stunned.");        
+
             } else if (escaping) {
                 if (Math.random() < 0.5) {
                     escape();
                 } else {
                     moveRandomly();
                 }
+                
+            // if none of those is the case, we check for other possibilities 
             } else {
-
                 // If the target is close enough, attack those coordinates
                 if (canAttack(protagonistX, protagonistY)) {
                     self.attack();
                     
-                // else if we're too close, move away.
+                // If we're too close, move away.
                 } else if (self.getDistance(protagonistX, protagonistY) < self.getWeapons().get(0).getMinRange()) {
                     escape();
-                    // Else if we're not that far, move cautiously
+                    
+                // If we're not that far, i.e. just outside opponent's range, move mostly cautiously or go for surprise attack
                 } else if (self.getDistance(protagonistX, protagonistY) > protagonist.getWeapons().get(0).getMaxRange()
                         && self.getDistance(protagonistX, protagonistY) < protagonist.getWeapons().get(0).getMaxRange() + 1) {
-                    // bad fudge)
-                    if (random.nextInt(3) == 0) {
+
+                    if (Math.random() < 0.33) {
                         self.getWorld().report(self.getName() + " leaps towards you!");
                         moveGreedily();
+
                     } else {
                         moveCautiously();
                     }
@@ -85,7 +89,6 @@ public class AI {
      * Method for a random move.
      */
     public void moveRandomly() {
-        // Used for stuns
         int x = (random.nextInt(3) - 1);
         int y = (random.nextInt(3) - 1);
         self.move(x, y);
@@ -112,6 +115,8 @@ public class AI {
             y = -1;
         }
 
+        
+        
         self.move(x, y);
     }
 
