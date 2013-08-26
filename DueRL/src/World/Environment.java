@@ -3,19 +3,18 @@
  */
 package World;
 
-import java.util.ArrayList;
 import UI.CombatLog;
 
 public class Environment {
     
     private Creature protagonist;
-    private ArrayList<Creature> antagonists;
     private int worldSize;
     private CombatLog combatLog;
     private Level level;
 
     public Environment(int levelDepth, int worldSize) {
         this.protagonist = new Creature(this, 1, 1, "Protagonist");
+        this.protagonist.setIcon('@');
         this.combatLog = new CombatLog();
         this.worldSize = worldSize;
 
@@ -56,7 +55,7 @@ public class Environment {
             }
 
             // enemy attacks
-            for (Creature enemy : antagonists) {
+            for (Creature enemy : level.getAntagonists()) {
                 if (enemy.getAttackStatus()) {
                     for (Item i : enemy.getWeapons()) {
                         enemy.calculateDamage(i);
@@ -69,7 +68,7 @@ public class Environment {
         // Player and enemy bleeds and stuns
         checkDebuffs(protagonist);
 
-        for (Creature enemy : antagonists) {
+        for (Creature enemy : level.getAntagonists()) {
             checkDebuffs(enemy);
         }
 

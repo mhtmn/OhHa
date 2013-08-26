@@ -29,6 +29,7 @@ public class Level {
     private Random random;
 
     public Level(Environment world, int level) {
+        this.world = world;
         this.worldSize = world.getSize();
         this.protagonist = world.getProtagonist();
         this.antagonists = new ArrayList<Creature>();
@@ -48,7 +49,7 @@ public class Level {
         this.drawFloor();
 
         // Setting walls to outer limits of the world.
-        for (int i = 0; i < worldSize; i++) {
+        for (int i = 0; i < world.getSize(); i++) {
             level[i][0] = obstacleIcon;
             level[i][worldSize - 1] = obstacleIcon;
             level[0][i] = obstacleIcon;
@@ -64,12 +65,12 @@ public class Level {
         System.out.println("Populating a " + worldSize + "x" + worldSize + " level with " + numberOfEnemies + " enemies...");
 
         // Place the player on map
-        protagonist.setCoordinates(( random.nextInt(worldSize - 2) + 1 ), ( random.nextInt(worldSize - 2) + 1 ));
+        this.protagonist.setCoordinates(( random.nextInt(worldSize - 2) + 1 ), ( random.nextInt(worldSize - 2) + 1 ));
 
         // Creating the opponent(s).
         for (int i = 0;i < numberOfEnemies;i++) {
             this.antagonists.add(new Creature(this.world, ( random.nextInt(worldSize - 2) + 1 ), 
-                                                    ( random.nextInt(worldSize - 2) + 1 ), "Antagonist"));
+                                                          ( random.nextInt(worldSize - 2) + 1 ), "Antagonist"));
         }
         
         for (Creature enemy : antagonists) {
