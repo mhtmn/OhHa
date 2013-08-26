@@ -33,7 +33,7 @@ public class EventHandler implements KeyListener {
         
         if (world.getProtagonist().isTargeting() && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             world.getProtagonist().clearTarget();
-            world.packWorld();
+            world.getLevel().packWorld();
         }
         
         if (!world.getProtagonist().getStunnedStatus()) {
@@ -67,8 +67,8 @@ public class EventHandler implements KeyListener {
                     world.getProtagonist().startTargeting();
                 }
             } else if (e.getKeyCode() == KeyEvent.VK_ENTER
-                    && world.getProtagonist().getX() == world.getExitX()
-                    && world.getProtagonist().getY() == world.getExitY()) {
+                    && world.getProtagonist().getX() == world.getLevel().getExitX()
+                    && world.getProtagonist().getY() == world.getLevel().getExitY()) {
                 nextLevel();
             }
             

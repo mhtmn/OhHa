@@ -21,9 +21,7 @@ public class DueRL {
         // TODO code application logic here
 
         Environment world = new Environment(1, 20);
-        
-        world.packWorld();        
-        
+                
         Interface userInterface = new Interface(world);
         SwingUtilities.invokeLater(userInterface); 
     }

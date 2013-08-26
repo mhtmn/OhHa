@@ -171,7 +171,7 @@ public class Creature {
             target = this.world.getProtagonist();
         } else {
             // else check what the player is targeting
-            for (Creature enemy : world.getAntagonists()) {
+            for (Creature enemy : world.getLevel().getAntagonists()) {
                 if (enemy.getX() == this.targetX 
                 && enemy.getY() == this.targetY) {
                     target = enemy;
@@ -314,20 +314,20 @@ public class Creature {
             int newX = this.x + xChange;
             int newY = this.y + yChange;
 
-            if (world.isFree(newX, newY)) {
-                this.setCoordinate(newX, newY);
+            if (world.getLevel().isFree(newX, newY)) {
+                this.setCoordinates(newX, newY);
                 return true;
             
             } else {
                 return false;
             }
         } else {
-            if (world.contains(this.targetX + xChange, this.targetY + yChange)) {
+            if (world.getLevel().contains(this.targetX + xChange, this.targetY + yChange)) {
                 this.targetX = this.targetX + xChange;
                 this.targetY = this.targetY + yChange;
             }
             
-            for (Creature creature : world.getAntagonists()) {
+            for (Creature creature : world.getLevel().getAntagonists()) {
                 if (creature.getX() == this.targetX && creature.getY() == this.targetY) {
                     world.report(creature.getName() + " wielding " + creature.getWeapons().toString() + ".");
                 }
@@ -336,7 +336,7 @@ public class Creature {
         }
     }
     
-    public void setCoordinate(int newX, int newY) {
+    public void setCoordinates(int newX, int newY) {
         this.x = newX;
         this.y = newY;
     }

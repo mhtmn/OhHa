@@ -32,8 +32,28 @@ public class Level {
         this.worldSize = world.getSize();
         this.protagonist = world.getProtagonist();
         this.antagonists = new ArrayList<Creature>();
-        
+        this.random = new Random();
+
+        buildWorld();
         populate(level);
+    }
+
+    /**
+     * Building world geometry. . is interpreted as floor, # as wall.
+     */
+    private void buildWorld() {
+        System.out.println("Building world...");
+        level = new char[worldSize][worldSize];
+
+        this.drawFloor();
+
+        // Setting walls to outer limits of the world.
+        for (int i = 0; i < worldSize; i++) {
+            level[i][0] = obstacleIcon;
+            level[i][worldSize - 1] = obstacleIcon;
+            level[0][i] = obstacleIcon;
+            level[worldSize - 1][i] = obstacleIcon;
+        }
     }
     
     /**
@@ -44,7 +64,7 @@ public class Level {
         System.out.println("Populating a " + worldSize + "x" + worldSize + " world with " + numberOfEnemies + " enemies...");
 
         // Place the player on map
-        this.protagonist.setCoordinate(( random.nextInt(worldSize - 2) + 1 ), ( random.nextInt(worldSize - 2) + 1 ));
+        this.protagonist.setCoordinates(( random.nextInt(worldSize - 2) + 1 ), ( random.nextInt(worldSize - 2) + 1 ));
 
         // Creating the opponent(s).
         for (int i = 0;i < numberOfEnemies;i++) {
@@ -75,6 +95,10 @@ public class Level {
         world.report("(Press enter on stairs to continue)");
         world.report("Stairs have emerged!");
     }
+    
+    public boolean exitExists() {
+        return this.exitExists;
+    }
 
     public void packWorld() {
         this.drawFloor();
@@ -99,7 +123,7 @@ public class Level {
         
     }
 
-    // getters    
+    // getters   
     public int getSize() {
         return this.worldSize;
     }
@@ -110,6 +134,10 @@ public class Level {
     
     public int getExitY() {
         return this.exitY;
+    }
+    
+    public ArrayList<Creature> getAntagonists() {
+        return this.antagonists;
     }
     
     /**
