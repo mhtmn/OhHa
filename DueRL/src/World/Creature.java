@@ -3,9 +3,10 @@
  * instances of this class.
  */
 package World;
+import AI.*;
 import java.lang.Math;
 import java.util.ArrayList;
-import AI.*;
+import java.util.Random;
 
 public class Creature {
 
@@ -484,6 +485,41 @@ public class Creature {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Creates a name for the NPC's :-) 
+     * For extra silliness.
+     * @return name as a string
+     */
+    public void createName() {
+        Random r = new Random();
+        
+        String returnName = "";
+        ArrayList<String> closedSyllables = new ArrayList<String>();
+        ArrayList<String> openSyllables = new ArrayList<String>(); 
+
+        closedSyllables.add("gol");
+        closedSyllables.add("grol");
+        closedSyllables.add("bal");
+        closedSyllables.add("bol");
+        closedSyllables.add("zug");
+        closedSyllables.add("bog");
+        openSyllables.add("gu");
+        openSyllables.add("ba");
+        openSyllables.add("ro");
+        openSyllables.add("zu");
+        
+        returnName += closedSyllables.get(r.nextInt(closedSyllables.size()));
+        
+        if (r.nextBoolean()) {
+            returnName += openSyllables.get(r.nextInt(openSyllables.size()));
+        }
+        
+        returnName += closedSyllables.get(r.nextInt(closedSyllables.size()));
+        
+        // Capitalization added
+        this.name = Character.toUpperCase(returnName.charAt(0)) + returnName.substring(1);
     }
     
     /**

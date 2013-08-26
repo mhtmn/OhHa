@@ -15,7 +15,7 @@ public class Environment {
     private Level level;
 
     public Environment(int levelDepth, int worldSize) {
-        this.protagonist = new Creature(this,1,1,"Protagonist");
+        this.protagonist = new Creature(this, 1, 1, "Protagonist");
         this.combatLog = new CombatLog();
         this.worldSize = worldSize;
 

@@ -61,10 +61,10 @@ public class Level {
      * antagonist characters.
      */
     private void populate(int numberOfEnemies) {
-        System.out.println("Populating a " + worldSize + "x" + worldSize + " world with " + numberOfEnemies + " enemies...");
+        System.out.println("Populating a " + worldSize + "x" + worldSize + " level with " + numberOfEnemies + " enemies...");
 
         // Place the player on map
-        this.protagonist.setCoordinates(( random.nextInt(worldSize - 2) + 1 ), ( random.nextInt(worldSize - 2) + 1 ));
+        protagonist.setCoordinates(( random.nextInt(worldSize - 2) + 1 ), ( random.nextInt(worldSize - 2) + 1 ));
 
         // Creating the opponent(s).
         for (int i = 0;i < numberOfEnemies;i++) {
@@ -74,6 +74,7 @@ public class Level {
         
         for (Creature enemy : antagonists) {
             enemy.makeSentient();
+            enemy.createName();
         }
     }
 
