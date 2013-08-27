@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import Domain.Environment;
+
 /**
  * Class taking care of handling and updating the highscore
  */
@@ -11,13 +13,14 @@ public class HighScore {
 
     ArrayList<String> highscoreArray;
     File highscoreFile = new File("highscore.txt");
+    Environment world;
             
-    public HighScore() {
+    public HighScore(Environment world) {
+        this.world = world;
         this.highscoreArray = new ArrayList<String>();
     }
     
     public void readFile() throws Exception {
-        // tiedosto mistä luetaan
         Scanner reader = new Scanner(highscoreFile);
 
         while (reader.hasNextLine()) {
