@@ -62,7 +62,7 @@ public class Item {
 
     public void Dagger() {
         this.damage   = 5;
-        this.maxRange = 1;
+        this.maxRange = 2;
         this.minRange = 1;
         this.name     = "Daggers";
         this.description = "Short blades.";    

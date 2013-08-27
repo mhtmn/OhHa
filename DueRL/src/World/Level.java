@@ -92,8 +92,8 @@ public class Level {
     
     public void createExit() {
         this.exitExists = true;
-        this.exitX = 5;
-        this.exitY = 5;
+        this.exitX = random.nextInt((worldSize-2)+1);
+        this.exitY = random.nextInt((worldSize-2)+1);
         world.report("(Press enter on stairs to continue)");
         world.report("Stairs have emerged!");
     }

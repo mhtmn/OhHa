@@ -283,6 +283,15 @@ public class Creature {
     public void flagTargeting() {
         this.targeting = true;
     }
+    
+    public void gainLevel() {
+        this.maxHealth += 10;
+        this.strength += 5;
+        this.agility += 5;
+        this.stunned = false;
+        this.bleeding = false;
+        this.health = this.maxHealth;
+    }
 
     /**
      * A method for readying the char for afterlife.
@@ -445,8 +454,8 @@ public class Creature {
     }
     
     public void setHeroMode() {
-        this.strength = 100;
-        this.agility = 100;
+        this.strength = 50;
+        this.agility = 50;
         this.health = 1000;
     }
     
@@ -539,6 +548,14 @@ public class Creature {
         } else {
             return "";
         }        
+    }
+    
+    public String getAliveString() {
+        if (!this.alive) {
+            return "DEAD";
+        } else {
+            return "";
+        }
     }
     
     public boolean getAttackStatus() {

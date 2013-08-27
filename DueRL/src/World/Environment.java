@@ -11,12 +11,15 @@ public class Environment {
     private int worldSize;
     private CombatLog combatLog;
     private Level level;
-
+    private int levelDepth;
+    
     public Environment(int levelDepth, int worldSize) {
         this.protagonist = new Creature(this, 1, 1, "Protagonist");
         this.protagonist.setIcon('@');
+        this.protagonist.setAIStatus(false);
         this.combatLog = new CombatLog();
         this.worldSize = worldSize;
+        this.levelDepth = levelDepth;
 
         this.level = new Level(this, levelDepth);
         level.packWorld();
@@ -29,12 +32,15 @@ public class Environment {
     public void update() {
 
         // if all enemies are dead, create exit
+        boolean allEnemiesDead = true;
         for (Creature enemy : level.getAntagonists()) {
             if (enemy.isAlive()) {
-                break;
-            } else if (!level.exitExists()) {
-                level.createExit();
+                allEnemiesDead = false;
             }
+        }
+        
+        if (!level.exitExists() && allEnemiesDead) {
+                level.createExit();
         }
         
         // enemy moving
@@ -92,6 +98,13 @@ public class Environment {
         }
     }
 
+    public void nextLevel() {
+        this.levelDepth += 1;
+        this.level = new Level(this, this.levelDepth);
+        this.protagonist.gainLevel();
+        this.level.packWorld();
+    }
+    
     // getters    
     public Level getLevel() {
         return this.level;
@@ -103,6 +116,10 @@ public class Environment {
 
     public int getSize() {
         return this.worldSize;
+    }
+    
+    public int getLevelDepth() {
+        return this.levelDepth;
     }
 
     /**

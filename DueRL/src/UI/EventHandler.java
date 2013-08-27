@@ -63,6 +63,7 @@ public class EventHandler implements KeyListener {
                 if (world.getProtagonist().isTargeting()) {
                     world.getProtagonist().attack();
                     world.update();
+                    world.update();
                 } else {
                     world.getProtagonist().startTargeting();
                 }
@@ -87,7 +88,7 @@ public class EventHandler implements KeyListener {
     }
 
     public void nextLevel() {
-        System.out.println("NEXT LEVEL SHIT");
+        world.nextLevel();
     }
         
     @Override
