@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package duerl;
 
 import World.Environment;
@@ -10,7 +6,6 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author eniirane
  */
 public class DueRL {
 

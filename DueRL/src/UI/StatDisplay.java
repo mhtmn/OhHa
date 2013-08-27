@@ -1,10 +1,10 @@
-/**
- * A class for creating a text representation of character information for UI.
- */
 package UI;
 
 import World.Environment;
 
+/**
+ * A class for creating a text representation of character information for UI.
+ */
 public class StatDisplay {
 
     private Environment world;

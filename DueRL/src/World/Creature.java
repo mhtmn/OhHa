@@ -1,13 +1,13 @@
-/**
- * A base class for things moving about.  Both the protagonist and antagonists are
- * instances of this class.
- */
 package World;
 import AI.*;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A base class for things moving about.  Both the protagonist and antagonists are
+ * instances of this class.
+ */
 public class Creature {
 
     /**
@@ -65,6 +65,7 @@ public class Creature {
     // Since same class is used for the player and their opponent, ai flag is 
     // used for differentiating between the two.
     private boolean aiFlag = true;
+    private boolean escaping = false;
     private AI ai;
     private boolean stunned = false;
     private boolean bleeding = false;
@@ -74,7 +75,9 @@ public class Creature {
     private int targetX = -1;
     private int targetY = -1;
     private boolean attacking = false;
-
+    private boolean kicking = false;
+    private int kickCoolDown = 0;
+    
     public Creature(Environment world) {
         this.world = world;
         this.x = 1;
@@ -123,6 +126,9 @@ public class Creature {
         }
     }
 
+    /**
+     * Equips the creature with a randomly selected set of weapons.
+     */
     public void equipRandomWeapon() {
         double d = Math.random();
         if (d < 0.2) {
@@ -216,6 +222,10 @@ public class Creature {
         }
     }
     
+    /**
+     * Calculates if the hit is a critical.  Based on creatures agility.
+     * @return boolean 
+     */
     public boolean critical() {
         if (Math.random() < ((double)agility/100) ) {
             return true;
@@ -242,11 +252,21 @@ public class Creature {
         if (!dodge() || !block()) {
             this.health -= amount;
         }
+        
+        if (health <= 20 && this.aiFlag) {
+            this.escaping = true;
+        }
+        
         if (health <= 0) {
             die();
         }
     }
         
+    /**
+     * When receiving damage, dodge checks against agility to determine whether
+     * that damage is avoided.
+     * @return boolean 
+     */
     public boolean dodge() {
         if (Math.random() < ((double)agility / 100)) {
             world.report(this.name + " dodges!");
@@ -256,6 +276,11 @@ public class Creature {
         }
     }
     
+    /**
+     * When receiving damage, block checks against agility to determine whether
+     * that damage is avoided.
+     * @return boolean 
+     */
     public boolean block() {
         for (Item i : this.inventory) {
             if (i.isDefensive() && Math.random() < ((double)agility / 100)) {
@@ -266,6 +291,40 @@ public class Creature {
         }
         
         return false;
+    }
+    
+    public void kick(int x, int y) {
+        int vectorX = 0;
+        int vectorY = 0;
+
+        if (this.getX() < x) {
+            vectorX = 1;
+        } else if (this.getX() > x) {
+            vectorX = -1;
+        }
+        
+        if (this.getY() < y) {
+            vectorY = 1;
+        } else if (this.getY() > y) {
+            vectorY = -1;
+        }
+        
+        for (Creature e : this.getWorld().getLevel().getAntagonists()) {
+            if (e.getX() == x && e.getY() == y) {
+                e.move(vectorX, vectorY);
+                world.report(this.name + " kicks " + e.getName() + " away!");
+                if (Math.random() < 0.33) {
+                    e.setStun(true);
+                }
+            }
+        }
+ 
+        if (!this.aiFlag) {
+            clearTarget();
+            this.kicking = false;
+        }
+        
+        this.kickCoolDown = 3;
     }
     
     /**
@@ -284,6 +343,10 @@ public class Creature {
         this.targeting = true;
     }
     
+    /**
+     * Method for increasing stats, clearing debuffs and returning to max health
+     * when proceeding to next level.
+     */
     public void gainLevel() {
         this.maxHealth += 10;
         this.strength += 5;
@@ -359,9 +422,6 @@ public class Creature {
         return this.y;
     }
     
-    /**
-     * Get's the char's stunned status.
-     */
     public boolean getStunnedStatus() {
         return this.stunned;
     }
@@ -378,6 +438,17 @@ public class Creature {
         this.bleeding = flip;
     }
     
+    public void setEscaping(boolean flip) {
+        this.escaping = flip;
+    }
+    
+    public boolean getEscaping() {
+        return this.escaping;
+    }
+    
+    /**
+     * Character gets bleeding damage each turn if this.bleeding is set to true.
+     */
     public void bleed() {
         world.report(this.name + " is bleeding.");
         this.damage(5);
@@ -406,6 +477,10 @@ public class Creature {
         return this.aiFlag;
     }
     
+    /**
+     * Tells whether char is alive or not
+     * @return boolean
+     */
     public boolean isAlive() {
         return this.alive;
     }
@@ -414,8 +489,13 @@ public class Creature {
         this.aiFlag = aiStatus;
     }
 
+    /**
+     * Calculates characters distance to given coordinates using pythagoras.
+     * @param fromX
+     * @param fromY
+     * @return double
+     */
     public Double getDistance(int fromX, int fromY) {
-        // a^2 + b^2 = c^2
         int a = Math.abs(this.x - fromX);
         int b = Math.abs(this.y - fromY);
         double d = Math.sqrt(a * a + b * b);
@@ -487,6 +567,33 @@ public class Creature {
         return this.targeting;
     }
     
+    public boolean isKicking() {
+        return this.kicking;
+    }
+    
+    public void setKicking(boolean flip) {
+        this.kicking = flip;
+    }
+    
+    public boolean getKickCoolDown() {
+        return this.kickCoolDown == 0;
+    }
+    
+    /**
+     * Decrease all cooldowns.
+     */
+    public void decreaseCoolDowns() {
+        if (this.kickCoolDown > 0) {
+            kickCoolDown -= 1;
+        }
+    }
+    
+    /**
+     * Checks if given coordinates are inside weapon range.
+     * @param x
+     * @param y
+     * @return boolean
+     */
     public boolean isInRange(int x, int y) {
         if (this.getDistance(x, y) > this.getWeapons().get(0).getMinRange()
          && this.getDistance(x, y) < this.getWeapons().get(0).getMaxRange() ) {
@@ -533,6 +640,7 @@ public class Creature {
     
     /**
      * Getting a string of stunned status for UI.
+     * @return String 
      */
     public String getStunnedString() {
         if (this.stunned) {
@@ -542,6 +650,10 @@ public class Creature {
         }
     }
     
+    /**
+     * Getting a string of bleeding status for UI
+     * @return 
+     */
     public String getBleedingString() {
         if (this.bleeding) {
             return "Bleeding!";
@@ -549,7 +661,11 @@ public class Creature {
             return "";
         }        
     }
-    
+
+    /**
+     * Getting a string representation of alive status for UI
+     * @return 
+     */
     public String getAliveString() {
         if (!this.alive) {
             return "DEAD";

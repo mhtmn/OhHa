@@ -1,6 +1,3 @@
-/**
- * Class for handling user input.
- */
 package UI;
 
 import java.awt.Component;
@@ -8,9 +5,11 @@ import javax.swing.JTextArea;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-//import World.Creature;
 import World.Environment;
 
+/**
+ * Class for handling user input.
+ */
 public class EventHandler implements KeyListener {
 
     private Component component;
@@ -56,7 +55,20 @@ public class EventHandler implements KeyListener {
                     || e.getKeyCode() == KeyEvent.VK_S) {
                 success = world.getProtagonist().move(1, 0);
                 world.update();
+            } else if (e.getKeyCode() == KeyEvent.VK_K
+                    && world.getProtagonist().getKickCoolDown()) {
+                if (world.getProtagonist().isTargeting()) {
+                    world.getProtagonist().setKicking(true);
+                    world.update();
+                    world.update();                    
+                } else {
+                    world.getProtagonist().startTargeting();
+                }
 
+            } else if (e.getKeyCode() == KeyEvent.VK_K
+                    && !world.getProtagonist().getKickCoolDown()) {
+                    world.report("Kick still on cooldown!");
+                
             } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 // if protagonist has a target, attack
                 // else go into targetting mode
@@ -87,6 +99,9 @@ public class EventHandler implements KeyListener {
         ui.repaint();
     }
 
+    /**
+     * Gets the next level from the Environment world object
+     */
     public void nextLevel() {
         world.nextLevel();
     }

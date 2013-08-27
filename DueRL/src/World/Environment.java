@@ -1,10 +1,10 @@
-/**
- * Creating the playfield.
- */
 package World;
 
 import UI.CombatLog;
 
+/**
+ * Creating the world in which levels are contained.
+ */
 public class Environment {
     
     private Creature protagonist;
@@ -27,10 +27,12 @@ public class Environment {
 
 
     /**
-     * updater function for world
+     * Updater function for world.  Consists of one turn.
      */
     public void update() {
 
+        checkCoolDowns();
+        
         // if all enemies are dead, create exit
         boolean allEnemiesDead = true;
         for (Creature enemy : level.getAntagonists()) {
@@ -58,6 +60,15 @@ public class Environment {
                     protagonist.calculateDamage(i);
                 }
                 protagonist.clearAttack();
+                
+                // If we're kicking, check that we're close enough and kick
+            } else if (protagonist.isKicking()
+                    && Math.abs(protagonist.getX() - protagonist.getTargetX()) <= 1
+                    && Math.abs(protagonist.getY() - protagonist.getTargetY()) <= 1) {
+                protagonist.kick(protagonist.getTargetX(), protagonist.getTargetY());
+            } else if (protagonist.isKicking()) {
+                report("Too far!");
+                protagonist.setKicking(false);
             }
 
             // enemy attacks
@@ -82,6 +93,19 @@ public class Environment {
         level.packWorld();
     }
     
+    /**
+     * Decrease all creature cooldowns.  So far only player has CD's.
+     */
+    public void checkCoolDowns() {
+        protagonist.decreaseCoolDowns();
+        
+    }
+    
+    /**
+     * Checks if given creature is suffering of debuffs and if those debuffs are
+     * resisted.
+     * @param creature 
+     */
     public void checkDebuffs(Creature creature) {
         if (creature.getBleedingStatus() && !protagonist.isTargeting()) {
             creature.bleed();
@@ -98,6 +122,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Creates a new level for the player to proceed to.  
+     */
     public void nextLevel() {
         this.levelDepth += 1;
         this.level = new Level(this, this.levelDepth);

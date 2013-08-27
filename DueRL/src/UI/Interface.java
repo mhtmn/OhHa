@@ -1,6 +1,3 @@
-/**
- * Creating and updating the user interface.
- */
 package UI;
 
 import javax.swing.JFrame;
@@ -16,6 +13,9 @@ import java.awt.Color;
 
 import World.Environment;
 
+/**
+ * Creating and updating the user interface.
+ */
 public class Interface implements Runnable {
     
     private JFrame frame;
@@ -31,6 +31,7 @@ public class Interface implements Runnable {
     
     private String infoText = "\nWASD or arrow keys to move." + "\n" 
                             + "Space to target/attack." + "\n"
+                            + "k to target/kick the opponent away." + "\n" 
                             + "Enter to use stairs." + "\n" 
                             + "Q to quit.";
     
@@ -42,9 +43,6 @@ public class Interface implements Runnable {
     }
     
     @Override
-    /**
-     * Running the frame.
-     */
     public void run() {
         frame = new JFrame("DueRL");
         frame.setPreferredSize(new Dimension(450, 365));

@@ -1,10 +1,10 @@
-/**
- * Class for creating and updating a combat log panel in the UI.
- */
 package UI;
 
 import java.util.ArrayList;
 
+/**
+ * Class for creating and updating a combat log panel in the UI.
+ */
 public class CombatLog {
     private ArrayList<String> log;
     

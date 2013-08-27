@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package World;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
- * @author eniirane
+ * Level is the playfield in which the action takes place.
  */
 public class Level {
     private char obstacleIcon = '#';
@@ -60,6 +55,8 @@ public class Level {
     /**
      * Populate the playfield with 1 protagonist (player) and a number of
      * antagonist characters.
+     * @param int numberOfEnemies controls the amount of enemies appropriate for
+     * the created level.
      */
     private void populate(int numberOfEnemies) {
         System.out.println("Populating a " + worldSize + "x" + worldSize + " level with " + numberOfEnemies + " enemies...");
@@ -90,18 +87,28 @@ public class Level {
         }
     }
     
+    /**
+     * When enemies are killed, this function creates a way out of current level.
+     */
     public void createExit() {
         this.exitExists = true;
-        this.exitX = random.nextInt((worldSize-2)+1);
-        this.exitY = random.nextInt((worldSize-2)+1);
+        this.exitX = random.nextInt(worldSize-2)+1;
+        this.exitY = random.nextInt(worldSize-2)+1;
         world.report("(Press enter on stairs to continue)");
         world.report("Stairs have emerged!");
     }
     
+    /**
+     * Getter for whether an exit exists.
+     * @return boolean
+     */
     public boolean exitExists() {
         return this.exitExists;
     }
 
+    /**
+     * Creates a representation of the level for UI
+     */
     public void packWorld() {
         this.drawFloor();
 
@@ -144,6 +151,7 @@ public class Level {
     
     /**
      * Method for determining if a tile is walkable.
+     * @return boolean
      */
     public boolean isFree(int x, int y) {
         if (x <= 0 || y <= 0 || x > this.worldSize - 1 || y > this.worldSize - 1) {
@@ -157,6 +165,12 @@ public class Level {
         }
     }
 
+    /**
+     * Method for figuring out if given coordinates are inside the level 
+     * @param x
+     * @param y
+     * @return boolean
+     */
     public boolean contains(int x, int y) {
         if ((x >= 0 && y >= 0) && (x <= this.worldSize && y <= this.worldSize)) {
             return true;
