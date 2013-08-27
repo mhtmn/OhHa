@@ -1,6 +1,6 @@
 package UI;
 
-import World.Environment;
+import Domain.Environment;
 
 /**
  * A class for creating a text representation of character information for UI.

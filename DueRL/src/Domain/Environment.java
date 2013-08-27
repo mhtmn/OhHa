@@ -1,4 +1,4 @@
-package World;
+package Domain;
 
 import UI.CombatLog;
 
@@ -57,7 +57,7 @@ public class Environment {
             // player attacks 
             if (protagonist.getAttackStatus()) {
                 for (Item i : protagonist.getWeapons()) {
-                    protagonist.calculateDamage(i);
+                    protagonist.getCombat().calculateDamage(i);
                 }
                 protagonist.clearAttack();
                 
@@ -65,7 +65,7 @@ public class Environment {
             } else if (protagonist.isKicking()
                     && Math.abs(protagonist.getX() - protagonist.getTargetX()) <= 1
                     && Math.abs(protagonist.getY() - protagonist.getTargetY()) <= 1) {
-                protagonist.kick(protagonist.getTargetX(), protagonist.getTargetY());
+                protagonist.getCombat().kick(protagonist.getTargetX(), protagonist.getTargetY());
             } else if (protagonist.isKicking()) {
                 report("Too far!");
                 protagonist.setKicking(false);
@@ -75,7 +75,7 @@ public class Environment {
             for (Creature enemy : level.getAntagonists()) {
                 if (enemy.getAttackStatus()) {
                     for (Item i : enemy.getWeapons()) {
-                        enemy.calculateDamage(i);
+                        enemy.getCombat().calculateDamage(i);
                     }
                     enemy.clearAttack();
                 }

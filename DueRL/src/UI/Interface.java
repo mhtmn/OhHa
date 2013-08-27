@@ -2,6 +2,7 @@ package UI;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
@@ -11,7 +12,7 @@ import java.awt.Dimension;
 import java.awt.Container;
 import java.awt.Color;
 
-import World.Environment;
+import Domain.Environment;
 
 /**
  * Creating and updating the user interface.
@@ -47,12 +48,14 @@ public class Interface implements Runnable {
         frame = new JFrame("DueRL");
         frame.setPreferredSize(new Dimension(450, 365));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         createComponents(frame.getContentPane());
 
         frame.pack();
         frame.setVisible(true);
     }
 
+        
     /**
      * Creating the components making up the user interface.
      */

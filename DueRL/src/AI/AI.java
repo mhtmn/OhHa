@@ -1,6 +1,6 @@
 package AI;
 
-import World.Creature;
+import Domain.Creature;
 
 import java.util.Random;
 

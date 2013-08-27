@@ -1,4 +1,4 @@
-package World;
+package Domain;
 
 /**
  * A class for creating items, so far mostly weapons.
@@ -60,8 +60,8 @@ public class Item {
      */
     public void Greataxe() {
         this.damage   = 15;
-        this.maxRange = 3.5;
-        this.minRange = 2.5;    
+        this.maxRange = 3.4;
+        this.minRange = 2.4;    
         this.name = "A greataxe";
         this.description = "A heavy long range blade.";    
         this.sharp = true;
@@ -71,10 +71,10 @@ public class Item {
      * Sets the item's type to Dagger
      */
     public void Dagger() {
-        this.damage   = 5;
-        this.maxRange = 1.5;
+        this.damage   = 7;
+        this.maxRange = 1.9;
         this.minRange = 0;
-        this.name     = "Daggers";
+        this.name     = "A dagger";
         this.description = "Short blades.";    
         this.sharp    = true;
     }
@@ -83,10 +83,10 @@ public class Item {
      * Sets the item's type to Knuckleduster
      */
     public void Knuckleduster() {
-        this.damage   = 5;
-        this.maxRange = 1.5;
+        this.damage   = 7;
+        this.maxRange = 1.9;
         this.minRange = 0;
-        this.name = "Knuckleduster";
+        this.name = "A knuckleduster";
         this.description = "Short-range blunt weapons.";
         this.sharp = false;
     }
@@ -96,9 +96,9 @@ public class Item {
      */
     public void Mace() {
         this.damage   = 10;
-        this.maxRange = 2.5;
-        this.minRange = 1.5;
-        this.name = "Mace";
+        this.maxRange = 2.4;
+        this.minRange = 1.4;
+        this.name = "A mace";
         this.description = "A mid-range blunt weapon.";
         this.sharp = false;
     }
@@ -108,8 +108,8 @@ public class Item {
      */
     public void Sword() {
         this.damage   = 10;
-        this.maxRange = 2.0;
-        this.minRange = 1.5;
+        this.maxRange = 2.4;
+        this.minRange = 1.4;
         this.name = "A sword";
         this.description = "A mid-range blade.";
         this.sharp = true;

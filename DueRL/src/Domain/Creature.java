@@ -1,4 +1,4 @@
-package World;
+package Domain;
 import AI.*;
 import java.lang.Math;
 import java.util.ArrayList;
@@ -40,6 +40,11 @@ public class Creature {
      */
     private Environment world;
 
+    /**
+     * Creature's combat abilities
+     */
+    private Combat combat;
+    
     // Items
     
     /**
@@ -84,6 +89,7 @@ public class Creature {
         this.y = 1;
         this.name        = "A creature";
         this.inventory = new ArrayList<Item>();
+        this.combat = new Combat(this);
         this.equipRandomWeapon();
     }
     
@@ -161,83 +167,11 @@ public class Creature {
     public void attack() {
         this.attacking = true;
     }
-    
-    /**
-     * When an attack has been declared, this function takes care of 
-     * calculating the hit and impact.
-     */
-    public void calculateDamage(Item weapon) {    
-        // THIS METHOD IS SUSPICIOUSLY BLOATED, REFACTOR
         
-        Creature target = null;
-
-        // fixing the target for ai
-        if (getAIStatus()) {
-            this.targetX = this.world.getProtagonist().getX();
-            this.targetY = this.world.getProtagonist().getY();            
-            target = this.world.getProtagonist();
-        } else {
-            // else check what the player is targeting
-            for (Creature enemy : world.getLevel().getAntagonists()) {
-                if (enemy.getX() == this.targetX 
-                && enemy.getY() == this.targetY) {
-                    target = enemy;
-                } else {
-                    world.report(this.name + " misses!");
-                }
-            }            
-        }
-        
-        // calculating distance modifier
-        double hitmodifier = 0.0;
-        if (target == null) {
-            world.report(this. name + " swings wildly and misses!");
-        } else {
-            hitmodifier = weapon.getMaxRange() - this.getDistance(target.getX(), target.getY());
-        }
-        
-        // calculating damage
-        double finalDamage = this.strength + weapon.getDamage();
-        finalDamage = (int)(finalDamage * hitmodifier);
-        if (finalDamage < 0) {
-            finalDamage = 0;
-        }
-        
-        if (critical() && target != null) {
-            world.report(this.name + " hits critically!");
-            finalDamage += this.strength;
-            weapon.dealCritical(target);
-        }
-
-        if (target != null && finalDamage > 0) {
-            world.report("  for " + finalDamage + " damage!");
-            world.report(this.name + " hits " + target.getName());
-            target.damage((int)finalDamage);
-        } else {
-            world.report(this.name + " misses!");
-        }
-
-        if (!this.aiFlag) {
-            clearTarget();
-        }
-    }
-    
-    /**
-     * Calculates if the hit is a critical.  Based on creatures agility.
-     * @return boolean 
-     */
-    public boolean critical() {
-        if (Math.random() < ((double)agility/100) ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
     /**
      * Clearing char's targets.
      */
-    public void clearTarget() {
+      public void clearTarget() {
         this.targetX = 0;
         this.targetY = 0;
         this.targeting = false;
@@ -249,7 +183,7 @@ public class Creature {
     public void damage(int amount) {
         
         // first check for dodge
-        if (!dodge() || !block()) {
+        if (!this.getCombat().dodge() || !this.getCombat().block()) {
             this.health -= amount;
         }
         
@@ -261,77 +195,12 @@ public class Creature {
             die();
         }
     }
-        
-    /**
-     * When receiving damage, dodge checks against agility to determine whether
-     * that damage is avoided.
-     * @return boolean 
-     */
-    public boolean dodge() {
-        if (Math.random() < ((double)agility / 100)) {
-            world.report(this.name + " dodges!");
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    /**
-     * When receiving damage, block checks against agility to determine whether
-     * that damage is avoided.
-     * @return boolean 
-     */
-    public boolean block() {
-        for (Item i : this.inventory) {
-            if (i.isDefensive() && Math.random() < ((double)agility / 100)) {
-                world.report(this.name + " blocks!");
-                return true;
                 
-            }
-        }
-        
-        return false;
-    }
-    
-    public void kick(int x, int y) {
-        int vectorX = 0;
-        int vectorY = 0;
-
-        if (this.getX() < x) {
-            vectorX = 1;
-        } else if (this.getX() > x) {
-            vectorX = -1;
-        }
-        
-        if (this.getY() < y) {
-            vectorY = 1;
-        } else if (this.getY() > y) {
-            vectorY = -1;
-        }
-        
-        for (Creature e : this.getWorld().getLevel().getAntagonists()) {
-            if (e.getX() == x && e.getY() == y) {
-                e.move(vectorX, vectorY);
-                world.report(this.name + " kicks " + e.getName() + " away!");
-                if (Math.random() < 0.33) {
-                    e.setStun(true);
-                }
-            }
-        }
- 
-        if (!this.aiFlag) {
-            clearTarget();
-            this.kicking = false;
-        }
-        
-        this.kickCoolDown = 3;
-    }
-    
     /**
      * Helper function for preparing targeting.
      */
     public void startTargeting() {
-        flagTargeting();
+        this.setTargeting(true);
         this.setTargetX(this.x);
         this.setTargetY(this.y);
     }
@@ -339,8 +208,8 @@ public class Creature {
     /**
      * Setting targeting flag to true;
      */
-    public void flagTargeting() {
-        this.targeting = true;
+    public void setTargeting(boolean flip) {
+        this.targeting = flip;
     }
     
     /**
@@ -402,7 +271,8 @@ public class Creature {
             
             for (Creature creature : world.getLevel().getAntagonists()) {
                 if (creature.getX() == this.targetX && creature.getY() == this.targetY) {
-                    world.report(creature.getName() + " wielding " + creature.getWeapons().toString() + ".");
+                    world.report("  wielding " + creature.getWeapons().toString() + ".");
+                    world.report(creature.getName() + " (" +creature.getHealth() + " hitpoints.)");
                 }
             }
             return true;
@@ -521,6 +391,10 @@ public class Creature {
         return this.inventory;
     }
     
+    public Combat getCombat() {
+        return this.combat;
+    }
+    
     public Environment getWorld() {
         return this.world;
     }
@@ -577,6 +451,10 @@ public class Creature {
     
     public boolean getKickCoolDown() {
         return this.kickCoolDown == 0;
+    }
+    
+    public void setKickCoolDown(int turns) {
+        this.kickCoolDown = turns;
     }
     
     /**

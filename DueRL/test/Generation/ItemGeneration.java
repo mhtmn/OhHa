@@ -4,6 +4,9 @@
  */
 package Generation;
 
+import Domain.Creature;
+import Domain.Environment;
+import Domain.Item;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,7 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import World.*;
 
 /**
  *

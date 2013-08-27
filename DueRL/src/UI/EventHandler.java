@@ -5,7 +5,7 @@ import javax.swing.JTextArea;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import World.Environment;
+import Domain.Environment;
 
 /**
  * Class for handling user input.

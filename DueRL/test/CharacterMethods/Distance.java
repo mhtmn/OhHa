@@ -4,8 +4,8 @@
  */
 package CharacterMethods;
 
-import World.Creature;
-import World.Environment;
+import Domain.Creature;
+import Domain.Environment;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

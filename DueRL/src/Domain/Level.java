@@ -1,4 +1,4 @@
-package World;
+package Domain;
 
 import java.util.ArrayList;
 import java.util.Random;
