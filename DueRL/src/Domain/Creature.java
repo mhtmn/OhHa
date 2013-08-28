@@ -192,7 +192,7 @@ public class Creature {
             this.escaping = true;
         }
         
-        if (health <= 0) {
+        if (health <= 0 && this.alive) {
             die();
         }
     }
@@ -237,12 +237,12 @@ public class Creature {
     public void die() {
         world.report(this.name + " dies!");
         this.icon = '%';
-        this.description = "a corpse";
-        this.name = "A corpse";
+        this.description = "a corpse";        
         this.setBleed(false);
         this.setStun(false);
         this.alive = false;
         if (this.getAIStatus()) {
+            this.name = "A corpse";            
             this.getWorld().getProtagonist().increaseScore(10);
         } else {        
             world.getHighScore().reWrite();

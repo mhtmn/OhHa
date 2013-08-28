@@ -14,13 +14,19 @@ import Domain.World;
 public class HighScore {
 
     ArrayList<String> highScoreArray;
-    File highScoreFile = new File("highscore.txt");
+    File highScoreFile;
     World world;
             
     public HighScore(World world) {
         this.world = world;
-        this.highScoreArray = new ArrayList<String>();
-        
+        this.highScoreArray = new ArrayList<String>();        
+        highScoreFile = new File("highscore.txt");
+        try {
+            this.highScoreArray = readFile();
+            System.out.println("Parsed leading score as " + parseScore(this.highScoreArray.get(0)));
+        } catch (Exception e) {
+            System.out.println("Exception writing file: " + e);
+        }
     }
     
     /**
@@ -30,8 +36,8 @@ public class HighScore {
     public String constructEntry() {
         return world.getProtagonist().getName() + " " 
              + world.getProtagonist().getScore() + " " 
-             + world.getLevelDepth() + " "
-             + " wielding " + world.getProtagonist().getWeapons();
+             + "Level " + world.getLevelDepth() + " "
+             + "wielding " + world.getProtagonist().getWeapons();
     }
     
     /**
@@ -47,14 +53,24 @@ public class HighScore {
      * Adds player's score to the right index in highscore array
      */
     public void addPlayerToHighScore() {   
-        for (int i=0;i < highScoreArray.size();i++) {
-            if (world.getProtagonist().getScore() > parseScore(highScoreArray.get(i))) {
+        for (int i=0;i < highScoreArray.size();i++) {            
+            if (highScoreArray.isEmpty()) {
                 highScoreArray.add(i, constructEntry());
+                System.out.println("Done!");                
+                break;
+            }
+
+            if (world.getProtagonist().getScore() >= parseScore(highScoreArray.get(i))) {
+                highScoreArray.add(i, constructEntry());
+                System.out.println("Done!");
                 break;
             }            
         }
     }
     
+    /**
+     * Updates the highscore by adding player's score on it and writing it in file.
+     */
     public void reWrite() {
         System.out.println("Writing highscore...");
         addPlayerToHighScore();
@@ -71,14 +87,17 @@ public class HighScore {
      * Opens a file and reads it to highscorearray
      * @throws Exception 
      */
-    public void readFile() throws Exception {
+    public ArrayList<String> readFile() throws Exception {
         Scanner reader = new Scanner(highScoreFile);
-
+        ArrayList<String> readArray = new ArrayList<String>();
+        
         while (reader.hasNextLine()) {
             String row = reader.nextLine();
-            System.out.println(row);
+            readArray.add(row);
         }
         reader.close();
+        
+        return readArray;
     }            
     
     /**
@@ -91,7 +110,6 @@ public class HighScore {
         for (String line : this.highScoreArray) {
             writer.write(line + "\n");
         }
-
         writer.close();        
     }
         
@@ -99,9 +117,8 @@ public class HighScore {
     public String toString() {
         String output = "";
         for (String i : this.highScoreArray) {
-            output += i + "\n";
-        }
-        
+            output += i + "\n";            
+        }        
         return output;
     }
 }
