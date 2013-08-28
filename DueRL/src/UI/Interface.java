@@ -46,7 +46,7 @@ public class Interface implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("DueRL");
-        frame.setPreferredSize(new Dimension(450, 365));
+        frame.setPreferredSize(new Dimension(550, 450));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         createComponents(frame.getContentPane());

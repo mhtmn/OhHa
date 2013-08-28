@@ -1,1 +1,4 @@
+Eteväapina 360 Level 4 wielding [A greataxe]
+Testaaja2 110 Level 2 wielding [A sword]
+Testaaja 0 Level 1 wielding [A sword]
 Teppo 0 Level 1 wielding [Testing Gauntlets]
