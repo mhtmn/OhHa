@@ -43,13 +43,7 @@ public class Level {
 
         this.drawFloor();
 
-        // Setting walls to outer limits of the world.
-        for (int i = 0; i < world.getSize(); i++) {
-            level[i][0] = obstacleIcon;
-            level[i][worldSize - 1] = obstacleIcon;
-            level[0][i] = obstacleIcon;
-            level[worldSize - 1][i] = obstacleIcon;
-        }
+        this.drawWalls();        
     }
     
     /**
@@ -86,7 +80,16 @@ public class Level {
             }
         }
     }
-    
+
+    private void drawWalls() {
+        // Setting walls to outer limits of the world.
+        for (int i = 0; i < world.getSize(); i++) {
+            level[i][0] = obstacleIcon;
+            level[i][worldSize - 1] = obstacleIcon;
+            level[0][i] = obstacleIcon;
+            level[worldSize - 1][i] = obstacleIcon;
+        }        
+    }
     /**
      * When enemies are killed, this function creates a way out of current level.
      */
@@ -111,6 +114,7 @@ public class Level {
      */
     public void packWorld() {
         this.drawFloor();
+        this.drawWalls();
 
         for (Creature enemy : antagonists) {
             level[enemy.getX()][enemy.getY()] = enemy.getIcon();
@@ -172,7 +176,7 @@ public class Level {
      * @return boolean
      */
     public boolean contains(int x, int y) {
-        if ((x >= 0 && y >= 0) && (x <= this.worldSize && y <= this.worldSize)) {
+        if ((x >= 0 && y >= 0) && (x <= this.worldSize-1 && y <= this.worldSize-1)) {
             return true;
         } else {
             return false;
