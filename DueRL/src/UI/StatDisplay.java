@@ -1,21 +1,22 @@
 package UI;
 
-import Domain.Environment;
+import Domain.World;
 
 /**
  * A class for creating a text representation of character information for UI.
  */
 public class StatDisplay {
 
-    private Environment world;
+    private World world;
     
-    public StatDisplay(Environment world) {
+    public StatDisplay(World world) {
         this.world = world;
     }
     
     @Override
     public String toString() {
-        return "Level: " + world.getLevelDepth() + "\n" +
+        return world.getProtagonist().getName() + " ("+ world.getProtagonist().getScore() + " points)" + "\n" +
+               "Level: " + world.getLevelDepth() + "\n" +
                "Health: " + world.getProtagonist().getHealth() + "\n" +
                "Strength: " + world.getProtagonist().getStrength() + "\n" +
                "Agility: " + world.getProtagonist().getAgility() + "\n" +
@@ -23,6 +24,6 @@ public class StatDisplay {
                "Wielding: " + world.getProtagonist().getInventory().toString() + "\n" +
                world.getProtagonist().getStunnedString() + "\n" +
                world.getProtagonist().getBleedingString() + "\n" +
-                world.getProtagonist().getAliveString();
+               world.getProtagonist().getAliveString();
     }
 }

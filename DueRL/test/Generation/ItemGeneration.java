@@ -5,7 +5,7 @@
 package Generation;
 
 import Domain.Creature;
-import Domain.Environment;
+import Domain.World;
 import Domain.Item;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -47,7 +47,7 @@ public class ItemGeneration {
     
     @Test
     public void generation() {
-        Environment world = new Environment(1, 25);
+        World world = new World(1, 25);
         Creature creature = new Creature(world);
         Item epic = new Item(creature, 2);
         assert(epic != null);
@@ -55,7 +55,7 @@ public class ItemGeneration {
     
     @Test
     public void getDamage() {
-        Environment world = new Environment(1, 25);
+        World world = new World(1, 25);
         Creature creature = new Creature(world);
         Item epic = new Item(creature, 3);
         assert(epic.getDamage() == 10);
@@ -63,7 +63,7 @@ public class ItemGeneration {
     
     @Test
     public void getMaxRange() {
-        Environment world = new Environment(1, 25);
+        World world = new World(1, 25);
         Creature creature = new Creature(world);
         Item epic = new Item(creature, 5);
         assert(epic.getMaxRange() == 2);
@@ -71,7 +71,7 @@ public class ItemGeneration {
     
     @Test
     public void getMinRange() {
-        Environment world = new Environment(1, 25);
+        World world = new World(1, 25);
         Creature creature = new Creature(world);
         Item epic = new Item(creature, 4);
         assert(epic.getMinRange()==1);

@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Domain;
 
 /**
- *
+ * Combat class takes care of combat logic, calculating dealt and mitigated damage.
  * @author eniirane
  */
 public class Combat {
-    private Environment world;
+    private World world;
     private Creature self;
     
     public Combat(Creature creature) {

@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Ai module. Responsible for making decisions for enemies.
+ * @author eniirane
  */
 public class AI {
 

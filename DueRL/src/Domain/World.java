@@ -1,25 +1,28 @@
 package Domain;
 
 import UI.CombatLog;
+import UI.HighScore;
 
 /**
  * Creating the world in which levels are contained.
  */
-public class Environment {
+public class World {
     
     private Creature protagonist;
     private int worldSize;
     private CombatLog combatLog;
     private Level level;
     private int levelDepth;
+    private HighScore highscore;
     
-    public Environment(int levelDepth, int worldSize) {
-        this.protagonist = new Creature(this, 1, 1, "Protagonist");
+    public World(int worldSize, String player) {
+        this.protagonist = new Creature(this, 1, 1, player);
         this.protagonist.setIcon('@');
         this.protagonist.setAIStatus(false);
         this.combatLog = new CombatLog();
         this.worldSize = worldSize;
-        this.levelDepth = levelDepth;
+        this.levelDepth = 1;
+        this.highscore = new HighScore(this);
 
         this.level = new Level(this, levelDepth);
         level.packWorld();
@@ -160,6 +163,10 @@ public class Environment {
         return this.combatLog;
     }
 
+    public HighScore getHighScore() {
+        return this.highscore;
+    }
+    
     @Override
     public String toString() {
         return level.toString();

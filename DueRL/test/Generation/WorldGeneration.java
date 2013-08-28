@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import Domain.Environment;
+import Domain.World;
 
 /**
  *
@@ -45,11 +45,11 @@ public class WorldGeneration {
     // public void hello() {}
     @Test
     public void generateWorld() {
-        Environment cosmos = new Environment(1, 25);
+        World cosmos = new World(1, 25);
     }
     
     @Test void populateGetProtagonist() {
-        Environment cosmos = new Environment(2, 25);
+        World cosmos = new World(2, 25);
         assert(cosmos.getProtagonist() != null);
     }
 }

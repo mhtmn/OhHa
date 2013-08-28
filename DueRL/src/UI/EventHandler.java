@@ -5,7 +5,7 @@ import javax.swing.JTextArea;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Domain.Environment;
+import Domain.World;
 
 /**
  * Class for handling user input.
@@ -13,10 +13,10 @@ import Domain.Environment;
 public class EventHandler implements KeyListener {
 
     private Component component;
-    private Environment world;
+    private World world;
     private Interface ui;
 
-    public EventHandler(Environment world, Component component, Interface ui) {
+    public EventHandler(World world, Component component, Interface ui) {
         this.world = world;
         this.ui = ui;
         this.component = component;
@@ -100,7 +100,7 @@ public class EventHandler implements KeyListener {
     }
 
     /**
-     * Gets the next level from the Environment world object
+     * Gets the next level from the World world object
      */
     public void nextLevel() {
         world.nextLevel();

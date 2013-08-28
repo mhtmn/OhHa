@@ -19,11 +19,11 @@ public class Level {
     private ArrayList<Creature> antagonists;
 
     private int worldSize;
-    private Environment world;
+    private World world;
     private char[][] level;
     private Random random;
 
-    public Level(Environment world, int level) {
+    public Level(World world, int level) {
         this.world = world;
         this.worldSize = world.getSize();
         this.protagonist = world.getProtagonist();

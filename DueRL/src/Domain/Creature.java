@@ -38,7 +38,7 @@ public class Creature {
     /**
      * The world in which the character resides.
      */
-    private Environment world;
+    private World world;
 
     /**
      * Creature's combat abilities
@@ -64,7 +64,7 @@ public class Creature {
     private int agility = 10;
     private int health = 100;
     private int maxHealth = health;
-    private int score = 0;
+    private int score;
     private boolean alive = true;
         
     // Since same class is used for the player and their opponent, ai flag is 
@@ -83,28 +83,29 @@ public class Creature {
     private boolean kicking = false;
     private int kickCoolDown = 0;
     
-    public Creature(Environment world) {
+    public Creature(World world) {
         this.world = world;
         this.x = 1;
         this.y = 1;
         this.name        = "A creature";
         this.inventory = new ArrayList<Item>();
         this.combat = new Combat(this);
+        this.score = 0;
         this.equipRandomWeapon();
     }
     
-    public Creature(Environment world, int newX, int newY) {
+    public Creature(World world, int newX, int newY) {
         this(world);
         this.x = newX;
         this.y = newY;
     }
 
-    public Creature(Environment world, String newName) {
+    public Creature(World world, String newName) {
         this(world);
         this.name = newName;
     }
 
-    public Creature(Environment world, int newX, int newY, String newName) {
+    public Creature(World world, int newX, int newY, String newName) {
         this(world, newX, newY);
         this.name = newName;
     }
@@ -217,12 +218,17 @@ public class Creature {
      * when proceeding to next level.
      */
     public void gainLevel() {
+        this.increaseScore(100);
         this.maxHealth += 10;
         this.strength += 5;
         this.agility += 5;
         this.stunned = false;
         this.bleeding = false;
         this.health = this.maxHealth;
+    }
+    
+    public void increaseScore(int n) {
+        this.score += n;
     }
 
     /**
@@ -236,6 +242,12 @@ public class Creature {
         this.setBleed(false);
         this.setStun(false);
         this.alive = false;
+        if (this.getAIStatus()) {
+            this.getWorld().getProtagonist().increaseScore(10);
+        } else {        
+            world.getHighScore().reWrite();
+            world.report("HighScores:\n" + world.getHighScore().toString());
+        }
     }
     
     // Moving about, setting coordinates, etc.
@@ -395,7 +407,7 @@ public class Creature {
         return this.combat;
     }
     
-    public Environment getWorld() {
+    public World getWorld() {
         return this.world;
     }
     

@@ -5,7 +5,7 @@
 package Generation;
 
 import Domain.Creature;
-import Domain.Environment;
+import Domain.World;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,14 +46,14 @@ public class CharacterGeneration {
 
     @Test
     public void constructorNoArguments() {
-        Creature first = new Creature(new Environment(1, 25));
+        Creature first = new Creature(new World(1, 25));
     }
 
     @Test
     public void constructorCoordinates() {
         int x = 5;
         int y = 8;
-        Creature second = new Creature(new Environment(2, 25), x, y);
+        Creature second = new Creature(new World(2, 25), x, y);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CharacterGeneration {
         int x = 8;
         int y = 5;
         String name = "Clyde";
-        Creature first = new Creature(new Environment(3, 25), x, y, name);
+        Creature first = new Creature(new World(3, 25), x, y, name);
     }
 
     @Test
@@ -69,12 +69,12 @@ public class CharacterGeneration {
         int x = 8;
         int y = 5;
         String name1 = "Distant Dave";
-        Creature first = new Creature(new Environment(4, 25), x, y, name1);   
+        Creature first = new Creature(new World(4, 25), x, y, name1);   
 
         int a = 5;
         int b = 8;
         String name2 = "Forlorn Frank";
-        Creature second = new Creature(new Environment(5, 25), a, b, name2);   
+        Creature second = new Creature(new World(5, 25), a, b, name2);   
 
         assert(first.getDistance(second.getX(), second.getY()) == second.getDistance(first.getX(), first.getY()));
     }

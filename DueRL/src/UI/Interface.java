@@ -12,7 +12,7 @@ import java.awt.Dimension;
 import java.awt.Container;
 import java.awt.Color;
 
-import Domain.Environment;
+import Domain.World;
 
 /**
  * Creating and updating the user interface.
@@ -20,7 +20,7 @@ import Domain.Environment;
 public class Interface implements Runnable {
     
     private JFrame frame;
-    private Environment world;
+    private World world;
     
     private Font playAreaFont = new Font("Courier", Font.BOLD,16);
     private Font infoAreaFont = new Font("Courier", Font.BOLD,10);
@@ -36,7 +36,7 @@ public class Interface implements Runnable {
                             + "Enter to use stairs." + "\n" 
                             + "Q to quit.";
     
-    public Interface(Environment world) {
+    public Interface(World world) {
         this.world = world;
         this.combatLogString = world.getCombatLog();
         this.statDisplay = new StatDisplay(world);
