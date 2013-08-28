@@ -40,9 +40,7 @@ public class Level {
     private void buildWorld() {
         System.out.println("Building world...");
         level = new char[worldSize][worldSize];
-
         this.drawFloor();
-
         this.drawWalls();        
     }
     
