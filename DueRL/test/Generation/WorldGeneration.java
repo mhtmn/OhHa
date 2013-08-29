@@ -19,6 +19,7 @@ import Domain.World;
  * @author eniirane
  */
 public class WorldGeneration {
+    private World world;
     
     public WorldGeneration() {
     }
@@ -33,6 +34,7 @@ public class WorldGeneration {
     
     @Before
     public void setUp() {
+        this.world = new World(25);
     }
     
     @After
@@ -45,12 +47,11 @@ public class WorldGeneration {
     // public void hello() {}
     @Test
     public void generateWorld() {
-        World cosmos = new World(25);
+        assert(this.world != null);
     }
     
     @Test 
-    public void testProtagonist() {
-        World cosmos = new World(25);
-        assert(cosmos.getProtagonist() != null);
+    public void protagonistExists() {
+        assert(world.getProtagonist() != null);
     }
 }

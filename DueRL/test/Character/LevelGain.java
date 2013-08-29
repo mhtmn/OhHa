@@ -20,6 +20,8 @@ import Domain.World;
  */
 public class LevelGain {
     
+    private Creature gainer;
+    
     public LevelGain() {
     }
     
@@ -33,6 +35,7 @@ public class LevelGain {
     
     @Before
     public void setUp() {
+        this.gainer = new Creature(new World(25));
     }
     
     @After
@@ -41,13 +44,11 @@ public class LevelGain {
 
     @Test
     public void gainLevel() {
-        Creature gainer = new Creature(new World(25));
         gainer.gainLevel();
     }
 
     @Test
     public void gainLevelAffectsScore() {
-        Creature gainer = new Creature(new World(25));
         int scoreBeforeLevelGain = gainer.getScore();
         gainer.gainLevel();
         int scoreAfterLevelGain = gainer.getScore();
@@ -56,7 +57,6 @@ public class LevelGain {
     
     @Test
     public void gainLevelAffectsStats() {
-        Creature gainer = new Creature(new World(25));
         int agilityBeforeLevelGain = gainer.getAgility();
         int strengthBeforeLevelGain = gainer.getStrength();
         gainer.gainLevel();
@@ -68,7 +68,6 @@ public class LevelGain {
     
     @Test
     public void gainLevelAffectsHitPoints() {
-        Creature gainer = new Creature(new World(25));
         int healthBeforeLevelGain = gainer.getHealth();
         gainer.gainLevel();
         int healthAfterLevelGain = gainer.getHealth();

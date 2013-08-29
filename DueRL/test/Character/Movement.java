@@ -20,6 +20,8 @@ import Domain.World;
  */
 public class Movement {
     
+    private Creature creature;
+    
     public Movement() {
     }
     
@@ -33,6 +35,7 @@ public class Movement {
     
     @Before
     public void setUp() {
+        this.creature = new Creature(new World(25));
     }
     
     @After
@@ -46,14 +49,11 @@ public class Movement {
     
     @Test
     public void stayInPlace() {
-        Creature creature = new Creature(new World(25));
-
         assert(creature.move(0, 0));
     }
     
     @Test
     public void tryToMoveTooMuch() {
-        Creature creature = new Creature(new World(25));
         assert(!creature.move(-2, 2));        
     }
 
@@ -87,12 +87,12 @@ public class Movement {
     @Test
     public void tryToMoveOutOfWorld() {
         World world = new World(25);
-        Creature creature = new Creature(world, 1, 1);
+        Creature a = new Creature(world, 1, 1);
         
-        creature.move(-1, -1);
+        a.move(-1, -1);
         
-        int x = creature.getX();
-        int y = creature.getY();
+        int x = a.getX();
+        int y = a.getY();
         assert(x == 1);
         assert(y == 1);
     }

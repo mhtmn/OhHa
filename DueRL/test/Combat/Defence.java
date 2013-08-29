@@ -20,6 +20,8 @@ import Domain.World;
  */
 public class Defence {
     
+    private Creature creature;
+    
     public Defence() {
     }
     
@@ -33,6 +35,7 @@ public class Defence {
     
     @Before
     public void setUp() {
+        this.creature = new Creature ( new World(25) );
     }
     
     @After
@@ -46,13 +49,11 @@ public class Defence {
 
     @Test
     public void dodge() {
-        Creature creature = new Creature ( new World(25) );
         boolean dodge = creature.getCombat().dodge();
     }
     
     @Test
     public void block() {
-        Creature creature = new Creature ( new World(25) );
         boolean block = creature.getCombat().dodge();
     }
 }

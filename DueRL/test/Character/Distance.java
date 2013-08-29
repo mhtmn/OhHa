@@ -19,6 +19,8 @@ import static org.junit.Assert.*;
  */
 public class Distance {
     
+    private World world;
+    
     public Distance() {
     }
     
@@ -32,6 +34,7 @@ public class Distance {
     
     @Before
     public void setUp() {
+        this.world = new World(25);
     }
     
     @After
@@ -40,7 +43,6 @@ public class Distance {
     
     @Test
     public void distanceWhenOneTileAway() {
-        World world = new World(25);
         Creature first = new Creature(world, 2, 1);
         Creature second = new Creature(world, 2, 2);
         assert(first.getDistance(second.getX(), second.getY()) == 1.0);
@@ -48,7 +50,6 @@ public class Distance {
 
     @Test
     public void distanceWhenDiagonalTileAway() {
-        World world = new World(25);
         Creature first = new Creature(world, 1, 1);
         Creature second = new Creature(world, 2, 2);
         assert(first.getDistance(second.getX(), second.getY()) == 1.41);
@@ -59,12 +60,12 @@ public class Distance {
         int x = 8;
         int y = 5;
         String name1 = "Distant Dave";
-        Creature first = new Creature(new World(25), x, y, name1);   
+        Creature first = new Creature(world, x, y, name1);   
 
         int a = 5;
         int b = 8;
         String name2 = "Forlorn Frank";
-        Creature second = new Creature(new World(25), a, b, name2);   
+        Creature second = new Creature(world, a, b, name2);   
 
         double distanceFirstToSecond = first.getDistance(second.getX(), second.getY());
         double distanceSecondToFirst = second.getDistance(first.getX(), first.getY());
