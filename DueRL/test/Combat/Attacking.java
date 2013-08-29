@@ -20,6 +20,9 @@ import Domain.World;
  */
 public class Attacking {
     
+    private Creature creature;
+    private Creature target;
+    
     public Attacking() {
     }
     
@@ -33,6 +36,8 @@ public class Attacking {
     
     @Before
     public void setUp() {
+        this.creature = new Creature ( new World(25), 1, 1 );
+        this.target   = new Creature ( new World(25), 1, 2 );
     }
     
     @After
@@ -46,10 +51,18 @@ public class Attacking {
     
     @Test
     public void declareAttack() {
-        Creature creature = new Creature ( new World(25) );
         creature.attack();
         assert(creature.getAttackStatus());
     }
+
+    @Test
+    public void kickingPossible() {
+        creature.getCombat().kick(target.getX(), target.getY());
+    }
     
-    
+    @Test
+    public void critical() {
+        creature.setHeroMode();
+        assert(creature.getCombat().critical());
+    }
 }

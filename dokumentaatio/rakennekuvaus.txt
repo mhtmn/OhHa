@@ -1,0 +1,17 @@
+Ohjelma jakaantuu paketteihin UI, AI ja Domain.
+
+AI sisältää vain luokan AI, joka antaa vihollisille luotaessa tekoälyn.
+
+UI sisältää luokat Interface, EventHandler, WelcomeScreen, HighScore, CombatLog ja StatDisplay.
+
+WelcomeScreen luo vain pop up -ikkunan joka kysyy hahmolle nimeä.
+Interface on itse pelin käyttöliittymä, jossa on pelialueen lisäksi muistutus pelin näppäimistä, sekä luokkien CombatLog ja StatDislpay instanssien tuottamia muuttuvia sisältöjä. CombatLog kertoo mitä pelissä tapahtuu, ja StatDisplay kertoo hahmon kulloisenkin tilanteen.
+HighScore pitää huolta pelin pistelistasta, jonne talletetaan pelaajan pistetilanne kun hahmo kuolee. Tämän jälkeen highscore tulostetaan combatlogin kautta näkyville.
+EventHandler käsittelee käyttäjän syötteen eteenpäin Domain -luokalle.
+Domain sisältää pelin oleelliset rakennuspalikat
+
+World on pelin maailma. Maailma luo pelaajan creature-olennon, muut luodaan Level -luokassa. Se on ensisijainen kommunikaatiokanava UI -pakettiin päin.
+Level on pelikenttä. Maailma koostuu Kerrallaan yhdestä levelistä, ja tarvittaessa niitä luodaan uusia.
+Creature pelaaja on creature -instanssi. Level luo kokoelman olentoinstansseja joilla on AI.
+Item tarjoaa pelin esineille metodit ja ominaisuudet. Creature luo item -instansseja tarpeisiinsa.
+Combat refaktoroidessani loin combat -luokan, jonne siirsin taisteluun liittyvät metodit pois creature -luokasta, joka alkoi pullistella ja muuttua lukukelvottomaksi.

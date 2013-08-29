@@ -48,12 +48,31 @@ public class Defence {
     // public void hello() {}
 
     @Test
-    public void dodge() {
+    public void dodgePossible() {
         boolean dodge = creature.getCombat().dodge();
     }
     
     @Test
-    public void block() {
+    public void blockPossible() {
         boolean block = creature.getCombat().dodge();
+    }
+    
+    @Test 
+    public void dodgeWorks() {
+        creature.setHeroMode();
+        assert(creature.getCombat().dodge());
+    }
+
+    @Test 
+    public void blockWorks() {
+        while (!creature.getInventory().get(1).isDefensive()) {
+            creature = new Creature( new World(25) );
+        }
+
+        creature.setHeroMode();        
+
+        if (creature.getInventory().get(1).isDefensive()) {
+            assert(creature.getCombat().block());
+        }
     }
 }

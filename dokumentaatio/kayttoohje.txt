@@ -1,0 +1,46 @@
+Käyttöohje
+
+(Muotoillun version löytää wikistä)
+
+Pelin tavoitteena on selvitä mahdollisimman pitkään alati kasvavaa vihollismäärää vastaan. Tässä auttaa ennen kaikkea oikea sijoittuminen suhteessa vastustajiin — jos jäät liian pitkäksi aikaa vihollisesi ulottuville, ilman että itse pääset tekemään vahinkoa, olet pian hävinnyt pelin.
+
+Kontrollit
+Liikkuminen
+
+w / nuoli ylös — ylös
+a / nuoli vasemmalle — vasemmalle
+s / nuoli alas — alas
+d / nuoli oikealle — oikealle
+Hyökkääminen
+
+Space — Hyökkäys, joka joko aloittaa tähtäämisen, jolloin voit liikutella tähtäintä (x). Tähtäystilassa uusi space hyökkää annettuun kohteeseen. Suuri X osoittaa aseen oletuskantamaa, joskin lähemmäskin voit osua!
+k — Potku, joka on hyökkäyksen tavoin kaksitilainen, ensimmäinen painallus aloittaa tähtäämisen, toinen potkaisee. Huomaathan, että potkulla yletyt vain välittömiin ruutuihin vierelläsi! Potkulla voit yrittää tuupata vastustajaa vähän kauemmas, estää häntä toimimasta tai jopa pökerryyttää hänet.
+Esc — peruu tähtäystilan. Tähtäämällä voit myös tarkastella vihollistesi aseistusta ja jäljelläolevia kestopisteitä.
+Siirtyminen seuraavalle tasolle
+
+Enter — Kun olet kukistanut tason viimeisen vihollisen, ilmaantuu kentälle portaikko, jonka päällä voit painaa enter siirtyäksesi seuraavalle tasolle. Uudelle tasolle mentäessä kestopisteesi palautuvat, ja ominaisuutesi kehittyvät hieman.
+Niukahko visuaalinen ilmaisu
+@ — Tämä olet sinä!
+E — Tämä on vihollinen. Koita aina sijoittua niin, että sinuun osuu mahdollisimman harva vihollinen.
+# — Seinä, jota et voi läpäistä
+. — Lattia.
+> — Portaikko seuraavalle tasolle.
+Hahmon tiedot
+Ominaisuudet
+
+Health — Kestopisteesi kertovat kuinka paljon iskuja vielä kestät.
+Strength — Voimakkuutesi vaikuttaa siihen paljonko vahinkoa teet.
+Agility — Ketteryys vaikuttaa mahdollisuuksiisi väistää tai torjua, sekä nostaa todennäköisyyttä saada kriittinen osuma, joka tekee tavallista iskua enemmän vahinkoa aiheuttaen vastustajallesi haitan.
+Score — Keräämäsi pisteet. Ainoa tavoitteesi tässä pelissä.
+Aseet
+
+Dagger — Lyhyt teräase, joita voi käyttää molemmissa käsissä.
+Knuckleduster — Nyrkkirauta on lyhyen kantaman tylppä ase, joita voi käyttää molemmissa käsissä.
+Sword — Keskipituinen teräase, jota voi käyttää kilven kanssa.
+Mace — Tylppä keskipituinen ase, jota voi käyttää kilven kanssa.
+Greataxe — Suuri kirves, joka on kömpelö lähietäisyydellä, mutta osuessaan kaukaa tekee paljon vahinkoa.
+Haitat
+
+Stunned — Et voi liikkua etkä hyökätä ollessasi pökertynyt.
+Bleeding — Bleeding -haitta aiheuttaa sinulle joka vuoro viisi pistettä vahinkoa.
+DEAD — Aika aloittaa alusta.

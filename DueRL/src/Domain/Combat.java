@@ -120,7 +120,7 @@ public class Combat {
      * @return boolean
      */
     public boolean critical() {
-        if (Math.random() < ((double) self.getAgility() / 100)) {
+        if (Math.random() < (((double) self.getAgility()) / 100)) {
             return true;
         } else {
             return false;

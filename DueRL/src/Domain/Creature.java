@@ -495,8 +495,8 @@ public class Creature {
      * Used for debugging. :----)
      */
     public void setHeroMode() {
-        this.strength = 50;
-        this.agility = 50;
+        this.strength = 100;
+        this.agility = 100;
         this.health = 1000;
     }
     

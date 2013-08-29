@@ -1,0 +1,14 @@
+DueRL
+Minimaalinen areenataistelu-roguelike, jossa mitellään taso tasolta kasvavan vihollismäärän kanssa eri asein. Päämielenkiinto on suunnattu taistelumekaniikkaan, joka on usein aiheena ylenkatsottu genren peleissä (pl. dwarf fortress, jossa ei ole ylenkatsottu juuri mitään).
+
+Keskeisiä tekijöitä taistelussa ovat 1) eri aseiden suosimat etäisyydet ja 2) sijoittuminen tilanteen kannalta edullisesti, sekä ennen kaikkea 3) onni kriittisten osumien kanssa. Toisin sanoen jos kädessä on puukko, ja vastustajalla on piilukirves, kannattaa pyrkiä niin lähelle, ettei pitkävartinen ase ole vastustajan kädessä vaarallinen. Tämä toki vaikeutuu, kun vastustajia on monta. Tällöin kannattanee luottaa onneen: ketteryys voi tuplata aseen aiheuttaman vahingon, sekä aiheuttaa joitakin vuoroja kestävän haitan vastustajaan. Terävien aseiden aiheuttama haitta on haava, joka aiheuttaa vahinkoa joka vuoro, kun taas tylpät aseet pökerryttävät joksikin määräksi vuoroja.
+
+Peliä sinänsä ei voi voittaa, mutta eniten pisteitä saanut pääsee pistelistauksessa huipulle.
+
+Eli pelissä on:
+
+Dynaaminen maailma
+Alkeellinen tekoäly
+Muuttuvat olosuhteet (arvotut aseet)
+Tallennusta ja lukemista (highscore)
+Alkuperäisestä featurelististä jäätiin aika lailla lyhyeksi, mutta uskoisin tämänkin aiheenlaajuuden riittävän kurssin läpipääsemiseen. (Tarvittaessa voin toki tehtävää laajentaakin.)
