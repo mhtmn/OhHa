@@ -7,20 +7,65 @@ import java.util.Random;
  * Level is the playfield in which the action takes place.
  */
 public class Level {
+
+    /**
+     * Icon for wall
+     */
     private char obstacleIcon = '#';
+    
+    /**
+     * Icon for floor
+     */
     private char floorIcon = '.';
+    
+    /**
+     * Icon for exit
+     */
     private char exit = '>';
     
+    /**
+     * Tells if an exit has been made.
+     */
     private boolean exitExists = false;
+    
+    /**
+     * Tells where the exit x coordinate is
+     */
     private int exitX;
+    
+    /**
+     * Tells where the exit y coordinate is
+     */
     private int exitY;
     
+    /**
+     * The main actor, the player character
+     */
     private Creature protagonist;
+    
+    /**
+     * A collection of/for enemies
+     */
     private ArrayList<Creature> antagonists;
 
+    /**
+     * The size of the created world.
+     */
     private int worldSize;
+    
+    /**
+     * The world object in which the level exists in
+     */
     private World world;
+    
+    /**
+     * The actual matrix of chars that is the level
+     */
     private char[][] level;
+    
+    /**
+     * Random seed
+     */
     private Random random;
 
     public Level(World world, int level) {
@@ -79,6 +124,9 @@ public class Level {
         }
     }
 
+    /**
+     * Helper for making boundaries for the level.
+     */
     private void drawWalls() {
         // Setting walls to outer limits of the world.
         for (int i = 0; i < world.getSize(); i++) {
@@ -153,7 +201,7 @@ public class Level {
     
     /**
      * Method for determining if a tile is walkable.
-     * @return boolean
+     * @return boolean 
      */
     public boolean isFree(int x, int y) {
         if (x <= 0 || y <= 0 || x > this.worldSize - 1 || y > this.worldSize - 1) {
@@ -169,8 +217,8 @@ public class Level {
 
     /**
      * Method for figuring out if given coordinates are inside the level 
-     * @param x
-     * @param y
+     * @param x coordinate
+     * @param y coordinate
      * @return boolean
      */
     public boolean contains(int x, int y) {

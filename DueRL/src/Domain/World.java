@@ -8,11 +8,34 @@ import UI.HighScore;
  */
 public class World {
     
+    /**
+     * The player character
+     */
     private Creature protagonist;
+    
+    /**
+     * Size of the created world
+     */
     private int worldSize;
+    
+    /**
+     * CombatLog instance reporting world incidents to ui
+     */
     private CombatLog combatLog;
+    
+    /**
+     * The current Level instance
+     */
     private Level level;
+    
+    /**
+     * Keeps track of how deep into the game we are, i.e. how many levels has the player seen.
+     */
     private int levelDepth;
+    
+    /**
+     * HighScore instance linked to world.
+     */
     private HighScore highscore;
     
     public World(int worldSize, String player) {
@@ -28,7 +51,10 @@ public class World {
         level.packWorld();
     }
 
-
+    public World(int worldSize) {
+        this(worldSize, "Anonymous");
+    }
+    
     /**
      * Updater function for world.  Consists of one turn.
      */

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterMethods;
+package Character;
 
 import Domain.Creature;
 import Domain.World;
@@ -40,7 +40,7 @@ public class Distance {
     
     @Test
     public void distanceWhenOneTileAway() {
-        World world = new World(1, 25);
+        World world = new World(25);
         Creature first = new Creature(world, 2, 1);
         Creature second = new Creature(world, 2, 2);
         assert(first.getDistance(second.getX(), second.getY()) == 1.0);
@@ -48,9 +48,27 @@ public class Distance {
 
     @Test
     public void distanceWhenDiagonalTileAway() {
-        World world = new World(1, 25);
+        World world = new World(25);
         Creature first = new Creature(world, 1, 1);
         Creature second = new Creature(world, 2, 2);
         assert(first.getDistance(second.getX(), second.getY()) == 1.41);
+    }
+
+    @Test
+    public void testDistanceSymmetry() {
+        int x = 8;
+        int y = 5;
+        String name1 = "Distant Dave";
+        Creature first = new Creature(new World(25), x, y, name1);   
+
+        int a = 5;
+        int b = 8;
+        String name2 = "Forlorn Frank";
+        Creature second = new Creature(new World(25), a, b, name2);   
+
+        double distanceFirstToSecond = first.getDistance(second.getX(), second.getY());
+        double distanceSecondToFirst = second.getDistance(first.getX(), first.getY());
+                
+        assert(distanceFirstToSecond == distanceSecondToFirst);
     }
 }

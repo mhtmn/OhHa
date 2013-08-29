@@ -45,11 +45,12 @@ public class WorldGeneration {
     // public void hello() {}
     @Test
     public void generateWorld() {
-        World cosmos = new World(1, 25);
+        World cosmos = new World(25);
     }
     
-    @Test void populateGetProtagonist() {
-        World cosmos = new World(2, 25);
+    @Test 
+    public void testProtagonist() {
+        World cosmos = new World(25);
         assert(cosmos.getProtagonist() != null);
     }
 }

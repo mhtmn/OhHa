@@ -45,15 +45,15 @@ public class CharacterGeneration {
     // public void hello() {}
 
     @Test
-    public void constructorNoArguments() {
-        Creature first = new Creature(new World(1, 25));
+    public void constructorOneArgument() {
+        Creature first = new Creature(new World(25));
     }
 
     @Test
     public void constructorCoordinates() {
         int x = 5;
         int y = 8;
-        Creature second = new Creature(new World(2, 25), x, y);
+        Creature second = new Creature(new World(25), x, y);
     }
 
     @Test
@@ -61,21 +61,13 @@ public class CharacterGeneration {
         int x = 8;
         int y = 5;
         String name = "Clyde";
-        Creature first = new Creature(new World(3, 25), x, y, name);
+        Creature first = new Creature(new World(25), x, y, name);
     }
-
+    
     @Test
-    public void testDistance() {
-        int x = 8;
-        int y = 5;
-        String name1 = "Distant Dave";
-        Creature first = new Creature(new World(4, 25), x, y, name1);   
-
-        int a = 5;
-        int b = 8;
-        String name2 = "Forlorn Frank";
-        Creature second = new Creature(new World(5, 25), a, b, name2);   
-
-        assert(first.getDistance(second.getX(), second.getY()) == second.getDistance(first.getX(), first.getY()));
+    public void equipmentGenerated() {
+        Creature first = new Creature(new World(25));
+        assert(!first.getWeapons().isEmpty());
     }
+
 }

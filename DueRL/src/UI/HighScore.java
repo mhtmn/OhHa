@@ -23,7 +23,6 @@ public class HighScore {
         highScoreFile = new File("highscore.txt");
         try {
             this.highScoreArray = readFile();
-            System.out.println("Parsed leading score as " + parseScore(this.highScoreArray.get(0)));
         } catch (Exception e) {
             System.out.println("Exception writing file: " + e);
         }

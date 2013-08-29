@@ -8,7 +8,14 @@ package Domain;
  */
 public class Combat {
 
+    /**
+     * World instance.  For convenience, could be referenced otherwise.
+     */
     private World world;
+    
+    /**
+     * Creature instance for which the combat skillset is used.
+     */
     private Creature self;
 
     public Combat(Creature creature) {
@@ -54,6 +61,10 @@ public class Combat {
         }
     }
 
+    /**
+     * Responsible for delivering a Creature instance target for attacking.  Transforms coordinates into an Creature object.
+     * @return Creature is the creature instance targeted
+     */
     public Creature acquireTarget() {
         Creature target = null;
 
@@ -74,13 +85,12 @@ public class Combat {
         }
 
         return target;
-
     }
 
     /**
      * Calculates how distace effects the hit.
      *
-     * @param weapon
+     * @param weapon the weapon with which the hit is made
      * @param target the targeted creature
      * @return double which is added to damage later
      */
@@ -126,6 +136,11 @@ public class Combat {
         self.setTargeting(false);
     }
 
+    /**
+     * Kicking the Creature instance(s) at coordinates away.
+     * @param x coordinate
+     * @param y coordinate
+     */
     public void kick(int x, int y) {
         int vectorX = 0;
         int vectorY = 0;

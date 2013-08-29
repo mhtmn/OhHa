@@ -4,16 +4,45 @@ package Domain;
  * A class for creating items, so far mostly weapons.
  */
 public class Item {
+
+    /**
+     * The creature instance linked to the current item instance
+     */
     public Creature owner;
     
+    /**
+     * How much damage does the item inflict on target
+     */
     public int damage;
+    
+    /**
+     * How far can the item be used
+     */
     public double maxRange;
+    
+    /**
+     * How close is the item still useful
+     */
     public double minRange;
     
+    /**
+     * The name with which the item is referenced ingame
+     */
     public String name;
+    
+    /**
+     * Not used so far.  A more in-depth description of the item.
+     */
     public String description;
     
+    /**
+     * Tells if the item/weapon is sharp or blunt.  Determines the kind of critical it makes.
+     */
     public boolean sharp;
+    
+    /**
+     * Basically tells if we're dealing with a shield or a weapon.
+     */
     public boolean defensive;
   
     public Item(Creature owner, int type) {
@@ -58,7 +87,7 @@ public class Item {
     /**
      * Sets the item's type to Greataxe
      */
-    public void Greataxe() {
+    private void Greataxe() {
         this.damage   = 15;
         this.maxRange = 3.4;
         this.minRange = 2.4;    
@@ -70,7 +99,7 @@ public class Item {
     /**
      * Sets the item's type to Dagger
      */
-    public void Dagger() {
+    private void Dagger() {
         this.damage   = 7;
         this.maxRange = 1.9;
         this.minRange = 0;
@@ -82,7 +111,7 @@ public class Item {
     /**
      * Sets the item's type to Knuckleduster
      */
-    public void Knuckleduster() {
+    private void Knuckleduster() {
         this.damage   = 7;
         this.maxRange = 1.9;
         this.minRange = 0;
@@ -94,7 +123,7 @@ public class Item {
     /**
      * Sets the item's type to Mace
      */
-    public void Mace() {
+    private void Mace() {
         this.damage   = 10;
         this.maxRange = 2.4;
         this.minRange = 1.4;
@@ -106,7 +135,7 @@ public class Item {
     /**
      * Sets the item's type to Sword
      */
-    public void Sword() {
+    private void Sword() {
         this.damage   = 10;
         this.maxRange = 2.4;
         this.minRange = 1.4;
@@ -118,7 +147,7 @@ public class Item {
     /**
      * Sets the item's type to Shield
      */
-    public void Shield() {
+    private void Shield() {
         this.damage   = 0;
         this.maxRange = 0.0;
         this.minRange = 0.0;
@@ -139,6 +168,10 @@ public class Item {
     
     public double getMinRange() {
         return this.minRange;
+    }
+    
+    public String getName() {
+        return this.name;
     }
     
     /**

@@ -10,11 +10,34 @@ import java.util.Random;
  */
 public class AI {
 
+    /**
+     * Creature instance --- the owner of this AI
+     */
     private Creature self;
+    
+    /**
+     * Random seed
+     */
     private Random random;
+    
+    /**
+     * Player char x coordinate for convenience.
+     */
     private int protagonistX = 1;
+    
+    /**
+     * Player char y coordinate for convenience.
+     */
     private int protagonistY = 1;
+    
+    /**
+     * Previous x coordinate vector.  Used for making AI movement a bit less monotonous.
+     */
     private int previousMoveX = 0;
+    
+    /**
+     * Precious y coordinate vector.  Used for making AI movement a bit more unpredictable (and more irrational)
+     */
     private int previousMoveY = 0;
 
     public AI(Creature self) {
@@ -186,6 +209,11 @@ public class AI {
         updatePrevious(x, y);
     }
     
+    /**
+     * Updates the memory of previous movement vector
+     * @param x coordinate vector
+     * @param y coordinate vector
+     */
     public void updatePrevious(int x, int y) {
         previousMoveX = x;
         previousMoveY = y;

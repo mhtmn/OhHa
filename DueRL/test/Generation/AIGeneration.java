@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Combat;
+package Generation;
 
 import Domain.Creature;
 import Domain.World;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author eniirane
  */
-public class Damage {
+public class AIGeneration {
     
-    public Damage() {
+    public AIGeneration() {
     }
     
     @BeforeClass
@@ -44,11 +44,9 @@ public class Damage {
     // public void hello() {}
     
     @Test
-    public void damage() {
-        Creature creature = new Creature ( new World(25) );
-        int healthBeforeDamage = creature.getHealth();
-        creature.damage(10);
-        assert(creature.getHealth() == healthBeforeDamage - 10);
+    public void aiIsGenerated() {
+        Creature creature = new Creature( new World(25) ); 
+        creature.getAI();
     }
     
 }

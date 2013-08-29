@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Combat;
+package World;
 
 import Domain.Creature;
 import Domain.World;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author eniirane
  */
-public class Damage {
+public class Level {
     
-    public Damage() {
+    public Level() {
     }
     
     @BeforeClass
@@ -42,13 +42,19 @@ public class Damage {
     //
     // @Test
     // public void hello() {}
-    
+
     @Test
-    public void damage() {
-        Creature creature = new Creature ( new World(25) );
-        int healthBeforeDamage = creature.getHealth();
-        creature.damage(10);
-        assert(creature.getHealth() == healthBeforeDamage - 10);
+    public void nextLevelAffectsLevelDepth() {
+        World world = new World(25);
+        Creature gainer = new Creature(world);
+        
+        int dungeonLevelBeforeLevelGain = world.getLevelDepth();
+        world.nextLevel();
+        int dungeonLevelAfterLevelGain = world.getLevelDepth();
+        
+        assert(dungeonLevelAfterLevelGain > dungeonLevelBeforeLevelGain);        
     }
+
+
     
 }

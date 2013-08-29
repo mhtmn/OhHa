@@ -4,8 +4,6 @@
  */
 package Combat;
 
-import Domain.Creature;
-import Domain.World;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,13 +11,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import Domain.Creature;
+import Domain.World;
+
 /**
  *
  * @author eniirane
  */
-public class Damage {
+public class Defence {
     
-    public Damage() {
+    public Defence() {
     }
     
     @BeforeClass
@@ -42,13 +43,16 @@ public class Damage {
     //
     // @Test
     // public void hello() {}
-    
+
     @Test
-    public void damage() {
+    public void dodge() {
         Creature creature = new Creature ( new World(25) );
-        int healthBeforeDamage = creature.getHealth();
-        creature.damage(10);
-        assert(creature.getHealth() == healthBeforeDamage - 10);
+        boolean dodge = creature.getCombat().dodge();
     }
     
+    @Test
+    public void block() {
+        Creature creature = new Creature ( new World(25) );
+        boolean block = creature.getCombat().dodge();
+    }
 }

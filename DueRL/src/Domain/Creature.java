@@ -53,34 +53,100 @@ public class Creature {
     private Item mainHand;
     
     /**
-     * The offhand weapon or shield.
+     * The offhand weapon or shield.  So far of little use.
      */
     private Item offHand;
 
+    /**
+     * Collection for all the items the creature instance carries.
+     */
     private ArrayList<Item> inventory;
     
     // Stats
+    
+    /**
+     * Strength is used to determine damage dealt.
+     */
     private int strength = 10;
+    
+    /**
+     * Agility is used to determine dodge, block and critical hit chances.
+     */
     private int agility = 10;
+    
+    /**
+     * Health equals hitpoints.
+     */
     private int health = 100;
+
+    /**
+     * Maximum health is reset between levels.
+     */
     private int maxHealth = health;
+    
+    /**
+     * Score is kept track of in highscore.txt
+     */
     private int score;
+    
+    /**
+     * Is the creature alive or not.
+     */
     private boolean alive = true;
         
-    // Since same class is used for the player and their opponent, ai flag is 
-    // used for differentiating between the two.
+    /** Since same class is used for the player and their opponent, ai flag is 
+    * used for differentiating between the two.
+    */
     private boolean aiFlag = true;
+    
+    /**
+     * Escaping is flagged when creature is low on hitpoints.  Used by AI.
+     */
     private boolean escaping = false;
+    
+    /**
+     * The AI instance linked to this creature instance.
+     */
     private AI ai;
+    
+    /**
+     * Flagged when dealt a critical hit from a blunt weapon.
+     */
     private boolean stunned = false;
+    
+    /**
+     * Flagged when dealt a critical hit form a sharp weapon.
+     */
     private boolean bleeding = false;
     
-    // Negative int as target values represent no target.
+    /**
+     * Keeps track of if we're moving the crosshair or the player
+     */
     private boolean targeting = false;
-    private int targetX = -1;
-    private int targetY = -1;
+    
+    /**
+     * Targeted x coordinate
+     */
+    private int targetX;
+    
+    /**
+     * Targeted y coordinate
+     */
+    private int targetY;
+
+    /**
+     * Keeps track of whether an attack has been declared.
+     */
     private boolean attacking = false;
+    
+    /**
+     * Keeps track of whether a kick has been declared.
+     */
     private boolean kicking = false;
+
+    /**
+     * Keeps track of the cooldown associated with kick ability.
+     */
     private int kickCoolDown = 0;
     
     public Creature(World world) {
@@ -118,13 +184,10 @@ public class Creature {
     }
     
 
-    // Game mechanics relating to combat
-    // ---------------------------------
-    
     /**
      * Giving the char a weapon.
      */
-    public void equip(Item item) {
+    private void equip(Item item) {
         this.inventory.add(item);
         if (mainHand == null) {
             this.mainHand = item;
@@ -136,7 +199,7 @@ public class Creature {
     /**
      * Equips the creature with a randomly selected set of weapons.
      */
-    public void equipRandomWeapon() {
+    private void equipRandomWeapon() {
         double d = Math.random();
         if (d < 0.2) {
             // Two daggers
@@ -163,7 +226,7 @@ public class Creature {
     /**
      * Attacks the target coordinates.
      * I changed stuff around a bit.  Now this method just declares that an 
-     * attack has been made.
+     * attack has been made.  Combat class takes care of rest.
      */
     public void attack() {
         this.attacking = true;
@@ -227,6 +290,10 @@ public class Creature {
         this.health = this.maxHealth;
     }
     
+    /**
+     * Increases characters score by n.
+     * @param n amount of increase.
+     */
     public void increaseScore(int n) {
         this.score += n;
     }
@@ -234,10 +301,10 @@ public class Creature {
     /**
      * A method for readying the char for afterlife.
      */
-    public void die() {
+    private void die() {
         world.report(this.name + " dies!");
         this.icon = '%';
-        this.description = "a corpse";        
+        this.description = "Remains of " + this.name + ".";        
         this.setBleed(false);
         this.setStun(false);
         this.alive = false;
@@ -263,7 +330,12 @@ public class Creature {
         if (!alive) {
             return false;
         }
+        
+        if (xChange > 1 || yChange > 1) {
+            return false;
+        }
                 
+        // If we're not targeting, we're moving the creature.
         if (!this.isTargeting()) {
             int newX = this.x + xChange;
             int newY = this.y + yChange;
@@ -275,12 +347,15 @@ public class Creature {
             } else {
                 return false;
             }
+            
+            // Otherwise we're mocing the crosshair
         } else {
             if (world.getLevel().contains(this.targetX + xChange, this.targetY + yChange)) {
                 this.targetX = this.targetX + xChange;
                 this.targetY = this.targetY + yChange;
             }
             
+            // Display enemy stats when hovering with the crosshair.
             for (Creature creature : world.getLevel().getAntagonists()) {
                 if (creature.getX() == this.targetX && creature.getY() == this.targetY) {
                     world.report("  wielding " + creature.getWeapons().toString() + ".");
@@ -290,7 +365,15 @@ public class Creature {
             return true;
         }
     }
-    
+
+    /**
+     * Character gets bleeding damage each turn if this.bleeding is set to true.
+     */
+    public void bleed() {
+        world.report(this.name + " is bleeding.");
+        this.damage(5);
+    }
+
     public void setCoordinates(int newX, int newY) {
         this.x = newX;
         this.y = newY;
@@ -327,18 +410,7 @@ public class Creature {
     public boolean getEscaping() {
         return this.escaping;
     }
-    
-    /**
-     * Character gets bleeding damage each turn if this.bleeding is set to true.
-     */
-    public void bleed() {
-        world.report(this.name + " is bleeding.");
-        this.damage(5);
-    }
         
-    // Other getters/setters
-    // ---------------------
-    
     public String getName() {
         return this.name;
     }
@@ -419,6 +491,9 @@ public class Creature {
         return this.strength;
     }
     
+    /**
+     * Used for debugging. :----)
+     */
     public void setHeroMode() {
         this.strength = 50;
         this.agility = 50;
@@ -470,7 +545,7 @@ public class Creature {
     }
     
     /**
-     * Decrease all cooldowns.
+     * Decrease all cooldowns by one.
      */
     public void decreaseCoolDowns() {
         if (this.kickCoolDown > 0) {
@@ -510,8 +585,8 @@ public class Creature {
         closedSyllables.add("bal");
         closedSyllables.add("bol");
         closedSyllables.add("zug");
-        closedSyllables.add("bog");
-        openSyllables.add("gu");
+        closedSyllables.add("goth");
+        openSyllables.add("du");
         openSyllables.add("ba");
         openSyllables.add("ro");
         openSyllables.add("zu");

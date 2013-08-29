@@ -11,6 +11,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import Domain.Creature;
+import Domain.World;
+
 /**
  *
  * @author eniirane
@@ -40,4 +43,13 @@ public class Attacking {
     //
     // @Test
     // public void hello() {}
+    
+    @Test
+    public void declareAttack() {
+        Creature creature = new Creature ( new World(25) );
+        creature.attack();
+        assert(creature.getAttackStatus());
+    }
+    
+    
 }

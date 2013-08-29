@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Movement;
+package Character;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,9 +18,9 @@ import Domain.World;
  *
  * @author eniirane
  */
-public class CharacterMovement {
+public class Movement {
     
-    public CharacterMovement() {
+    public Movement() {
     }
     
     @BeforeClass
@@ -45,8 +45,21 @@ public class CharacterMovement {
     // public void hello() {}
     
     @Test
+    public void stayInPlace() {
+        Creature creature = new Creature(new World(25));
+
+        assert(creature.move(0, 0));
+    }
+    
+    @Test
+    public void tryToMoveTooMuch() {
+        Creature creature = new Creature(new World(25));
+        assert(!creature.move(-2, 2));        
+    }
+
+    @Test
     public void moveNW() {
-        Creature a = new Creature(new World(1, 25), 5,5);
+        Creature a = new Creature(new World(25), 5,5);
         a.move(-1, -1);
         
         assert(a.getX() == 4);
@@ -55,7 +68,7 @@ public class CharacterMovement {
 
     @Test
     public void moveN() {
-        Creature a = new Creature(new World(2, 25), 5,5);
+        Creature a = new Creature(new World(25), 5,5);
         a.move(0, -1);
         
         assert(a.getX() == 5);
@@ -64,7 +77,7 @@ public class CharacterMovement {
 
     @Test
     public void moveS() {
-        Creature a = new Creature(new World(3, 25), 5,5);
+        Creature a = new Creature(new World(25), 5,5);
         a.move(0, +1);
         
         assert(a.getX() == 5);
@@ -73,15 +86,14 @@ public class CharacterMovement {
 
     @Test
     public void tryToMoveOutOfWorld() {
-        World world = new World(4, 25);
-        for (int i=0;i<20;i++) {
-            world.getProtagonist().move(-1, -1);
-        }
+        World world = new World(25);
+        Creature creature = new Creature(world, 1, 1);
         
-        int x = world.getProtagonist().getX();
-        int y = world.getProtagonist().getY();
+        creature.move(-1, -1);
+        
+        int x = creature.getX();
+        int y = creature.getY();
         assert(x == 1);
         assert(y == 1);
     }
-    
 }

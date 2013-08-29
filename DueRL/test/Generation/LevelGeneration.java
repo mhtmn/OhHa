@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Combat;
+package Generation;
 
 import Domain.Creature;
 import Domain.World;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author eniirane
  */
-public class Damage {
+public class LevelGeneration {
     
-    public Damage() {
+    public LevelGeneration() {
     }
     
     @BeforeClass
@@ -37,18 +37,16 @@ public class Damage {
     @After
     public void tearDown() {
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-    
+
     @Test
-    public void damage() {
-        Creature creature = new Creature ( new World(25) );
-        int healthBeforeDamage = creature.getHealth();
-        creature.damage(10);
-        assert(creature.getHealth() == healthBeforeDamage - 10);
+    public void generateLevel() {
+        World world = new World(25);
+        assert(world.getLevel() != null);
     }
     
+    @Test
+    public void levelIsPopulated() {
+        World world = new World(25);
+        assert(!world.getLevel().getAntagonists().isEmpty());
+    }
 }
